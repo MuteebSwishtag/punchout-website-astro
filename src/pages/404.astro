@@ -1,0 +1,12 @@
+---
+import SiteLayout from '../layouts/SiteLayout.astro';
+import mainHtml from '../fragments/pages/404.html?raw';
+
+const page = {
+  title: "Page Not Found | PunchOut Central",
+  description: ""
+};
+---
+<SiteLayout title={page.title} description={page.description}>
+  <Fragment set:html={mainHtml} />
+</SiteLayout>

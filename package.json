@@ -1,0 +1,19 @@
+{
+  "name": "punchout-central-astro",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "convert": "node scripts/convert-original-site.mjs",
+    "audit:source": "node scripts/audit-source-parity.mjs",
+    "validate:local": "node scripts/validate-local.mjs",
+    "qa:browser": "node scripts/browser-qa.mjs",
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview"
+  },
+  "dependencies": {
+    "astro": "^5.13.5"
+  },
+  "devDependencies": {}
+}
