@@ -121,7 +121,7 @@ for (const [source, headFile, bodyFile] of [
 const original404 = readFileSync(path.join(sourceRoot, '404.html'), 'utf8');
 expectEqual('404 main', readFileSync(path.join(projectRoot, 'src/fragments/pages/404.html'), 'utf8'), extractMain(original404));
 
-for (const file of ['assets/site.css', 'assets/site.js', 'assets/punchout-central-logo.webp', 'robots.txt', 'sitemap.xml']) {
+for (const file of ['assets/site.css', 'assets/site.js', 'assets/punchout-logo-black.png', 'assets/punchout-logo-white.png', 'robots.txt', 'sitemap.xml']) {
   const copied = path.join(projectRoot, 'public', file);
   if (!existsSync(copied)) failures.push(`${file} was not copied`);
   else expectEqual(`${file} hash`, hash(path.join(sourceRoot, file)), hash(copied));
