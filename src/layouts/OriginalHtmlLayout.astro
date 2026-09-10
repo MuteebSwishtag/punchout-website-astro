@@ -5,14 +5,19 @@ interface Props {
   bodyClass?: string;
 }
 
+import GoogleTagManagerHead from '../components/GoogleTagManagerHead.astro';
+import GoogleTagManagerNoScript from '../components/GoogleTagManagerNoScript.astro';
+
 const { headHtml, bodyHtml, bodyClass = '' } = Astro.props;
 ---
 <!doctype html>
 <html lang="en">
   <head>
+    <GoogleTagManagerHead />
     <Fragment set:html={headHtml} />
   </head>
   <body class={bodyClass || undefined}>
+    <GoogleTagManagerNoScript />
     <Fragment set:html={bodyHtml} />
   </body>
 </html>
