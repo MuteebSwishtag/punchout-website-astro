@@ -7,6 +7,7 @@ interface Props {
 
 import GoogleTagManagerHead from '../components/GoogleTagManagerHead.astro';
 import GoogleTagManagerNoScript from '../components/GoogleTagManagerNoScript.astro';
+import Favicons from '../components/Favicons.astro';
 
 const { headHtml, bodyHtml, bodyClass = '' } = Astro.props;
 ---
@@ -15,6 +16,7 @@ const { headHtml, bodyHtml, bodyClass = '' } = Astro.props;
   <head>
     <GoogleTagManagerHead />
     <Fragment set:html={headHtml} />
+    <Favicons />
   </head>
   <body class={bodyClass || undefined}>
     <GoogleTagManagerNoScript />
