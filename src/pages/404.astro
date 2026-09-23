@@ -1,12 +1,7 @@
 ---
 import SiteLayout from '../layouts/SiteLayout.astro';
-import mainHtml from '../fragments/pages/404.html?raw';
-
-const page = {
-  title: "Page Not Found | PunchOut Central",
-  description: ""
-};
+import Content from '../components/page-content/not-found/Main.astro';
 ---
-<SiteLayout title={page.title} description={page.description}>
-  <Fragment set:html={mainHtml} />
+<SiteLayout title="Page not found | PunchOut Central" description="The requested PunchOut Central page could not be found." includeSiteScript={true} bodyClass="inner-page">
+  <Content />
 </SiteLayout>

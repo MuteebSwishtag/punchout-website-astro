@@ -1,6 +1,10 @@
 ---
-import OriginalHtmlLayout from '../layouts/OriginalHtmlLayout.astro';
-import headHtml from '../fragments/original/home-head.html?raw';
-import bodyHtml from '../fragments/original/home-body.html?raw';
+import SiteLayout from '../layouts/SiteLayout.astro';
+import Content from '../components/page-content/home/Main.astro';
+import PageNav from '../components/page-content/home/PageNav.astro';
+import '../styles/pages/home.css';
 ---
-<OriginalHtmlLayout headHtml={headHtml} bodyHtml={bodyHtml} />
+<SiteLayout title="PunchOut Central | PunchOut for Growing B2B Suppliers" description="PunchOut Central connects B2B ecommerce stores to enterprise procurement systems and gives your team one place to manage every buyer, order and transaction." includeSiteScript={false}>
+  <PageNav />
+  <Content />
+</SiteLayout>

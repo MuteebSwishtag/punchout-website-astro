@@ -1,6 +1,10 @@
 ---
-import OriginalHtmlLayout from '../../layouts/OriginalHtmlLayout.astro';
-import headHtml from '../../fragments/original/platform-head.html?raw';
-import bodyHtml from '../../fragments/original/platform-body.html?raw';
+import SiteLayout from '../../layouts/SiteLayout.astro';
+import Content from '../../components/page-content/platform/Main.astro';
+import PageNav from '../../components/page-content/platform/PageNav.astro';
+import '../../styles/pages/platform.css';
 ---
-<OriginalHtmlLayout headHtml={headHtml} bodyHtml={bodyHtml} />
+<SiteLayout title="PunchOut Central Platform | Procurement to Commerce in One Place" description="Explore PunchOut Central, one platform for PunchOut sessions, cart return, purchase orders, store orders, invoices, multi-store control and transaction monitoring." includeSiteScript={true} bodyClass="inner-page">
+  <PageNav />
+  <Content />
+</SiteLayout>

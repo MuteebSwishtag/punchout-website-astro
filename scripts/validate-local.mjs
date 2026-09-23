@@ -1,7 +1,29 @@
-import pages from '../src/data/pages.js';
+import { readdirSync } from 'node:fs';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 
 const origin = process.argv[2] ?? 'http://127.0.0.1:4321';
-const routes = ['/', '/platform/', '/404.html', ...pages.map((page) => `/${page.slug}/`)];
+const projectRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
+const pagesRoot = path.join(projectRoot, 'src', 'pages');
+
+function walk(dir) {
+  return readdirSync(dir, { withFileTypes: true }).flatMap((entry) => {
+    const fullPath = path.join(dir, entry.name);
+    return entry.isDirectory() ? walk(fullPath) : [fullPath];
+  });
+}
+
+function routeFromPage(filePath) {
+  const relative = path.relative(pagesRoot, filePath).split(path.sep).join('/');
+  if (relative === 'index.astro') return '/';
+  if (relative === '404.astro') return '/404.html';
+  return `/${relative.replace(/\/index\.astro$/, '/').replace(/\.astro$/, '/')}`;
+}
+
+const routes = walk(pagesRoot)
+  .filter((file) => file.endsWith('.astro') && !file.includes('['))
+  .map(routeFromPage)
+  .sort((a, b) => a.localeCompare(b));
 const expectedRoutes = new Set(routes);
 const failures = [];
 
@@ -24,13 +46,13 @@ for (const route of routes) {
 
   for (const asset of [...collectAttributes(html, 'src'), ...collectAttributes(html, 'href')]) {
     if (!asset.startsWith('/') || asset.startsWith('//')) continue;
-    if (asset.startsWith('/assets/') || asset === '/robots.txt' || asset === '/sitemap.xml') {
+    if (asset.startsWith('/assets/') || asset.startsWith('/_astro/') || asset === '/robots.txt' || asset === '/sitemap.xml') {
       await checkUrl(asset, `Asset referenced by ${route}`);
     }
   }
 
   for (const href of collectAttributes(html, 'href')) {
-    if (!href.startsWith('/') || href.startsWith('//') || href.startsWith('/assets/')) continue;
+    if (!href.startsWith('/') || href.startsWith('//') || href.startsWith('/assets/') || href.startsWith('/_astro/')) continue;
     const cleanHref = href.split('#')[0].split('?')[0];
     if (!cleanHref || cleanHref === '/') continue;
     if (!expectedRoutes.has(cleanHref) && !expectedRoutes.has(`${cleanHref.replace(/\/$/, '')}/`)) {
@@ -41,12 +63,12 @@ for (const route of routes) {
 
 const bookDemo = await (await fetch(new URL('/book-demo/', origin))).text();
 const formChecks = [
-  /<form action="\/thank-you\/" method="get">/,
-  /<input id="name" name="name" required>/,
-  /<input id="email" name="email" type="email" required>/,
-  /<input id="company" name="company" required>/,
-  /<select id="platform" name="platform">/,
-  /<textarea id="message" name="message" placeholder="Example: Our customer uses Coupa and asked if our Shopify store supports PunchOut\.">/
+  /<form\b(?=[^>]*\baction="\/thank-you\/")(?=[^>]*\bmethod="get")[^>]*>/,
+  /<input\b(?=[^>]*\bid="name")(?=[^>]*\bname="name")(?=[^>]*\brequired\b)[^>]*>/,
+  /<input\b(?=[^>]*\bid="email")(?=[^>]*\bname="email")(?=[^>]*\btype="email")(?=[^>]*\brequired\b)[^>]*>/,
+  /<input\b(?=[^>]*\bid="company")(?=[^>]*\bname="company")(?=[^>]*\brequired\b)[^>]*>/,
+  /<select\b(?=[^>]*\bid="platform")(?=[^>]*\bname="platform")[^>]*>/,
+  /<textarea\b(?=[^>]*\bid="message")(?=[^>]*\bname="message")(?=[^>]*\bplaceholder="Example: Our customer uses Coupa and asked if our Shopify store supports PunchOut\.")[^>]*>/
 ];
 
 for (const check of formChecks) {

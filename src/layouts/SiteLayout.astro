@@ -4,13 +4,21 @@ import Footer from '../components/Footer.astro';
 import Favicons from '../components/Favicons.astro';
 import GoogleTagManagerHead from '../components/GoogleTagManagerHead.astro';
 import GoogleTagManagerNoScript from '../components/GoogleTagManagerNoScript.astro';
+import '../styles/site.css';
 
 interface Props {
   title: string;
   description?: string;
+  bodyClass?: string;
+  includeSiteScript?: boolean;
 }
 
-const { title, description = '' } = Astro.props;
+const {
+  title,
+  description = '',
+  bodyClass = 'inner-page',
+  includeSiteScript = true
+} = Astro.props;
 ---
 <!doctype html>
 <html lang="en">
@@ -27,13 +35,12 @@ const { title, description = '' } = Astro.props;
     <link rel="preconnect" href="https://cdn.brandfetch.io" crossorigin>
     <link rel="dns-prefetch" href="//cdn.brandfetch.io">
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/assets/site.css">
   </head>
-  <body class="inner-page">
+  <body class={bodyClass || undefined}>
     <GoogleTagManagerNoScript />
     <Header />
     <slot />
     <Footer />
-    <script src="/assets/site.js" defer></script>
+    {includeSiteScript && <script src="/assets/site.js" defer></script>}
   </body>
 </html>
