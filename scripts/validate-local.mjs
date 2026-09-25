@@ -63,12 +63,16 @@ for (const route of routes) {
 
 const bookDemo = await (await fetch(new URL('/book-demo/', origin))).text();
 const formChecks = [
-  /<form\b(?=[^>]*\baction="\/thank-you\/")(?=[^>]*\bmethod="get")[^>]*>/,
+  /<form\b(?=[^>]*\bid="demoForm")(?=[^>]*\baction="\/api\/book-demo\.php")(?=[^>]*\bmethod="post")[^>]*>/,
   /<input\b(?=[^>]*\bid="name")(?=[^>]*\bname="name")(?=[^>]*\brequired\b)[^>]*>/,
   /<input\b(?=[^>]*\bid="email")(?=[^>]*\bname="email")(?=[^>]*\btype="email")(?=[^>]*\brequired\b)[^>]*>/,
   /<input\b(?=[^>]*\bid="company")(?=[^>]*\bname="company")(?=[^>]*\brequired\b)[^>]*>/,
   /<select\b(?=[^>]*\bid="platform")(?=[^>]*\bname="platform")[^>]*>/,
-  /<textarea\b(?=[^>]*\bid="message")(?=[^>]*\bname="message")(?=[^>]*\bplaceholder="Example: Our customer uses Coupa and asked if our Shopify store supports PunchOut\.")[^>]*>/
+  /<input\b(?=[^>]*\bid="selectedDateISO")(?=[^>]*\bname="selectedDateISO")(?=[^>]*\btype="hidden")[^>]*>/,
+  /<input\b(?=[^>]*\bid="selectedTime")(?=[^>]*\bname="selectedTime")(?=[^>]*\btype="hidden")[^>]*>/,
+  /<textarea\b(?=[^>]*\bid="message")(?=[^>]*\bname="message")(?=[^>]*\bplaceholder="Example: Our customer uses Coupa and asked if our Shopify store supports PunchOut\.")[^>]*>/,
+  /id="dateList"/,
+  /id="timeList"/
 ];
 
 for (const check of formChecks) {

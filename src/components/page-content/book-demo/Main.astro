@@ -1,14 +1,456 @@
 ---
+const formEndpoint = import.meta.env.PUBLIC_BOOK_DEMO_ENDPOINT ?? '/api/book-demo.php';
+const formToken = import.meta.env.PUBLIC_BOOK_DEMO_TOKEN ?? '';
 ---
 <main>
+  <section class="page-hero page-hero--mint" id="overview">
+    <div class="wrap form-shell book-demo-shell">
+      <div class="page-hero__copy reveal">
+        <span class="ey">Book a demo</span>
+        <h1>Show us the buyer requirement.</h1>
+        <p class="lead">Tell us which customer, procurement system and ecommerce store you need to connect. Then choose a demo time that works for your team.</p>
+        <div class="metrics-row" style="grid-template-columns:1fr 1fr;margin-top:30px">
+          <article class="metric"><strong>90+</strong><span>customers using PunchOut technology built by our team.</span></article>
+          <article class="metric"><strong>$50M+</strong><span>in order value processed through our technology every year.</span></article>
+        </div>
+      </div>
 
-<section class="page-hero page-hero--mint" id="overview"><div class="wrap form-shell"><div class="page-hero__copy reveal"><span class="ey">Book a demo</span><h1>Show us the buyer requirement.</h1><p class="lead">Tell us which customer, procurement system and ecommerce store you need to connect. We will help you understand the path.</p><div class="metrics-row" style="grid-template-columns:1fr 1fr;margin-top:30px"><article class="metric"><strong>90+</strong><span>customers using PunchOut technology built by our team.</span></article><article class="metric"><strong>$50M+</strong><span>in order value processed through our technology every year.</span></article></div></div>
-<div class="form-card reveal"><form action="/thank-you/" method="get"><div class="form-grid">
-<div class="form-field"><label for="name">Name</label><input id="name" name="name" required></div>
-<div class="form-field"><label for="email">Work email</label><input id="email" name="email" type="email" required></div>
-<div class="form-field"><label for="company">Company</label><input id="company" name="company" required></div>
-<div class="form-field"><label for="platform">Buyer procurement system</label><select id="platform" name="platform"><option>Not sure yet</option><option>Coupa</option><option>SAP Ariba</option><option>JAGGAER</option><option>Oracle Procurement</option><option>Workday</option><option>Other</option></select></div>
-<div class="form-field form-field--full"><label for="message">What did the buyer ask for?</label><textarea id="message" name="message" placeholder="Example: Our customer uses Coupa and asked if our Shopify store supports PunchOut."></textarea></div>
-<div class="form-field form-field--full"><button class="btn pri" type="submit">Book my PunchOut demo →</button></div>
-</div></form><p class="form-note">Starter website form. Connect this form to your CRM, calendar or form endpoint before production launch.</p></div></div></section>
+      <div class="form-card book-demo-card reveal" id="bookingFlow">
+        <form id="demoForm" action={formEndpoint} method="post" data-form-token={formToken} novalidate>
+          <input type="hidden" name="form_source" value="book-demo">
+          <input type="hidden" id="selectedDate" name="selectedDate">
+          <input type="hidden" id="selectedDateISO" name="selectedDateISO">
+          <input type="hidden" id="selectedTime" name="selectedTime">
+          <input type="hidden" id="selectedTimeLabel" name="selectedTimeLabel">
+          <input type="hidden" id="timezone" name="timezone">
+          <input type="text" id="nickname" name="nickname" class="book-demo-hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+
+          <div class="book-demo-stepper" aria-label="Booking steps">
+            <div class="book-demo-step active" data-step-indicator="1">
+              <span>1</span>
+              <strong>Your details</strong>
+            </div>
+            <div class="book-demo-step" data-step-indicator="2">
+              <span>2</span>
+              <strong>Pick a time</strong>
+            </div>
+          </div>
+
+          <section class="book-demo-panel active" data-step="1" aria-labelledby="demoStepOneTitle">
+            <div class="book-demo-panel__head">
+              <h2 id="demoStepOneTitle">Start with the buyer request.</h2>
+              <p>Share the basics so the demo can focus on your procurement and commerce path.</p>
+            </div>
+
+            <div class="form-grid">
+              <div class="form-field">
+                <label for="name">Name</label>
+                <input id="name" name="name" required autocomplete="name">
+              </div>
+              <div class="form-field">
+                <label for="email">Work email</label>
+                <input id="email" name="email" type="email" required autocomplete="email">
+              </div>
+              <div class="form-field">
+                <label for="company">Company</label>
+                <input id="company" name="company" required autocomplete="organization">
+              </div>
+              <div class="form-field">
+                <label for="website">Website <span>optional</span></label>
+                <input id="website" name="website" inputmode="url" autocomplete="url" placeholder="yourstore.com">
+              </div>
+              <div class="form-field">
+                <label for="platform">Buyer procurement system</label>
+                <select id="platform" name="platform" required>
+                  <option>Not sure yet</option>
+                  <option>Coupa</option>
+                  <option>SAP Ariba</option>
+                  <option>JAGGAER</option>
+                  <option>Oracle Procurement</option>
+                  <option>Workday</option>
+                  <option>Other</option>
+                </select>
+              </div>
+              <div class="form-field">
+                <label for="storePlatform">Commerce platform</label>
+                <select id="storePlatform" name="storePlatform">
+                  <option>Shopify</option>
+                  <option>BigCommerce</option>
+                  <option>Magento / Adobe Commerce</option>
+                  <option>Custom store</option>
+                  <option>Not sure yet</option>
+                </select>
+              </div>
+              <div class="form-field form-field--full">
+                <label for="message">What did the buyer ask for?</label>
+                <textarea id="message" name="message" placeholder="Example: Our customer uses Coupa and asked if our Shopify store supports PunchOut."></textarea>
+              </div>
+            </div>
+
+            <p class="book-demo-error" data-error="1" role="alert"></p>
+            <div class="book-demo-actions">
+              <span class="fine-print">Your meeting details are added in the next step.</span>
+              <button class="btn pri" type="button" data-next>Continue to times -></button>
+            </div>
+          </section>
+
+          <section class="book-demo-panel" data-step="2" aria-labelledby="demoStepTwoTitle">
+            <div class="book-demo-panel__head">
+              <h2 id="demoStepTwoTitle">Choose a demo slot.</h2>
+              <p>Select a weekday and time. The endpoint can email the request and create the Zoom meeting when enabled.</p>
+            </div>
+
+            <div class="book-demo-picker">
+              <div class="book-demo-picker__box">
+                <h3>Date</h3>
+                <div class="book-demo-date-list" id="dateList" aria-label="Available demo dates"></div>
+              </div>
+              <div class="book-demo-picker__box">
+                <h3>Time</h3>
+                <p class="book-demo-selected-date" id="selectedDatePill" hidden><span></span></p>
+                <div class="book-demo-time-list" id="timeList" aria-label="Available demo times"></div>
+                <p class="book-demo-timezone">Times are shown in <strong id="timezoneText">your timezone</strong>.</p>
+              </div>
+            </div>
+
+            <div class="book-demo-summary" id="bookingSummary" aria-live="polite"></div>
+            <p class="book-demo-error" data-error="2" role="alert"></p>
+            <div class="book-demo-actions">
+              <button class="btn secbtn" type="button" data-back>Back</button>
+              <button class="btn pri" id="submitBtn" type="submit">Book my PunchOut demo -></button>
+            </div>
+          </section>
+        </form>
+
+        <section class="book-demo-success" id="successState" aria-live="polite">
+          <span class="ey">Demo requested</span>
+          <h2>Your PunchOut conversation is scheduled.</h2>
+          <p>We sent the details to the PunchOut Central team. Keep an eye on <strong id="successEmail"></strong> for the confirmation.</p>
+          <div class="book-demo-success__grid">
+            <div><small>Date</small><strong id="successDate"></strong></div>
+            <div><small>Time</small><strong id="successTime"></strong></div>
+            <div><small>Company</small><strong id="successCompany"></strong></div>
+            <div><small>Platform</small><strong id="successPlatform"></strong></div>
+          </div>
+          <p class="book-demo-zoom-link" id="successZoom" hidden><a href="#" target="_blank" rel="noreferrer">Join Zoom meeting</a></p>
+          <button class="btn secbtn" id="bookAnotherBtn" type="button">Book another time</button>
+        </section>
+
+        <p class="form-note">Form delivery is handled by <code>/api/book-demo.php</code>. Email and Zoom stay disabled until their env flags and credentials are configured.</p>
+      </div>
+    </div>
+  </section>
 </main>
+
+<script is:inline>
+(() => {
+  const form = document.getElementById('demoForm');
+  if (!form) return;
+
+  const panels = [...document.querySelectorAll('.book-demo-panel')];
+  const indicators = [...document.querySelectorAll('[data-step-indicator]')];
+  const nextBtn = form.querySelector('[data-next]');
+  const backBtn = form.querySelector('[data-back]');
+  const dateList = document.getElementById('dateList');
+  const timeList = document.getElementById('timeList');
+  const timezoneText = document.getElementById('timezoneText');
+  const selectedDatePill = document.getElementById('selectedDatePill');
+  const bookingSummary = document.getElementById('bookingSummary');
+  const submitBtn = document.getElementById('submitBtn');
+  const successState = document.getElementById('successState');
+  const bookAnotherBtn = document.getElementById('bookAnotherBtn');
+  const hiddenDate = document.getElementById('selectedDate');
+  const hiddenDateISO = document.getElementById('selectedDateISO');
+  const hiddenTime = document.getElementById('selectedTime');
+  const hiddenTimeLabel = document.getElementById('selectedTimeLabel');
+  const hiddenTimezone = document.getElementById('timezone');
+  const formLoadedAt = Date.now().toString();
+
+  const state = {
+    step: 1,
+    selectedDate: '',
+    selectedDateISO: '',
+    selectedTime: '',
+    selectedTimeLabel: '',
+    timezone: Intl.DateTimeFormat().resolvedOptions().timeZone || 'UTC',
+  };
+
+  const slotTimes = ['09:00', '10:30', '12:00', '13:30', '15:00'];
+  const dateOptions = [];
+  const today = new Date();
+
+  timezoneText.textContent = state.timezone;
+  hiddenTimezone.value = state.timezone;
+
+  for (let i = 1; dateOptions.length < 10 && i < 21; i += 1) {
+    const date = new Date(today);
+    date.setDate(today.getDate() + i);
+    if (date.getDay() !== 0 && date.getDay() !== 6) dateOptions.push(date);
+  }
+
+  function setStep(step) {
+    state.step = step;
+    panels.forEach(panel => panel.classList.toggle('active', Number(panel.dataset.step) === step));
+    indicators.forEach(indicator => {
+      const indicatorStep = Number(indicator.dataset.stepIndicator);
+      indicator.classList.toggle('active', indicatorStep === step);
+      indicator.classList.toggle('done', indicatorStep < step);
+    });
+    clearError(step);
+  }
+
+  function clearError(step) {
+    const error = document.querySelector(`[data-error="${step}"]`);
+    if (!error) return;
+    error.textContent = '';
+    error.classList.remove('show');
+  }
+
+  function showError(step, message) {
+    const error = document.querySelector(`[data-error="${step}"]`);
+    if (!error) return;
+    error.textContent = message;
+    error.classList.add('show');
+  }
+
+  function normalizeWebsite(value) {
+    const trimmed = value.trim();
+    if (!trimmed) return '';
+    if (/\s/.test(trimmed)) return '';
+
+    try {
+      const url = new URL(/^[a-z][a-z\d+.-]*:\/\//i.test(trimmed) ? trimmed : `https://${trimmed}`);
+      if (!['http:', 'https:'].includes(url.protocol) || !url.hostname.includes('.')) return '';
+      return url.href;
+    } catch {
+      return '';
+    }
+  }
+
+  function validateStep(step) {
+    if (step === 1) {
+      const requiredFields = [
+        ['name', 'Please enter your name before continuing.'],
+        ['email', 'Please enter your work email before continuing.'],
+        ['company', 'Please enter your company before continuing.'],
+      ];
+
+      for (const [id, message] of requiredFields) {
+        const field = document.getElementById(id);
+        if (!field.value.trim()) {
+          field.focus();
+          showError(1, message);
+          return false;
+        }
+      }
+
+      const email = document.getElementById('email');
+      if (!email.checkValidity()) {
+        email.focus();
+        showError(1, 'Please enter a valid work email address.');
+        return false;
+      }
+
+      const website = document.getElementById('website');
+      if (website.value.trim()) {
+        const normalized = normalizeWebsite(website.value);
+        if (!normalized) {
+          website.focus();
+          showError(1, 'If you add a website, use a valid domain like example.com.');
+          return false;
+        }
+        website.value = normalized;
+      }
+
+      clearError(1);
+      return true;
+    }
+
+    if (step === 2) {
+      if (!state.selectedDateISO) {
+        showError(2, 'Please choose a demo date.');
+        return false;
+      }
+      if (!state.selectedTime) {
+        showError(2, 'Please choose a demo time.');
+        return false;
+      }
+      clearError(2);
+      return true;
+    }
+
+    return true;
+  }
+
+  function formatDateLong(date) {
+    return new Intl.DateTimeFormat(undefined, { weekday: 'long', month: 'long', day: 'numeric' }).format(date);
+  }
+
+  function formatDateParts(date) {
+    return {
+      day: new Intl.DateTimeFormat(undefined, { weekday: 'short' }).format(date),
+      date: new Intl.DateTimeFormat(undefined, { month: 'short', day: 'numeric' }).format(date),
+    };
+  }
+
+  function formatLocalDateISO(date) {
+    return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
+  }
+
+  function formatTimeLabel(time) {
+    const [hour, minute] = time.split(':').map(Number);
+    const date = new Date();
+    date.setHours(hour, minute, 0, 0);
+    return new Intl.DateTimeFormat(undefined, { hour: 'numeric', minute: '2-digit' }).format(date);
+  }
+
+  function updateHiddenFields() {
+    hiddenDate.value = state.selectedDate;
+    hiddenDateISO.value = state.selectedDateISO;
+    hiddenTime.value = state.selectedTime;
+    hiddenTimeLabel.value = state.selectedTimeLabel;
+    hiddenTimezone.value = state.timezone;
+  }
+
+  function updateSummary() {
+    updateHiddenFields();
+    if (state.selectedDate && state.selectedTimeLabel) {
+      bookingSummary.classList.add('show');
+      bookingSummary.innerHTML = `<strong>Selected slot</strong>${state.selectedDate} at ${state.selectedTimeLabel} - ${state.timezone}`;
+    } else if (state.selectedDate) {
+      bookingSummary.classList.add('show');
+      bookingSummary.innerHTML = `<strong>Date selected</strong>${state.selectedDate}. Choose a time to finish booking.`;
+    } else {
+      bookingSummary.classList.remove('show');
+      bookingSummary.textContent = '';
+    }
+  }
+
+  function renderTimes() {
+    state.selectedTime = '';
+    state.selectedTimeLabel = '';
+    timeList.innerHTML = '';
+
+    slotTimes.forEach(time => {
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'book-demo-time-btn';
+      btn.textContent = formatTimeLabel(time);
+      btn.addEventListener('click', () => {
+        [...timeList.children].forEach(item => item.classList.remove('active'));
+        btn.classList.add('active');
+        state.selectedTime = time;
+        state.selectedTimeLabel = btn.textContent;
+        updateSummary();
+      });
+      timeList.appendChild(btn);
+    });
+
+    updateSummary();
+  }
+
+  function selectDate(date, btn) {
+    state.selectedDate = formatDateLong(date);
+    state.selectedDateISO = formatLocalDateISO(date);
+    [...dateList.children].forEach(item => item.classList.remove('active'));
+    btn.classList.add('active');
+    selectedDatePill.hidden = false;
+    selectedDatePill.querySelector('span').textContent = state.selectedDate;
+    renderTimes();
+  }
+
+  function renderDates() {
+    dateList.innerHTML = '';
+    dateOptions.forEach((date, index) => {
+      const parts = formatDateParts(date);
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'book-demo-date-btn';
+      btn.innerHTML = `<small>${parts.day}</small><strong>${parts.date}</strong>`;
+      btn.addEventListener('click', () => selectDate(date, btn));
+      dateList.appendChild(btn);
+      if (index === 0) selectDate(date, btn);
+    });
+  }
+
+  function setSubmitting(isSubmitting) {
+    submitBtn.disabled = isSubmitting;
+    submitBtn.textContent = isSubmitting ? 'Sending...' : 'Book my PunchOut demo ->';
+  }
+
+  async function submitPayload(payload) {
+    const headers = { Accept: 'application/json', 'Content-Type': 'application/json' };
+    const token = form.dataset.formToken || '';
+    if (token) headers['X-Book-Demo-Token'] = token;
+
+    const response = await fetch(form.action, {
+      method: 'POST',
+      headers,
+      body: JSON.stringify(payload),
+    });
+    const contentType = response.headers.get('content-type') || '';
+    if (!contentType.includes('application/json')) {
+      throw new Error('The form endpoint is not returning JSON yet. Check the endpoint URL and PHP hosting setup.');
+    }
+    const result = await response.json();
+    if (!response.ok || !result.ok) {
+      throw new Error(result.message || 'We could not send your request right now.');
+    }
+    return result;
+  }
+
+  nextBtn.addEventListener('click', () => {
+    if (validateStep(1)) setStep(2);
+  });
+
+  backBtn.addEventListener('click', () => setStep(1));
+
+  form.addEventListener('submit', async event => {
+    event.preventDefault();
+    if (!validateStep(2)) return;
+    if (document.getElementById('nickname').value.trim()) return;
+
+    const payload = Object.fromEntries(new FormData(form).entries());
+    payload.page = window.location.href;
+    payload.form_loaded_at = formLoadedAt;
+
+    try {
+      setSubmitting(true);
+      const result = await submitPayload(payload);
+
+      document.getElementById('successEmail').textContent = payload.email;
+      document.getElementById('successDate').textContent = state.selectedDate;
+      document.getElementById('successTime').textContent = `${state.selectedTimeLabel} - ${state.timezone}`;
+      document.getElementById('successCompany').textContent = payload.company;
+      document.getElementById('successPlatform').textContent = payload.platform;
+
+      const zoomLink = result.zoom?.join_url || result.zoom?.joinUrl || '';
+      const zoomWrap = document.getElementById('successZoom');
+      if (zoomLink) {
+        zoomWrap.hidden = false;
+        zoomWrap.querySelector('a').href = zoomLink;
+      } else {
+        zoomWrap.hidden = true;
+      }
+
+      form.hidden = true;
+      successState.classList.add('show');
+      successState.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    } catch (error) {
+      showError(2, error.message || 'We could not send your request right now. Please try again.');
+    } finally {
+      setSubmitting(false);
+    }
+  });
+
+  bookAnotherBtn.addEventListener('click', () => {
+    form.reset();
+    form.hidden = false;
+    successState.classList.remove('show');
+    renderDates();
+    setStep(1);
+  });
+
+  renderDates();
+})();
+</script>
