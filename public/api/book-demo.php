@@ -480,6 +480,39 @@ function create_email_content(array $data, array $zoom, DateTimeImmutable $meeti
     ];
 }
 
+function create_pricing_email_content(array $data): array
+{
+    $platform = clean_string($data['platform'] ?? '', 40);
+    $plan = clean_string($data['plan'] ?? '', 40);
+    $name = clean_string($data['name'] ?? '', 160);
+    $fields = [
+        'Selected plan' => $plan,
+        'Commerce platform' => $platform,
+        'Technology name' => clean_string($data['technology'] ?? '', 160),
+        'Full name' => $name,
+        'Email' => clean_string($data['email'] ?? '', 254),
+        'Contact' => clean_string($data['contact'] ?? '', 80),
+        'Website' => clean_string($data['website'] ?? '', 250),
+        'Page' => clean_string($data['page'] ?? '', 500),
+        'IP' => $_SERVER['REMOTE_ADDR'] ?? '',
+        'User agent' => $_SERVER['HTTP_USER_AGENT'] ?? '',
+    ];
+
+    $subject = '[Pricing][' . $platform . '][' . $plan . '] New enquiry - ' . $name;
+    $summary = 'A lead submitted the ' . $platform . ' pricing form for the ' . $plan . ' plan.';
+    $textLines = [$summary, ''];
+    foreach ($fields as $label => $value) {
+        $textLines[] = $label . ': ' . ($value !== '' ? $value : '-');
+    }
+    $html = '<!doctype html><html><head><meta charset="utf-8"></head><body style="margin:0;padding:0;background:#f5f7f3;font-family:Arial,Helvetica,sans-serif;color:#202124;"><table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="padding:28px 12px;background:#f5f7f3;"><tr><td align="center"><table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="max-width:680px;background:#ffffff;border:1px solid #ecece8;border-radius:18px;overflow:hidden;"><tr><td style="background:#202124;color:#ffffff;padding:24px 28px;"><div style="font-size:12px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:#99FEEC;margin-bottom:10px;">PunchOut Central Website</div><h1 style="margin:0;font-size:24px;line-height:1.2;">New ' . html_escape($platform) . ' Pricing Enquiry</h1><p style="margin:10px 0 0;color:#f5f5f3;font-size:14px;line-height:1.5;">' . html_escape($summary) . '</p></td></tr><tr><td style="padding:20px 22px 8px;"><table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="border:1px solid #ecece8;border-radius:12px;overflow:hidden;border-collapse:separate;border-spacing:0;">' . render_rows($fields) . '</table></td></tr><tr><td style="padding:14px 28px 26px;color:#6c6e73;font-size:12px;line-height:1.5;">Reply directly to follow up with the lead.</td></tr></table></td></tr></table></body></html>';
+
+    return [
+        'subject' => $subject,
+        'text' => implode("\r\n", $textLines),
+        'html' => $html,
+    ];
+}
+
 function send_smtp_message(string $recipient, array $content, string $replyTo): void
 {
     $host = env_value('MAIL_HOST');
@@ -577,6 +610,26 @@ function send_email(array $data, array $zoom, DateTimeImmutable $meetingStart): 
     return ['enabled' => true, 'sent' => true, 'recipients' => $recipients];
 }
 
+function send_pricing_email(array $data): array
+{
+    if (!env_flag('BOOK_DEMO_EMAIL_ENABLED')) {
+        return ['enabled' => false, 'sent' => false, 'recipients' => []];
+    }
+
+    $recipients = split_emails(env_value('BOOK_DEMO_TO', env_value('MAIL_TO')));
+    if (!$recipients) {
+        throw new RuntimeException('Email is enabled but BOOK_DEMO_TO or MAIL_TO does not contain a valid recipient.');
+    }
+
+    $content = create_pricing_email_content($data);
+    $replyTo = clean_string($data['email'] ?? '', 254);
+    foreach ($recipients as $recipient) {
+        send_smtp_message($recipient, $content, $replyTo);
+    }
+
+    return ['enabled' => true, 'sent' => true, 'recipients' => $recipients];
+}
+
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     respond(405, ['ok' => false, 'message' => 'This endpoint only accepts POST form submissions.']);
 }
@@ -591,6 +644,60 @@ try {
 
     if (clean_string($data['nickname'] ?? '') !== '') {
         respond(200, ['ok' => true, 'message' => 'Thanks. Your request has been received.']);
+    }
+
+    if (clean_string($data['form_source'] ?? '', 40) === 'pricing-interest') {
+        $required = ['name', 'email', 'contact', 'platform', 'plan'];
+        foreach ($required as $field) {
+            if (clean_string($data[$field] ?? '') === '') {
+                respond(422, ['ok' => false, 'message' => 'Please complete all required fields before submitting.']);
+            }
+        }
+
+        $data['name'] = clean_string($data['name'] ?? '', 160);
+        $data['email'] = clean_string($data['email'] ?? '', 254);
+        $data['contact'] = clean_string($data['contact'] ?? '', 80);
+        $data['platform'] = clean_string($data['platform'] ?? '', 40);
+        $data['plan'] = clean_string($data['plan'] ?? '', 40);
+        $data['technology'] = clean_string($data['technology'] ?? '', 160);
+        $data['page'] = clean_string($data['page'] ?? '', 500);
+        $submittedWebsite = clean_string($data['website'] ?? '', 250);
+        $data['website'] = normalize_website($submittedWebsite);
+
+        if (!in_array($data['platform'], ['WooCommerce', 'Magento', 'Other'], true)) {
+            respond(422, ['ok' => false, 'message' => 'Please choose a valid ecommerce platform.']);
+        }
+        if (!in_array($data['plan'], ['Launch', 'Growth'], true)) {
+            respond(422, ['ok' => false, 'message' => 'Please choose a valid pricing plan.']);
+        }
+        if (!filter_var($data['email'], FILTER_VALIDATE_EMAIL)) {
+            respond(422, ['ok' => false, 'message' => 'Please enter a valid email address.']);
+        }
+        if (strlen(preg_replace('/\D+/', '', $data['contact']) ?? '') < 6) {
+            respond(422, ['ok' => false, 'message' => 'Please enter a valid contact number.']);
+        }
+        if ($data['website'] === '' && $submittedWebsite !== '') {
+            respond(422, ['ok' => false, 'message' => 'Please enter a valid website domain.']);
+        }
+        if ($data['platform'] !== 'Other') {
+            $data['technology'] = '';
+        }
+        if (isset($data['form_loaded_at']) && ctype_digit((string) $data['form_loaded_at'])) {
+            $elapsedMs = (int) (microtime(true) * 1000) - (int) $data['form_loaded_at'];
+            if ($elapsedMs < 1200) {
+                respond(422, ['ok' => false, 'message' => 'Please wait a moment before submitting the form.']);
+            }
+        }
+
+        $email = send_pricing_email($data);
+        respond(200, [
+            'ok' => true,
+            'message' => 'Thank you. Your pricing request has been received.',
+            'email' => [
+                'enabled' => $email['enabled'],
+                'sent' => $email['sent'],
+            ],
+        ]);
     }
 
     $required = ['name', 'email', 'company', 'platform', 'selectedDateISO', 'selectedTime', 'timezone'];

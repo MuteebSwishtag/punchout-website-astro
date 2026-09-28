@@ -1,4 +1,7 @@
 ---
+const formEndpoint = import.meta.env.PUBLIC_PRICING_FORM_ENDPOINT || '/api/book-demo.php';
+const formToken = import.meta.env.PUBLIC_PRICING_FORM_TOKEN || import.meta.env.PUBLIC_BOOK_DEMO_TOKEN || '';
+const shopifyConnectUrl = import.meta.env.PUBLIC_SHOPIFY_CONNECT_URL || 'https://app.punchoutcentral.com/platform/register';
 ---
 <main>
 
@@ -29,10 +32,96 @@
 
 <section class="sec" id="plans"><div class="wrap"><div class="section-head reveal"><span class="ey">Plans</span><h2>Choose the level that matches your buyer count.</h2></div>
 <div class="pricing-grid">
-<article class="price-card price-card--featured reveal"><span class="price-card__name">Launch</span><div class="price-card__price">$500 <small>/ month</small></div><p>Start with the first enterprise buyer.</p><ul><li>1 buyer connection included</li><li>+$300/month per additional connection</li><li>Free Integration</li><li>No transaction fees</li><li>Cancel anytime</li></ul><a class="btn pri" href="/book-demo/">Start Launch</a></article>
-<article class="price-card reveal"><span class="price-card__name">Growth</span><div class="price-card__price">$1,500 <small>/ month</small></div><p>For suppliers managing several enterprise buyers and stores.</p><ul><li>Up to 8 buyer connections</li><li>Multiple procurement platforms</li><li>Multiple ecommerce stores</li><li>Free standard integrations</li><li>No transaction fees</li></ul><a class="btn secbtn" href="/book-demo/">Choose Growth</a></article>
+<article class="price-card price-card--featured reveal"><span class="price-card__name">Launch</span><div class="price-card__price">$500 <small>/ month</small></div><p>Start with the first enterprise buyer.</p><ul><li>1 buyer connection included</li><li>+$300/month per additional connection</li><li>Free Integration</li><li>No transaction fees</li><li>Cancel anytime</li></ul><button class="btn pri pricing-modal-trigger" type="button" data-pricing-plan="Launch">Start Launch</button></article>
+<article class="price-card reveal"><span class="price-card__name">Growth</span><div class="price-card__price">$1,500 <small>/ month</small></div><p>For suppliers managing several enterprise buyers and stores.</p><ul><li>Up to 8 buyer connections</li><li>Multiple procurement platforms</li><li>Multiple ecommerce stores</li><li>Free standard integrations</li><li>No transaction fees</li></ul><button class="btn secbtn pricing-modal-trigger" type="button" data-pricing-plan="Growth">Choose Growth</button></article>
 <article class="price-card reveal"><span class="price-card__name">Enterprise</span><div class="price-card__price">Custom</div><p>For 9+ connections or more complex requirements.</p><ul><li>Advanced mappings and workflows</li><li>Custom ecommerce / ERP integrations</li><li>Dedicated support and SLA</li><li>Custom infrastructure options</li><li>Volume pricing</li></ul><a class="btn secbtn" href="/enterprise/">Talk to Enterprise</a></article>
 </div></div></section>
+
+<div
+  class="pricing-modal"
+  id="pricingModal"
+  aria-hidden="true"
+  data-form-endpoint={formEndpoint}
+  data-form-token={formToken}
+  data-shopify-url={shopifyConnectUrl}
+>
+  <div class="pricing-modal__backdrop" data-pricing-close></div>
+  <section class="pricing-modal__dialog" role="dialog" aria-modal="true" aria-labelledby="pricingModalTitle" tabindex="-1">
+    <button class="pricing-modal__close" type="button" aria-label="Close" data-pricing-close>&times;</button>
+
+    <div class="pricing-modal__content" data-pricing-content>
+      <div class="pricing-modal__head">
+        <span class="ey">Get started</span>
+        <h2 id="pricingModalTitle">Start your <span data-selected-plan>Launch</span> plan</h2>
+        <p>Choose your ecommerce platform and tell us where to connect.</p>
+      </div>
+
+      <div class="pricing-tabs" role="tablist" aria-label="Ecommerce platform">
+        <button class="pricing-tab is-active" id="pricing-tab-shopify" type="button" role="tab" aria-selected="true" aria-controls="pricing-panel-shopify" data-platform="Shopify">Shopify</button>
+        <button class="pricing-tab" id="pricing-tab-woocommerce" type="button" role="tab" aria-selected="false" aria-controls="pricing-panel-lead" data-platform="WooCommerce" tabindex="-1">WooCommerce</button>
+        <button class="pricing-tab" id="pricing-tab-magento" type="button" role="tab" aria-selected="false" aria-controls="pricing-panel-lead" data-platform="Magento" tabindex="-1">Magento</button>
+        <button class="pricing-tab" id="pricing-tab-other" type="button" role="tab" aria-selected="false" aria-controls="pricing-panel-lead" data-platform="Other" tabindex="-1">Other</button>
+      </div>
+
+      <section class="pricing-platform-panel" id="pricing-panel-shopify" role="tabpanel" aria-labelledby="pricing-tab-shopify">
+        <form id="shopifyConnectForm" novalidate>
+          <div class="form-field">
+            <label for="shopifyStore">Enter your Store URL</label>
+            <input id="shopifyStore" name="store" type="text" placeholder="example.myshopify.com" inputmode="url" autocomplete="url" required>
+          </div>
+          <p class="pricing-form-error" id="shopifyError" role="alert"></p>
+          <button class="btn pri pricing-modal__submit" type="submit">Continue with Shopify <span aria-hidden="true">&#8599;</span></button>
+          <p class="pricing-modal__note">PunchOut Central registration will open in a new tab.</p>
+        </form>
+      </section>
+
+      <section class="pricing-platform-panel" id="pricing-panel-lead" role="tabpanel" aria-labelledby="pricing-tab-woocommerce" hidden>
+        <form id="pricingLeadForm" action={formEndpoint} method="post" novalidate>
+          <input type="hidden" name="form_source" value="pricing-interest">
+          <input type="hidden" name="plan" value="Launch">
+          <input type="hidden" name="platform" value="WooCommerce">
+          <input type="hidden" name="page" value="">
+          <input type="hidden" name="form_loaded_at" value="">
+          <input class="book-demo-hp" type="text" name="nickname" tabindex="-1" autocomplete="off" aria-hidden="true">
+
+          <p class="pricing-platform-panel__intro">Tell us about your <strong data-platform-name>WooCommerce</strong> store and our team will follow up.</p>
+          <div class="form-grid">
+            <div class="form-field">
+              <label for="pricingName">Full Name</label>
+              <input id="pricingName" name="name" type="text" autocomplete="name" required>
+            </div>
+            <div class="form-field">
+              <label for="pricingEmail">Email</label>
+              <input id="pricingEmail" name="email" type="email" autocomplete="email" required>
+            </div>
+            <div class="form-field">
+              <label for="pricingContact">Contact</label>
+              <input id="pricingContact" name="contact" type="tel" autocomplete="tel" required>
+            </div>
+            <div class="form-field">
+              <label for="pricingWebsite">Website <span>(Optional)</span></label>
+              <input id="pricingWebsite" name="website" type="text" inputmode="url" autocomplete="url" placeholder="example.com">
+            </div>
+            <div class="form-field form-field--full" id="technologyField" hidden>
+              <label for="pricingTechnology">Technology name <span>(Optional)</span></label>
+              <input id="pricingTechnology" name="technology" type="text" placeholder="Tell us which ecommerce technology you use">
+            </div>
+          </div>
+          <p class="pricing-form-error" id="pricingLeadError" role="alert"></p>
+          <button class="btn pri pricing-modal__submit" id="pricingLeadSubmit" type="submit">Submit request</button>
+        </form>
+      </section>
+    </div>
+
+    <section class="pricing-modal__success" data-pricing-success aria-live="polite" hidden>
+      <span class="pricing-modal__success-icon" aria-hidden="true">&#10003;</span>
+      <span class="ey">Thank you</span>
+      <h2>You're all set.</h2>
+      <p data-success-message>Thank you for your interest in PunchOut Central.</p>
+      <button class="btn pri" type="button" data-pricing-close>Done</button>
+    </section>
+  </section>
+</div>
 
 <section class="sec soft" id="details">
   <div class="wrap">
@@ -58,3 +147,183 @@
   </div>
 </section>
 </main>
+
+<script>
+  const pricingModal = document.getElementById('pricingModal');
+
+  if (pricingModal) {
+    const dialog = pricingModal.querySelector('.pricing-modal__dialog');
+    const modalContent = pricingModal.querySelector('[data-pricing-content]');
+    const successState = pricingModal.querySelector('[data-pricing-success]');
+    const successMessage = pricingModal.querySelector('[data-success-message]');
+    const selectedPlanText = pricingModal.querySelector('[data-selected-plan]');
+    const tabs = [...pricingModal.querySelectorAll('[role="tab"]')];
+    const shopifyPanel = document.getElementById('pricing-panel-shopify');
+    const leadPanel = document.getElementById('pricing-panel-lead');
+    const shopifyForm = document.getElementById('shopifyConnectForm');
+    const shopifyStore = document.getElementById('shopifyStore');
+    const shopifyError = document.getElementById('shopifyError');
+    const leadForm = document.getElementById('pricingLeadForm');
+    const leadSubmit = document.getElementById('pricingLeadSubmit');
+    const leadError = document.getElementById('pricingLeadError');
+    const technologyField = document.getElementById('technologyField');
+    const platformName = pricingModal.querySelector('[data-platform-name]');
+    let selectedPlan = 'Launch';
+    let selectedPlatform = 'Shopify';
+    let returnFocus = null;
+
+    const setError = (element, message = '') => {
+      element.textContent = message;
+      element.classList.toggle('is-visible', Boolean(message));
+    };
+
+    const showSuccess = message => {
+      modalContent.hidden = true;
+      successState.hidden = false;
+      successMessage.textContent = message;
+      successState.querySelector('button')?.focus();
+    };
+
+    const selectPlatform = (platform, focusTab = false) => {
+      selectedPlatform = platform;
+      tabs.forEach(tab => {
+        const isActive = tab.dataset.platform === platform;
+        tab.classList.toggle('is-active', isActive);
+        tab.setAttribute('aria-selected', String(isActive));
+        tab.tabIndex = isActive ? 0 : -1;
+        if (isActive && focusTab) tab.focus();
+      });
+
+      const isShopify = platform === 'Shopify';
+      shopifyPanel.hidden = !isShopify;
+      leadPanel.hidden = isShopify;
+      if (!isShopify) {
+        leadPanel.setAttribute('aria-labelledby', `pricing-tab-${platform.toLowerCase()}`);
+        leadForm.elements.platform.value = platform;
+        platformName.textContent = platform;
+        technologyField.hidden = platform !== 'Other';
+      }
+      setError(shopifyError);
+      setError(leadError);
+    };
+
+    const openModal = trigger => {
+      selectedPlan = trigger.dataset.pricingPlan || 'Launch';
+      returnFocus = trigger;
+      selectedPlanText.textContent = selectedPlan;
+      leadForm.elements.plan.value = selectedPlan;
+      leadForm.elements.page.value = window.location.href;
+      leadForm.elements.form_loaded_at.value = String(Date.now());
+      modalContent.hidden = false;
+      successState.hidden = true;
+      selectPlatform('Shopify');
+      pricingModal.classList.add('is-open');
+      pricingModal.setAttribute('aria-hidden', 'false');
+      document.body.classList.add('pricing-modal-open');
+      window.setTimeout(() => dialog.focus(), 30);
+    };
+
+    const closeModal = () => {
+      pricingModal.classList.remove('is-open');
+      pricingModal.setAttribute('aria-hidden', 'true');
+      document.body.classList.remove('pricing-modal-open');
+      setError(shopifyError);
+      setError(leadError);
+      returnFocus?.focus();
+    };
+
+    document.querySelectorAll('.pricing-modal-trigger').forEach(trigger => {
+      trigger.addEventListener('click', () => openModal(trigger));
+    });
+
+    pricingModal.querySelectorAll('[data-pricing-close]').forEach(button => {
+      button.addEventListener('click', closeModal);
+    });
+
+    tabs.forEach((tab, index) => {
+      tab.addEventListener('click', () => selectPlatform(tab.dataset.platform));
+      tab.addEventListener('keydown', event => {
+        if (!['ArrowLeft', 'ArrowRight', 'Home', 'End'].includes(event.key)) return;
+        event.preventDefault();
+        let nextIndex = index;
+        if (event.key === 'ArrowLeft') nextIndex = (index - 1 + tabs.length) % tabs.length;
+        if (event.key === 'ArrowRight') nextIndex = (index + 1) % tabs.length;
+        if (event.key === 'Home') nextIndex = 0;
+        if (event.key === 'End') nextIndex = tabs.length - 1;
+        selectPlatform(tabs[nextIndex].dataset.platform, true);
+      });
+    });
+
+    shopifyForm.addEventListener('submit', event => {
+      event.preventDefault();
+      const rawStore = shopifyStore.value.trim().toLowerCase();
+      const normalizedStore = rawStore.replace(/^https?:\/\//, '').replace(/\/$/, '').split('/')[0];
+
+      if (!/^[a-z0-9][a-z0-9-]*\.myshopify\.com$/.test(normalizedStore)) {
+        setError(shopifyError, 'Please enter a valid Shopify store URL, such as example.myshopify.com.');
+        shopifyStore.focus();
+        return;
+      }
+
+      setError(shopifyError);
+      const destination = new URL(pricingModal.dataset.shopifyUrl, window.location.origin);
+      destination.searchParams.set('store', normalizedStore);
+      destination.searchParams.set('plan', selectedPlan.toLowerCase());
+      window.open(destination.toString(), '_blank', 'noopener,noreferrer');
+      showSuccess(`Thank you! We opened registration for ${normalizedStore} in a new tab.`);
+    });
+
+    leadForm.addEventListener('submit', async event => {
+      event.preventDefault();
+      setError(leadError);
+
+      if (!leadForm.checkValidity()) {
+        leadForm.reportValidity();
+        return;
+      }
+
+      leadSubmit.disabled = true;
+      leadSubmit.textContent = 'Sending...';
+
+      try {
+        const payload = Object.fromEntries(new FormData(leadForm).entries());
+        const headers = { 'Content-Type': 'application/json' };
+        if (pricingModal.dataset.formToken) headers['X-Book-Demo-Token'] = pricingModal.dataset.formToken;
+        const response = await fetch(pricingModal.dataset.formEndpoint, {
+          method: 'POST',
+          headers,
+          body: JSON.stringify(payload),
+        });
+        const result = await response.json().catch(() => ({}));
+        if (!response.ok || !result.ok) throw new Error(result.message || 'We could not send your request right now.');
+
+        leadForm.reset();
+        showSuccess(`Thank you! Your ${selectedPlatform} request has been sent. Our team will contact you soon.`);
+      } catch (error) {
+        setError(leadError, error instanceof Error ? error.message : 'We could not send your request right now.');
+      } finally {
+        leadSubmit.disabled = false;
+        leadSubmit.textContent = 'Submit request';
+      }
+    });
+
+    document.addEventListener('keydown', event => {
+      if (!pricingModal.classList.contains('is-open')) return;
+      if (event.key === 'Escape') closeModal();
+      if (event.key !== 'Tab') return;
+
+      const focusable = [...dialog.querySelectorAll('button:not([disabled]):not([hidden]), input:not([disabled]):not([type="hidden"]), [href]')]
+        .filter(element => element.offsetParent !== null);
+      if (!focusable.length) return;
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        first.focus();
+      }
+    });
+  }
+</script>
