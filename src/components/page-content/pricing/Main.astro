@@ -5,7 +5,7 @@ import { faStore } from '@fortawesome/free-solid-svg-icons';
 
 const formEndpoint = import.meta.env.PUBLIC_PRICING_FORM_ENDPOINT || '/api/book-demo.php';
 const formToken = import.meta.env.PUBLIC_PRICING_FORM_TOKEN || import.meta.env.PUBLIC_BOOK_DEMO_TOKEN || '';
-const shopifyConnectUrl = import.meta.env.PUBLIC_SHOPIFY_CONNECT_URL || 'https://app.punchoutcentral.com/platform/register';
+const shopifyConnectUrl = 'https://app.punchoutcentral.com';
 
 const shopifyIcon = icon(faShopify).html.join('');
 const wooCommerceIcon = icon(faWordpressSimple).html.join('');
@@ -288,8 +288,7 @@ const otherIcon = icon(faStore).html.join('');
 
       setError(shopifyError);
       const destination = new URL(pricingModal.dataset.shopifyUrl, window.location.origin);
-      destination.searchParams.set('store', normalizedStore);
-      destination.searchParams.set('plan', selectedPlan.toLowerCase());
+      destination.searchParams.set('shop', normalizedStore);
       window.open(destination.toString(), '_blank', 'noopener,noreferrer');
       showSuccess(`Thank you! We opened registration for ${normalizedStore} in a new tab.`);
     });
