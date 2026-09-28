@@ -308,6 +308,7 @@ const otherIcon = icon(faStore).html.join('');
 
       try {
         const payload = Object.fromEntries(new FormData(leadForm).entries());
+        payload.referrer = document.referrer;
         const headers = { 'Content-Type': 'application/json' };
         if (pricingModal.dataset.formToken) headers['X-Book-Demo-Token'] = pricingModal.dataset.formToken;
         const response = await fetch(pricingModal.dataset.formEndpoint, {

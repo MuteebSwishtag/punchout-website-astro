@@ -7,7 +7,9 @@
 - Added the Swishtag-style date and time picker as Step 2.
 - Did not add Swishtag's middle "solution interest" step.
 - Added `public/api/book-demo.php` for form delivery.
-- Added `.env.example` with email and Zoom configuration switches.
+- Added `.env.example` with MySQL, email and Zoom configuration switches.
+- The pricing modal also posts non-Shopify ecommerce enquiries to the same endpoint with `form_source=pricing-interest`.
+- Added `/admin/` and `public/api/admin-submissions.php` for a protected submissions view.
 
 ## How submission works
 
@@ -47,6 +49,82 @@ The frontend sends these main fields:
 - `selectedTimeLabel`
 - `timezone`
 - `page`
+- `referrer`
+
+The pricing modal sends these main fields:
+
+- `form_source=pricing-interest`
+- `name`
+- `email`
+- `contact`
+- `plan`
+- `platform`
+- `technology`
+- `website`
+- `page`
+- `referrer`
+
+## Enable MySQL storage
+
+The endpoint can store both `/book-demo/` submissions and pricing modal enquiries in MySQL. When enabled, it runs `CREATE TABLE IF NOT EXISTS` before inserting the row.
+
+Recommended Hostinger private config values:
+
+```php
+'db_enabled' => true,
+'db_table' => 'book_demo_submissions',
+'db_host' => '127.0.0.1',
+'db_port' => '3306',
+'db_database' => 'your_database_name',
+'db_username' => 'your_database_user',
+'db_password' => 'your-database-password',
+'db_charset' => 'utf8mb4',
+```
+
+Environment variable setup is also supported:
+
+```env
+BOOK_DEMO_DB_ENABLED=true
+BOOK_DEMO_DB_TABLE=book_demo_submissions
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=your_database_name
+DB_USERNAME=your_database_user
+DB_PASSWORD=your-database-password
+DB_CHARSET=utf8mb4
+```
+
+The table stores contact details, website, selected pricing plan, selected ecommerce platform, book-demo meeting slot, page/referrer, IP/user agent, raw payload, and delivery status.
+
+## Enable admin dashboard
+
+The admin dashboard is available at:
+
+```txt
+/admin/
+```
+
+It loads data from:
+
+```env
+PUBLIC_ADMIN_SUBMISSIONS_ENDPOINT=/api/admin-submissions.php
+```
+
+The data endpoint requires Basic Auth using private server credentials:
+
+```env
+BOOK_DEMO_ADMIN_USERNAME=your-admin-user
+BOOK_DEMO_ADMIN_PASSWORD=your-strong-admin-password
+```
+
+Or in the private PHP config:
+
+```php
+'admin_username' => 'your-admin-user',
+'admin_password' => 'your-strong-admin-password',
+```
+
+The dashboard requires `BOOK_DEMO_DB_ENABLED=true` because it reads the MySQL submissions table.
 
 ## Enable email delivery
 
@@ -147,8 +225,11 @@ This is not a secret because the public value is visible in the browser. It only
 ## Deployment notes
 
 - Keep SMTP and Zoom credentials only in the hosting environment.
+- Keep MySQL credentials only in the hosting environment or private config outside `public_html`.
+- Keep admin credentials only in the hosting environment or private config outside `public_html`.
 - Do not commit real `.env` files.
 - Do not place the real `punchout-book-demo-config.php` inside `public_html`.
+- PHP must have PDO MySQL enabled for database storage.
 - PHP must have `curl` enabled for Zoom.
 - PHP must allow outbound SMTP sockets for email.
 - If email and Zoom are both disabled, the endpoint validates and returns success, but no external delivery happens.

@@ -5,6 +5,21 @@ return [
     // Optional endpoint match token. Keep the same value in PUBLIC_BOOK_DEMO_TOKEN.
     'endpoint_token' => '',
 
+    // Admin dashboard Basic Auth.
+    'admin_username' => '',
+    'admin_password' => '',
+
+    // MySQL storage. The endpoint creates this table if it does not exist.
+    'db_enabled' => false,
+    'db_table' => 'book_demo_submissions',
+    'db_host' => '127.0.0.1',
+    'db_port' => '3306',
+    'db_socket' => '',
+    'db_database' => '',
+    'db_username' => '',
+    'db_password' => '',
+    'db_charset' => 'utf8mb4',
+
     // Email delivery.
     'email_enabled' => false,
     'mailer' => 'smtp',

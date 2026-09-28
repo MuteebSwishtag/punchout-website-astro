@@ -412,6 +412,7 @@ const formToken = import.meta.env.PUBLIC_BOOK_DEMO_TOKEN ?? '';
 
     const payload = Object.fromEntries(new FormData(form).entries());
     payload.page = window.location.href;
+    payload.referrer = document.referrer;
     payload.form_loaded_at = formLoadedAt;
 
     try {

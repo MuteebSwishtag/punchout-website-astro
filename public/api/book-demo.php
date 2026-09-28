@@ -76,15 +76,22 @@ $envPaths = [
     __DIR__ . '/.env',
     dirname(__DIR__) . '/.env',
     dirname(__DIR__, 2) . '/.env',
+    dirname(__DIR__, 3) . '/.env',
 ];
 if (!empty($_SERVER['DOCUMENT_ROOT'])) {
     $documentRoot = rtrim((string) $_SERVER['DOCUMENT_ROOT'], '/\\');
     $envPaths[] = $documentRoot . '/.env';
     $envPaths[] = dirname($documentRoot) . '/.env';
+    $envPaths[] = dirname($documentRoot) . '/punchout-book-demo.env';
 }
 
 foreach (array_unique($envPaths) as $envPath) {
     load_env_file($envPath);
+}
+
+$explicitEnvPath = getenv('BOOK_DEMO_ENV_PATH');
+if ($explicitEnvPath !== false && trim((string) $explicitEnvPath) !== '') {
+    load_env_file(trim((string) $explicitEnvPath));
 }
 
 $privateConfigPaths = [];
@@ -116,6 +123,15 @@ function private_config_value(string $envKey)
         'BOOK_DEMO_ENDPOINT_TOKEN' => 'endpoint_token',
         'BOOK_DEMO_EMAIL_ENABLED' => 'email_enabled',
         'BOOK_DEMO_TO' => 'to',
+        'BOOK_DEMO_DB_ENABLED' => 'db_enabled',
+        'BOOK_DEMO_DB_TABLE' => 'db_table',
+        'DB_HOST' => 'db_host',
+        'DB_PORT' => 'db_port',
+        'DB_SOCKET' => 'db_socket',
+        'DB_DATABASE' => 'db_database',
+        'DB_USERNAME' => 'db_username',
+        'DB_PASSWORD' => 'db_password',
+        'DB_CHARSET' => 'db_charset',
         'MAIL_MAILER' => 'mailer',
         'MAIL_HOST' => 'host',
         'MAIL_PORT' => 'port',
@@ -630,9 +646,253 @@ function send_pricing_email(array $data): array
     return ['enabled' => true, 'sent' => true, 'recipients' => $recipients];
 }
 
+$databaseReady = false;
+
+function db_table_name(): string
+{
+    $table = env_value('BOOK_DEMO_DB_TABLE', 'book_demo_submissions');
+    $table = preg_replace('/[^a-zA-Z0-9_]/', '', $table) ?? '';
+    return $table !== '' ? $table : 'book_demo_submissions';
+}
+
+function db_quote_identifier(string $identifier): string
+{
+    return '`' . str_replace('`', '``', $identifier) . '`';
+}
+
+function db_connection(): ?PDO
+{
+    if (!env_flag('BOOK_DEMO_DB_ENABLED')) {
+        return null;
+    }
+
+    if (!class_exists(PDO::class)) {
+        throw new RuntimeException('MySQL storage is enabled but PHP PDO is not available.');
+    }
+
+    $database = env_value('DB_DATABASE');
+    $username = env_value('DB_USERNAME');
+    $password = env_value('DB_PASSWORD');
+    $charset = env_value('DB_CHARSET', 'utf8mb4');
+    $socket = env_value('DB_SOCKET');
+    $host = env_value('DB_HOST', '127.0.0.1');
+    $port = env_value('DB_PORT', '3306');
+
+    if ($database === '' || $username === '') {
+        throw new RuntimeException('MySQL storage is enabled but DB_DATABASE or DB_USERNAME is missing.');
+    }
+
+    $dsn = $socket !== ''
+        ? 'mysql:unix_socket=' . $socket . ';dbname=' . $database . ';charset=' . $charset
+        : 'mysql:host=' . $host . ';port=' . $port . ';dbname=' . $database . ';charset=' . $charset;
+
+    return new PDO($dsn, $username, $password, [
+        PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+        PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
+        PDO::ATTR_EMULATE_PREPARES => false,
+    ]);
+}
+
+function ensure_submission_table(PDO $pdo): void
+{
+    global $databaseReady;
+    if ($databaseReady) {
+        return;
+    }
+
+    $table = db_quote_identifier(db_table_name());
+    $pdo->exec("
+        CREATE TABLE IF NOT EXISTS {$table} (
+            id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
+            form_source VARCHAR(80) NOT NULL DEFAULT 'book-demo',
+            pricing_plan VARCHAR(80) NOT NULL DEFAULT '',
+            name VARCHAR(160) NOT NULL,
+            email VARCHAR(254) NOT NULL,
+            contact VARCHAR(80) NOT NULL DEFAULT '',
+            company VARCHAR(160) NOT NULL,
+            website VARCHAR(250) NOT NULL DEFAULT '',
+            buyer_procurement_system VARCHAR(120) NOT NULL,
+            commerce_platform VARCHAR(120) NOT NULL DEFAULT '',
+            technology VARCHAR(160) NOT NULL DEFAULT '',
+            buyer_request TEXT NULL,
+            selected_date VARCHAR(120) NOT NULL DEFAULT '',
+            selected_date_iso DATE NULL,
+            selected_time VARCHAR(10) NOT NULL DEFAULT '',
+            selected_time_label VARCHAR(80) NOT NULL DEFAULT '',
+            timezone VARCHAR(80) NOT NULL DEFAULT '',
+            meeting_start_utc DATETIME NULL,
+            page VARCHAR(500) NOT NULL DEFAULT '',
+            referrer VARCHAR(500) NOT NULL DEFAULT '',
+            ip_address VARCHAR(45) NOT NULL DEFAULT '',
+            user_agent TEXT NULL,
+            status VARCHAR(40) NOT NULL DEFAULT 'received',
+            email_enabled TINYINT(1) NOT NULL DEFAULT 0,
+            email_sent TINYINT(1) NOT NULL DEFAULT 0,
+            zoom_enabled TINYINT(1) NOT NULL DEFAULT 0,
+            zoom_meeting_id VARCHAR(80) NOT NULL DEFAULT '',
+            zoom_join_url VARCHAR(1000) NOT NULL DEFAULT '',
+            zoom_start_url VARCHAR(1000) NOT NULL DEFAULT '',
+            raw_payload LONGTEXT NULL,
+            error_message TEXT NULL,
+            created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+            updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+            PRIMARY KEY (id),
+            KEY idx_book_demo_created_at (created_at),
+            KEY idx_book_demo_email (email),
+            KEY idx_book_demo_form_source (form_source),
+            KEY idx_book_demo_commerce_platform (commerce_platform),
+            KEY idx_book_demo_pricing_plan (pricing_plan)
+        ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci
+    ");
+
+    $databaseReady = true;
+}
+
+function store_submission(array $data, ?DateTimeImmutable $meetingStart = null): ?int
+{
+    $pdo = db_connection();
+    if (!$pdo) {
+        return null;
+    }
+
+    ensure_submission_table($pdo);
+
+    $table = db_quote_identifier(db_table_name());
+    $statement = $pdo->prepare("
+        INSERT INTO {$table} (
+            form_source,
+            pricing_plan,
+            name,
+            email,
+            contact,
+            company,
+            website,
+            buyer_procurement_system,
+            commerce_platform,
+            technology,
+            buyer_request,
+            selected_date,
+            selected_date_iso,
+            selected_time,
+            selected_time_label,
+            timezone,
+            meeting_start_utc,
+            page,
+            referrer,
+            ip_address,
+            user_agent,
+            raw_payload
+        ) VALUES (
+            :form_source,
+            :pricing_plan,
+            :name,
+            :email,
+            :contact,
+            :company,
+            :website,
+            :buyer_procurement_system,
+            :commerce_platform,
+            :technology,
+            :buyer_request,
+            :selected_date,
+            :selected_date_iso,
+            :selected_time,
+            :selected_time_label,
+            :timezone,
+            :meeting_start_utc,
+            :page,
+            :referrer,
+            :ip_address,
+            :user_agent,
+            :raw_payload
+        )
+    ");
+
+    $formSource = clean_string($data['form_source'] ?? 'book-demo', 80) ?: 'book-demo';
+    $isPricing = $formSource === 'pricing-interest';
+    $commercePlatform = $isPricing
+        ? clean_string($data['platform'] ?? '', 120)
+        : clean_string($data['storePlatform'] ?? '', 120);
+    $buyerProcurementSystem = $isPricing ? '' : clean_string($data['platform'] ?? '', 120);
+    $pricingPlan = clean_string(($data['pricing_plan'] ?? '') ?: ($data['plan'] ?? ''), 80);
+    $meetingUtc = $meetingStart ? $meetingStart->setTimezone(new DateTimeZone('UTC'))->format('Y-m-d H:i:s') : null;
+    $selectedDateISO = clean_string($data['selectedDateISO'] ?? '', 20);
+
+    $statement->execute([
+        ':form_source' => $formSource,
+        ':pricing_plan' => $pricingPlan,
+        ':name' => clean_string($data['name'] ?? '', 160),
+        ':email' => clean_string($data['email'] ?? '', 254),
+        ':contact' => clean_string($data['contact'] ?? '', 80),
+        ':company' => clean_string($data['company'] ?? '', 160),
+        ':website' => clean_string($data['website'] ?? '', 250),
+        ':buyer_procurement_system' => $buyerProcurementSystem,
+        ':commerce_platform' => $commercePlatform,
+        ':technology' => clean_string($data['technology'] ?? '', 160),
+        ':buyer_request' => clean_string($data['message'] ?? '', 2000),
+        ':selected_date' => clean_string($data['selectedDate'] ?? '', 120),
+        ':selected_date_iso' => $selectedDateISO !== '' ? $selectedDateISO : null,
+        ':selected_time' => clean_string($data['selectedTime'] ?? '', 10),
+        ':selected_time_label' => clean_string($data['selectedTimeLabel'] ?? '', 80),
+        ':timezone' => clean_string($data['timezone'] ?? '', 80),
+        ':meeting_start_utc' => $meetingUtc,
+        ':page' => clean_string($data['page'] ?? '', 500),
+        ':referrer' => clean_string($data['referrer'] ?? '', 500),
+        ':ip_address' => clean_string($_SERVER['REMOTE_ADDR'] ?? '', 45),
+        ':user_agent' => clean_string($_SERVER['HTTP_USER_AGENT'] ?? '', 1000),
+        ':raw_payload' => json_encode($data, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE),
+    ]);
+
+    return (int) $pdo->lastInsertId();
+}
+
+function update_submission_delivery(?int $submissionId, array $email, array $zoom, string $status, string $errorMessage = ''): void
+{
+    if ($submissionId === null || !env_flag('BOOK_DEMO_DB_ENABLED')) {
+        return;
+    }
+
+    $pdo = db_connection();
+    if (!$pdo) {
+        return;
+    }
+
+    ensure_submission_table($pdo);
+
+    $table = db_quote_identifier(db_table_name());
+    $statement = $pdo->prepare("
+        UPDATE {$table}
+        SET status = :status,
+            email_enabled = :email_enabled,
+            email_sent = :email_sent,
+            zoom_enabled = :zoom_enabled,
+            zoom_meeting_id = :zoom_meeting_id,
+            zoom_join_url = :zoom_join_url,
+            zoom_start_url = :zoom_start_url,
+            error_message = :error_message
+        WHERE id = :id
+    ");
+
+    $statement->execute([
+        ':status' => $status,
+        ':email_enabled' => !empty($email['enabled']) ? 1 : 0,
+        ':email_sent' => !empty($email['sent']) ? 1 : 0,
+        ':zoom_enabled' => !empty($zoom['enabled']) ? 1 : 0,
+        ':zoom_meeting_id' => clean_string($zoom['id'] ?? '', 80),
+        ':zoom_join_url' => clean_string($zoom['join_url'] ?? '', 1000),
+        ':zoom_start_url' => clean_string($zoom['start_url'] ?? '', 1000),
+        ':error_message' => clean_string($errorMessage, 2000),
+        ':id' => $submissionId,
+    ]);
+}
+
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     respond(405, ['ok' => false, 'message' => 'This endpoint only accepts POST form submissions.']);
 }
+
+$submissionId = null;
+$email = ['enabled' => false, 'sent' => false, 'recipients' => []];
+$zoom = ['enabled' => false];
 
 try {
     $data = read_payload();
@@ -661,6 +921,8 @@ try {
         $data['plan'] = clean_string($data['plan'] ?? '', 40);
         $data['technology'] = clean_string($data['technology'] ?? '', 160);
         $data['page'] = clean_string($data['page'] ?? '', 500);
+        $data['referrer'] = clean_string($data['referrer'] ?? ($_SERVER['HTTP_REFERER'] ?? ''), 500);
+        $data['company'] = '';
         $submittedWebsite = clean_string($data['website'] ?? '', 250);
         $data['website'] = normalize_website($submittedWebsite);
 
@@ -689,10 +951,14 @@ try {
             }
         }
 
+        $submissionId = store_submission($data);
         $email = send_pricing_email($data);
+        update_submission_delivery($submissionId, $email, $zoom, 'completed');
+
         respond(200, [
             'ok' => true,
             'message' => 'Thank you. Your pricing request has been received.',
+            'submission_id' => $submissionId,
             'email' => [
                 'enabled' => $email['enabled'],
                 'sent' => $email['sent'],
@@ -715,6 +981,7 @@ try {
     $data['storePlatform'] = clean_string($data['storePlatform'] ?? '', 120);
     $data['message'] = clean_string($data['message'] ?? '', 2000);
     $data['page'] = clean_string($data['page'] ?? '', 500);
+    $data['referrer'] = clean_string($data['referrer'] ?? ($_SERVER['HTTP_REFERER'] ?? ''), 500);
     $data['website'] = normalize_website($submittedWebsite);
 
     if (!filter_var($data['email'], FILTER_VALIDATE_EMAIL)) {
@@ -737,12 +1004,15 @@ try {
         respond(422, ['ok' => false, 'message' => 'Please choose a valid demo date and time.']);
     }
 
+    $submissionId = store_submission($data, $meetingStart);
     $zoom = create_zoom_meeting($data, $meetingStart);
     $email = send_email($data, $zoom, $meetingStart);
+    update_submission_delivery($submissionId, $email, $zoom, 'completed');
 
     respond(200, [
         'ok' => true,
         'message' => 'Thanks. Your demo request has been received.',
+        'submission_id' => $submissionId,
         'email' => [
             'enabled' => $email['enabled'],
             'sent' => $email['sent'],
@@ -756,6 +1026,11 @@ try {
     ]);
 } catch (Throwable $error) {
     error_log('PunchOut book-demo form failed: ' . $error->getMessage());
+    try {
+        update_submission_delivery($submissionId, $email, $zoom, 'failed', $error->getMessage());
+    } catch (Throwable $storageError) {
+        error_log('PunchOut book-demo storage status update failed: ' . $storageError->getMessage());
+    }
     respond(500, [
         'ok' => false,
         'message' => 'We could not send your request right now. Please try again or email the PunchOut Central team directly.',
