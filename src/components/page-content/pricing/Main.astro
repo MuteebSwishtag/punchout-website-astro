@@ -1,7 +1,16 @@
 ---
+import { icon } from '@fortawesome/fontawesome-svg-core';
+import { faMagento, faShopify, faWordpressSimple } from '@fortawesome/free-brands-svg-icons';
+import { faStore } from '@fortawesome/free-solid-svg-icons';
+
 const formEndpoint = import.meta.env.PUBLIC_PRICING_FORM_ENDPOINT || '/api/book-demo.php';
 const formToken = import.meta.env.PUBLIC_PRICING_FORM_TOKEN || import.meta.env.PUBLIC_BOOK_DEMO_TOKEN || '';
 const shopifyConnectUrl = import.meta.env.PUBLIC_SHOPIFY_CONNECT_URL || 'https://app.punchoutcentral.com/platform/register';
+
+const shopifyIcon = icon(faShopify).html.join('');
+const wooCommerceIcon = icon(faWordpressSimple).html.join('');
+const magentoIcon = icon(faMagento).html.join('');
+const otherIcon = icon(faStore).html.join('');
 ---
 <main>
 
@@ -57,10 +66,22 @@ const shopifyConnectUrl = import.meta.env.PUBLIC_SHOPIFY_CONNECT_URL || 'https:/
       </div>
 
       <div class="pricing-tabs" role="tablist" aria-label="Ecommerce platform">
-        <button class="pricing-tab is-active" id="pricing-tab-shopify" type="button" role="tab" aria-selected="true" aria-controls="pricing-panel-shopify" data-platform="Shopify">Shopify</button>
-        <button class="pricing-tab" id="pricing-tab-woocommerce" type="button" role="tab" aria-selected="false" aria-controls="pricing-panel-lead" data-platform="WooCommerce" tabindex="-1">WooCommerce</button>
-        <button class="pricing-tab" id="pricing-tab-magento" type="button" role="tab" aria-selected="false" aria-controls="pricing-panel-lead" data-platform="Magento" tabindex="-1">Magento</button>
-        <button class="pricing-tab" id="pricing-tab-other" type="button" role="tab" aria-selected="false" aria-controls="pricing-panel-lead" data-platform="Other" tabindex="-1">Other</button>
+        <button class="pricing-tab pricing-tab--shopify is-active" id="pricing-tab-shopify" type="button" role="tab" aria-selected="true" aria-controls="pricing-panel-shopify" data-platform="Shopify">
+          <span class="pricing-tab__icon" aria-hidden="true" set:html={shopifyIcon}></span>
+          <span>Shopify</span>
+        </button>
+        <button class="pricing-tab pricing-tab--woocommerce" id="pricing-tab-woocommerce" type="button" role="tab" aria-selected="false" aria-controls="pricing-panel-lead" data-platform="WooCommerce" tabindex="-1">
+          <span class="pricing-tab__icon" aria-hidden="true" set:html={wooCommerceIcon}></span>
+          <span>WooCommerce</span>
+        </button>
+        <button class="pricing-tab pricing-tab--magento" id="pricing-tab-magento" type="button" role="tab" aria-selected="false" aria-controls="pricing-panel-lead" data-platform="Magento" tabindex="-1">
+          <span class="pricing-tab__icon" aria-hidden="true" set:html={magentoIcon}></span>
+          <span>Magento</span>
+        </button>
+        <button class="pricing-tab pricing-tab--other" id="pricing-tab-other" type="button" role="tab" aria-selected="false" aria-controls="pricing-panel-lead" data-platform="Other" tabindex="-1">
+          <span class="pricing-tab__icon" aria-hidden="true" set:html={otherIcon}></span>
+          <span>Other</span>
+        </button>
       </div>
 
       <section class="pricing-platform-panel" id="pricing-panel-shopify" role="tabpanel" aria-labelledby="pricing-tab-shopify">
