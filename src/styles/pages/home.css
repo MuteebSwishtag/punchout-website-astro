@@ -456,7 +456,7 @@ h2{
 }
 .pc-capability-strip__inner b{color:var(--graphite)}
 
-.buyer,.stage,.choice article,.txcard,.dash,.debug,.industry,.proof{
+.buyer,.stage,.choice article,.txcard,.dash,.debug,.buyers-shot,.transaction-shot,.industry,.proof{
   border-color:var(--line);
   box-shadow:0 14px 38px rgba(32,33,36,.045);
 }
@@ -542,6 +542,85 @@ h2{
 .metric:nth-child(3){background:rgba(255,189,155,.16)}
 .metric:nth-child(4){background:rgba(194,255,2,.10)}
 .metric:nth-child(5){background:#fff}
+
+/* Transaction attention screenshot */
+.attention-grid{
+  display:grid;
+  grid-template-columns:minmax(280px,.62fr) minmax(620px,1.38fr);
+  gap:44px;
+  align-items:center;
+}
+.attention-copy{
+  max-width:430px;
+}
+.transaction-shot{
+  margin:0;
+  padding:12px;
+  overflow:hidden;
+  border:1px solid rgba(32,33,36,.08);
+  border-radius:24px;
+  background:#fff;
+  box-shadow:0 22px 64px rgba(32,33,36,.075);
+}
+.transaction-shot img{
+  display:block;
+  width:100%;
+  height:auto;
+  border-radius:16px;
+}
+
+.buyers-shot{
+  margin:0 auto;
+  padding:12px;
+  overflow:hidden;
+  border:1px solid rgba(32,33,36,.08);
+  border-radius:28px;
+  background:#fff;
+  box-shadow:0 22px 64px rgba(32,33,36,.075);
+}
+.buyers-shot img{
+  display:block;
+  width:100%;
+  height:auto;
+  border-radius:20px;
+}
+
+@media(max-width:1080px){
+  .attention-grid{
+    grid-template-columns:1fr;
+    gap:30px;
+  }
+
+  .attention-copy{
+    max-width:760px;
+  }
+}
+
+@media(max-width:560px){
+  .attention-grid{
+    gap:24px;
+  }
+
+  .transaction-shot{
+    padding:8px;
+    overflow-x:auto;
+    -webkit-overflow-scrolling:touch;
+  }
+
+  .transaction-shot img{
+    min-width:620px;
+  }
+
+  .buyers-shot{
+    padding:8px;
+    overflow-x:auto;
+    -webkit-overflow-scrolling:touch;
+  }
+
+  .buyers-shot img{
+    min-width:760px;
+  }
+}
 
 /* Debugger */
 .alert{
@@ -1723,6 +1802,8 @@ footer{
 .pc-integration-lab,
 .dashboard,
 .debug,
+.buyers-shot,
+.transaction-shot,
 .stage{
   contain:layout paint;
 }
@@ -1784,6 +1865,8 @@ footer{
   .pc-integration-lab,
   .dashboard,
   .debug,
+  .buyers-shot,
+  .transaction-shot,
   .stage,
   .buyer,
   .choice article,
