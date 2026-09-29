@@ -9,6 +9,9 @@ return [
     'admin_username' => '',
     'admin_password' => '',
 
+    // Booking and admin timestamps use US Eastern Time by default.
+    'timezone' => 'America/New_York',
+
     // MySQL storage. The endpoint creates this table if it does not exist.
     'db_enabled' => false,
     'db_table' => 'book_demo_submissions',

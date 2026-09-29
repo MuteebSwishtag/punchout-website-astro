@@ -1,6 +1,8 @@
 <?php
 declare(strict_types=1);
 
+date_default_timezone_set('America/New_York');
+
 header('Content-Type: application/json; charset=utf-8');
 header('Cache-Control: no-store');
 
@@ -125,6 +127,7 @@ function private_config_value(string $envKey)
         'BOOK_DEMO_TO' => 'to',
         'BOOK_DEMO_DB_ENABLED' => 'db_enabled',
         'BOOK_DEMO_DB_TABLE' => 'db_table',
+        'BOOK_DEMO_TIMEZONE' => 'timezone',
         'DB_HOST' => 'db_host',
         'DB_PORT' => 'db_port',
         'DB_SOCKET' => 'db_socket',
@@ -195,6 +198,19 @@ function env_flag(string $key, bool $fallback = false): bool
     return in_array($value, ['1', 'true', 'yes', 'on'], true);
 }
 
+function configured_timezone(): string
+{
+    $timezone = env_value('BOOK_DEMO_TIMEZONE', 'America/New_York');
+    try {
+        new DateTimeZone($timezone);
+        return $timezone;
+    } catch (Throwable $error) {
+        return 'America/New_York';
+    }
+}
+
+date_default_timezone_set(configured_timezone());
+
 function clean_string($value, int $max = 1000): string
 {
     $value = is_scalar($value) ? (string) $value : '';
@@ -240,7 +256,7 @@ function get_meeting_start(array $data): ?DateTimeImmutable
 {
     $date = clean_string($data['selectedDateISO'] ?? '', 20);
     $time = clean_string($data['selectedTime'] ?? '', 10);
-    $timezone = clean_string($data['timezone'] ?? 'UTC', 80);
+    $timezone = configured_timezone();
 
     if (!preg_match('/^\d{4}-\d{2}-\d{2}$/', $date) || !preg_match('/^\d{2}:\d{2}$/', $time)) {
         return null;
@@ -331,7 +347,7 @@ function create_zoom_meeting(array $data, DateTimeImmutable $meetingStart): arra
         split_emails(env_value('ZOOM_INVITEE_EMAILS', env_value('MAIL_TO'))),
         $customerEmail !== '' ? [$customerEmail] : []
     )));
-    $timezone = clean_string($data['timezone'] ?? 'UTC', 80);
+    $timezone = configured_timezone();
     $context = [
         'name' => clean_string($data['name'] ?? '', 160),
         'company' => clean_string($data['company'] ?? '', 160),
@@ -470,7 +486,7 @@ function create_email_content(array $data, array $zoom, DateTimeImmutable $meeti
         'Buyer procurement system' => clean_string($data['platform'] ?? '', 120),
         'Commerce platform' => clean_string($data['storePlatform'] ?? '', 120),
         'Meeting time' => $meetingTime,
-        'Visitor timezone' => clean_string($data['timezone'] ?? '', 80),
+        'Meeting timezone' => configured_timezone(),
         'Buyer request' => clean_string($data['message'] ?? '', 2000),
         'Zoom join link' => clean_string($zoom['join_url'] ?? '', 500),
         'Zoom host start link' => clean_string($zoom['start_url'] ?? '', 1000),
@@ -686,11 +702,16 @@ function db_connection(): ?PDO
         ? 'mysql:unix_socket=' . $socket . ';dbname=' . $database . ';charset=' . $charset
         : 'mysql:host=' . $host . ';port=' . $port . ';dbname=' . $database . ';charset=' . $charset;
 
-    return new PDO($dsn, $username, $password, [
+    $pdo = new PDO($dsn, $username, $password, [
         PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
         PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
         PDO::ATTR_EMULATE_PREPARES => false,
     ]);
+    $offset = (new DateTimeImmutable('now', new DateTimeZone(configured_timezone())))->format('P');
+    if (preg_match('/^[+-]\d{2}:\d{2}$/', $offset)) {
+        $pdo->exec('SET time_zone = ' . $pdo->quote($offset));
+    }
+    return $pdo;
 }
 
 function ensure_submission_table(PDO $pdo): void
@@ -834,7 +855,7 @@ function store_submission(array $data, ?DateTimeImmutable $meetingStart = null):
         ':selected_date_iso' => $selectedDateISO !== '' ? $selectedDateISO : null,
         ':selected_time' => clean_string($data['selectedTime'] ?? '', 10),
         ':selected_time_label' => clean_string($data['selectedTimeLabel'] ?? '', 80),
-        ':timezone' => clean_string($data['timezone'] ?? '', 80),
+        ':timezone' => configured_timezone(),
         ':meeting_start_utc' => $meetingUtc,
         ':page' => clean_string($data['page'] ?? '', 500),
         ':referrer' => clean_string($data['referrer'] ?? '', 500),
@@ -966,7 +987,7 @@ try {
         ]);
     }
 
-    $required = ['name', 'email', 'company', 'platform', 'selectedDateISO', 'selectedTime', 'timezone'];
+    $required = ['name', 'email', 'company', 'platform', 'selectedDateISO', 'selectedTime'];
     foreach ($required as $field) {
         if (clean_string($data[$field] ?? '') === '') {
             respond(422, ['ok' => false, 'message' => 'Please complete all required fields before submitting.']);
@@ -983,6 +1004,7 @@ try {
     $data['page'] = clean_string($data['page'] ?? '', 500);
     $data['referrer'] = clean_string($data['referrer'] ?? ($_SERVER['HTTP_REFERER'] ?? ''), 500);
     $data['website'] = normalize_website($submittedWebsite);
+    $data['timezone'] = configured_timezone();
 
     if (!filter_var($data['email'], FILTER_VALIDATE_EMAIL)) {
         respond(422, ['ok' => false, 'message' => 'Please enter a valid work email address.']);

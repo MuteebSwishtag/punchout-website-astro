@@ -1,6 +1,8 @@
 <?php
 declare(strict_types=1);
 
+date_default_timezone_set('America/New_York');
+
 header('Content-Type: application/json; charset=utf-8');
 header('Cache-Control: no-store');
 
@@ -124,6 +126,7 @@ function private_config_value(string $envKey)
         'BOOK_DEMO_ADMIN_PASSWORD' => 'admin_password',
         'BOOK_DEMO_DB_ENABLED' => 'db_enabled',
         'BOOK_DEMO_DB_TABLE' => 'db_table',
+        'BOOK_DEMO_TIMEZONE' => 'timezone',
         'DB_HOST' => 'db_host',
         'DB_PORT' => 'db_port',
         'DB_SOCKET' => 'db_socket',
@@ -171,6 +174,19 @@ function env_flag(string $key, bool $fallback = false): bool
     return in_array($value, ['1', 'true', 'yes', 'on'], true);
 }
 
+function configured_timezone(): string
+{
+    $timezone = env_value('BOOK_DEMO_TIMEZONE', 'America/New_York');
+    try {
+        new DateTimeZone($timezone);
+        return $timezone;
+    } catch (Throwable $error) {
+        return 'America/New_York';
+    }
+}
+
+date_default_timezone_set(configured_timezone());
+
 function clean_string($value, int $max = 1000): string
 {
     $value = is_scalar($value) ? (string) $value : '';
@@ -208,7 +224,6 @@ function require_admin_auth(): void
 
     [$user, $pass] = request_basic_auth();
     if (!hash_equals($expectedUser, $user) || !hash_equals($expectedPass, $pass)) {
-        header('WWW-Authenticate: Basic realm="PunchOut Central Admin"');
         respond(401, ['ok' => false, 'message' => 'Invalid admin username or password.']);
     }
 }
@@ -251,11 +266,16 @@ function db_connection(): PDO
         ? 'mysql:unix_socket=' . $socket . ';dbname=' . $database . ';charset=' . $charset
         : 'mysql:host=' . $host . ';port=' . $port . ';dbname=' . $database . ';charset=' . $charset;
 
-    return new PDO($dsn, $username, $password, [
+    $pdo = new PDO($dsn, $username, $password, [
         PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
         PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
         PDO::ATTR_EMULATE_PREPARES => false,
     ]);
+    $offset = (new DateTimeImmutable('now', new DateTimeZone(configured_timezone())))->format('P');
+    if (preg_match('/^[+-]\d{2}:\d{2}$/', $offset)) {
+        $pdo->exec('SET time_zone = ' . $pdo->quote($offset));
+    }
+    return $pdo;
 }
 
 function ensure_submission_table(PDO $pdo): void
@@ -368,6 +388,7 @@ try {
         'ok' => true,
         'book_demo' => $bookDemo,
         'pricing' => $pricing,
+        'timezone' => configured_timezone(),
         'counts' => [
             'book_demo' => count($bookDemo),
             'pricing' => count($pricing),

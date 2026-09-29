@@ -3,92 +3,115 @@ import SiteLayout from '../../layouts/SiteLayout.astro';
 
 const adminEndpoint = import.meta.env.PUBLIC_ADMIN_SUBMISSIONS_ENDPOINT ?? '/api/admin-submissions.php';
 ---
-<SiteLayout title="Admin | PunchOut Central" description="PunchOut Central form submissions admin." includeSiteScript={true} bodyClass="inner-page admin-page">
+<SiteLayout title="Admin | PunchOut Central" description="PunchOut Central form submissions admin." includeSiteScript={false} bodyClass="inner-page admin-page">
   <main class="admin-main" data-admin-endpoint={adminEndpoint}>
-    <section class="admin-hero">
-      <div class="wrap admin-wrap">
-        <div class="admin-head">
-          <div>
-            <span class="ey">Admin</span>
-            <h1>Form submissions</h1>
-            <p class="lead">Review Book Demo requests and Pricing enquiries from one protected view.</p>
-          </div>
-          <button class="btn secbtn admin-refresh" type="button" data-refresh hidden>Refresh</button>
-        </div>
+    <section class="admin-login-screen" data-login-card>
+      <div class="admin-login-card">
+        <img src="/assets/punchout-logo-black.png" alt="PunchOut Central" class="admin-login-logo">
+        <span class="admin-kicker">Admin Portal</span>
+        <h1>Enter admin credentials</h1>
+        <p>Sign in first to view form submissions.</p>
 
-        <section class="admin-login" data-login-card>
-          <div class="admin-login__copy">
-            <h2>Sign in</h2>
-            <p>Use the admin username and password configured in the private server environment.</p>
+        <form class="admin-login-form" data-login-form>
+          <div class="form-field">
+            <label for="adminUser">Username</label>
+            <input id="adminUser" name="username" autocomplete="username" required>
           </div>
-          <form class="admin-login__form" data-login-form>
-            <div class="form-field">
-              <label for="adminUser">Username</label>
-              <input id="adminUser" name="username" autocomplete="username" required>
+          <div class="form-field">
+            <label for="adminPass">Password</label>
+            <input id="adminPass" name="password" type="password" autocomplete="current-password" required>
+          </div>
+          <p class="admin-error" data-admin-error role="alert"></p>
+          <button class="btn pri admin-login-submit" type="submit">Enter dashboard</button>
+        </form>
+      </div>
+    </section>
+
+    <section class="admin-dashboard" data-dashboard hidden>
+      <div class="admin-shell">
+        <header class="admin-topbar">
+          <div class="admin-brand">
+            <img src="/assets/punchout-logo-black.png" alt="PunchOut Central">
+            <div>
+              <strong>Admin Portal</strong>
+              <span>Form submissions</span>
             </div>
-            <div class="form-field">
-              <label for="adminPass">Password</label>
-              <input id="adminPass" name="password" type="password" autocomplete="current-password" required>
-            </div>
-            <p class="admin-error" data-admin-error role="alert"></p>
-            <button class="btn pri" type="submit">Load submissions</button>
-          </form>
+          </div>
+          <div class="admin-actions" data-admin-actions hidden>
+            <button class="btn pri admin-refresh" type="button" data-refresh>Refresh data</button>
+            <button class="btn secbtn admin-signout" type="button" data-sign-out>Logout</button>
+          </div>
+        </header>
+
+        <section class="admin-title">
+          <h1>Form Submissions</h1>
+          <p data-active-summary>0 book demo submissions</p>
         </section>
 
-        <section class="admin-dashboard" data-dashboard hidden>
-          <div class="admin-stats">
-            <article><span>Book Demo</span><strong data-book-count>0</strong></article>
-            <article><span>Pricing</span><strong data-pricing-count>0</strong></article>
-            <article><span>Last synced</span><strong data-last-sync>-</strong></article>
+        <section class="admin-stats" aria-label="Submission summary">
+          <article class="admin-stat admin-stat--lime">
+            <span>Book Demo Forms</span>
+            <strong data-book-count>0</strong>
+          </article>
+          <article class="admin-stat admin-stat--mint">
+            <span>Pricing Forms</span>
+            <strong data-pricing-count>0</strong>
+          </article>
+          <article class="admin-stat admin-stat--lavender">
+            <span>Total Submissions</span>
+            <strong data-total-count>0</strong>
+          </article>
+        </section>
+
+        <div class="admin-tabs" role="tablist" aria-label="Submission type">
+          <button class="admin-tab is-active" id="book-demo-tab" type="button" role="tab" aria-controls="book-demo-panel" aria-selected="true" data-tab-trigger="book-demo">
+            Book Demo Forms
+          </button>
+          <button class="admin-tab" id="pricing-tab" type="button" role="tab" aria-controls="pricing-panel" aria-selected="false" tabindex="-1" data-tab-trigger="pricing">
+            Pricing Forms
+          </button>
+        </div>
+
+        <section class="admin-panel" id="book-demo-panel" role="tabpanel" aria-labelledby="book-demo-tab" data-tab-panel="book-demo">
+          <div class="admin-table-wrap">
+            <table class="admin-table" data-book-demo-table>
+              <thead>
+                <tr>
+                  <th>Submitted</th>
+                  <th>Email Status</th>
+                  <th>Name</th>
+                  <th>Work Email</th>
+                  <th>Company</th>
+                  <th>Buyer System</th>
+                  <th>Commerce</th>
+                  <th>Slot</th>
+                </tr>
+              </thead>
+              <tbody data-book-demo-rows></tbody>
+            </table>
+            <div class="admin-empty-state" data-book-demo-empty hidden>No submissions found.</div>
           </div>
+        </section>
 
-          <section class="admin-section">
-            <div class="admin-section__head">
-              <div>
-                <span class="ey">Book Demo</span>
-                <h2>Scheduled demo requests</h2>
-              </div>
-            </div>
-            <div class="admin-table-wrap">
-              <table class="admin-table">
-                <thead>
-                  <tr>
-                    <th>Created</th>
-                    <th>Lead</th>
-                    <th>Platforms</th>
-                    <th>Slot</th>
-                    <th>Status</th>
-                  </tr>
-                </thead>
-                <tbody data-book-demo-rows></tbody>
-              </table>
-              <p class="admin-empty" data-book-demo-empty hidden>No Book Demo submissions yet.</p>
-            </div>
-          </section>
-
-          <section class="admin-section">
-            <div class="admin-section__head">
-              <div>
-                <span class="ey">Pricing</span>
-                <h2>Pricing form enquiries</h2>
-              </div>
-            </div>
-            <div class="admin-table-wrap">
-              <table class="admin-table">
-                <thead>
-                  <tr>
-                    <th>Created</th>
-                    <th>Lead</th>
-                    <th>Plan</th>
-                    <th>Ecommerce</th>
-                    <th>Status</th>
-                  </tr>
-                </thead>
-                <tbody data-pricing-rows></tbody>
-              </table>
-              <p class="admin-empty" data-pricing-empty hidden>No Pricing submissions yet.</p>
-            </div>
-          </section>
+        <section class="admin-panel" id="pricing-panel" role="tabpanel" aria-labelledby="pricing-tab" data-tab-panel="pricing" hidden>
+          <div class="admin-table-wrap">
+            <table class="admin-table" data-pricing-table>
+              <thead>
+                <tr>
+                  <th>Submitted</th>
+                  <th>Email Status</th>
+                  <th>Name</th>
+                  <th>Work Email</th>
+                  <th>Contact</th>
+                  <th>Plan</th>
+                  <th>Ecommerce</th>
+                  <th>Technology</th>
+                </tr>
+              </thead>
+              <tbody data-pricing-rows></tbody>
+            </table>
+            <div class="admin-empty-state" data-pricing-empty hidden>No submissions found.</div>
+          </div>
         </section>
       </div>
     </section>
@@ -96,49 +119,78 @@ const adminEndpoint = import.meta.env.PUBLIC_ADMIN_SUBMISSIONS_ENDPOINT ?? '/api
 </SiteLayout>
 
 <style>
-  :global(.admin-page .site-footer){display:none}
-  .admin-hero{min-height:100vh;padding:142px 0 70px;background:linear-gradient(180deg,#fff,#F7F8F4)}
-  .admin-wrap{display:grid;gap:22px}
-  .admin-head{display:flex;align-items:end;justify-content:space-between;gap:20px}
-  .admin-head h1{font-size:clamp(3rem,5.5vw,5.6rem)}
-  .admin-head .lead{max-width:620px}
-  .admin-login,.admin-dashboard{border:1px solid rgba(32,33,36,.08);border-radius:28px;background:#fff;box-shadow:0 24px 70px rgba(32,33,36,.07)}
-  .admin-login{display:grid;grid-template-columns:.75fr 1fr;gap:24px;padding:28px}
-  .admin-login__copy{display:flex;min-height:250px;padding:24px;border-radius:22px;background:linear-gradient(145deg,#DFFFF9,var(--punchout));flex-direction:column;justify-content:end}
-  .admin-login__copy h2{font-size:42px}
-  .admin-login__copy p{margin:0;color:#53615E;font-size:12px;line-height:1.6}
-  .admin-login__form{display:grid;align-content:center;gap:13px}
-  .admin-login__form .btn{width:100%;margin-top:4px}
+  :global(.admin-page #hdr),:global(.admin-page .site-footer){display:none}
+  .admin-main{min-height:100vh;background:radial-gradient(circle at 78% 8%,rgba(194,255,2,.38),transparent 28%),radial-gradient(circle at 72% 56%,rgba(153,254,237,.34),transparent 33%),radial-gradient(circle at 10% 3%,rgba(217,214,253,.32),transparent 27%),linear-gradient(135deg,#fbfbff 0%,#fff 42%,#effffb 100%);color:var(--graphite)}
+  .admin-login-screen{min-height:100vh;display:grid;place-items:center;padding:32px}
+  .admin-login-card{width:min(440px,100%);padding:34px;border:1px solid rgba(32,33,36,.10);border-radius:28px;background:rgba(255,255,255,.92);box-shadow:0 30px 90px rgba(32,33,36,.12);backdrop-filter:blur(18px)}
+  .admin-login-logo{display:block;width:176px;height:62px;margin-bottom:22px;object-fit:contain;object-position:left center}
+  .admin-kicker{display:block;color:#777C79;font-size:10px;font-weight:900;letter-spacing:.12em;text-transform:uppercase}
+  .admin-login-card h1{margin:9px 0 10px;font-size:clamp(2.2rem,8vw,3.6rem);line-height:.94;letter-spacing:-.07em}
+  .admin-login-card p{margin:0 0 22px;color:#6C716E;font-size:13px;line-height:1.6}
+  .admin-login-form{display:grid;gap:13px}
+  .admin-login-submit{width:100%;margin-top:4px}
   .admin-error{display:none;margin:0;padding:11px 12px;border:1px solid rgba(188,123,88,.18);border-radius:12px;background:rgba(255,189,155,.18);color:#805C4A;font-size:10px;line-height:1.5}
   .admin-error.is-visible{display:block}
-  .admin-dashboard{display:grid;gap:24px;padding:24px}
-  .admin-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
-  .admin-stats article{padding:18px;border:1px solid rgba(32,33,36,.075);border-radius:18px;background:var(--gray)}
-  .admin-stats span{display:block;color:#8A8F8C;font-size:8px;font-weight:900;letter-spacing:.08em;text-transform:uppercase}
-  .admin-stats strong{display:block;margin-top:8px;color:var(--graphite);font-size:30px;line-height:1;letter-spacing:-.04em}
-  .admin-section{display:grid;gap:14px}
-  .admin-section__head{display:flex;align-items:end;justify-content:space-between;gap:18px}
-  .admin-section__head .ey{margin-bottom:8px}
-  .admin-section__head h2{margin:0;font-size:clamp(2rem,3.4vw,3.25rem)}
-  .admin-table-wrap{overflow:auto;border:1px solid rgba(32,33,36,.08);border-radius:20px;background:#fff}
-  .admin-table{width:100%;min-width:880px;border-collapse:collapse}
-  .admin-table th,.admin-table td{padding:15px 16px;border-bottom:1px solid rgba(32,33,36,.075);text-align:left;vertical-align:top}
-  .admin-table th{background:var(--gray);color:#858A87;font-size:8px;font-weight:900;letter-spacing:.08em;text-transform:uppercase}
-  .admin-table td{color:#555B58;font-size:11px;line-height:1.55}
+
+  .admin-dashboard{min-height:100vh;padding:34px 0 70px}
+  .admin-shell{width:min(1240px,calc(100% - 48px));margin:auto}
+  .admin-topbar{display:flex;align-items:center;justify-content:space-between;gap:18px;margin-bottom:34px;padding:12px 14px 12px 22px;border:1px solid rgba(32,33,36,.09);border-radius:999px;background:rgba(255,255,255,.84);box-shadow:0 18px 50px rgba(32,33,36,.07);backdrop-filter:blur(18px)}
+  .admin-brand{display:flex;align-items:center;gap:18px;min-width:0}
+  .admin-brand img{width:136px;height:44px;object-fit:contain;object-position:left center}
+  .admin-brand div{padding-left:17px;border-left:1px solid rgba(32,33,36,.13)}
+  .admin-brand strong,.admin-brand span{display:block}
+  .admin-brand strong{font-size:14px;font-weight:900}
+  .admin-brand span{margin-top:3px;color:#4F5552;font-size:10px;font-weight:900;letter-spacing:.1em;text-transform:uppercase}
+  .admin-actions{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+  .admin-actions .btn{min-height:44px;padding:0 18px}
+  .admin-title{margin-bottom:23px}
+  .admin-title h1{margin:0;color:var(--graphite);font-size:clamp(3.2rem,6vw,5.35rem);line-height:.9;letter-spacing:-.075em}
+  .admin-title p{margin:13px 0 0;color:#59605D;font-size:15px}
+
+  .admin-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:20px}
+  .admin-stat{position:relative;overflow:hidden;min-height:128px;padding:21px;border:1px solid rgba(32,33,36,.10);border-radius:22px;background:rgba(255,255,255,.82);box-shadow:0 18px 55px rgba(32,33,36,.055)}
+  .admin-stat:after{content:"";position:absolute;right:-18px;bottom:-25px;width:112px;height:86px;border-radius:999px 999px 20px 999px;background:var(--stat-accent);opacity:.78}
+  .admin-stat span{position:relative;z-index:1;display:block;color:#555B58;font-size:11px;font-weight:900;letter-spacing:.1em;text-transform:uppercase}
+  .admin-stat strong{position:relative;z-index:1;display:block;margin-top:16px;color:var(--graphite);font-size:56px;line-height:.85;letter-spacing:-.07em}
+  .admin-stat--lime{--stat-accent:rgba(194,255,2,.36)}
+  .admin-stat--mint{--stat-accent:rgba(153,254,237,.42)}
+  .admin-stat--lavender{--stat-accent:rgba(217,214,253,.48)}
+
+  .admin-tabs{display:flex;align-items:center;gap:14px;margin-bottom:18px;padding:8px;border:1px solid rgba(32,33,36,.09);border-radius:999px;background:rgba(255,255,255,.82);box-shadow:0 16px 44px rgba(32,33,36,.055);overflow-x:auto}
+  .admin-tab{flex:0 0 auto;min-height:42px;padding:0 18px;border:0;border-radius:999px;background:transparent;color:#05070A;font-size:13px;font-weight:900;cursor:pointer;white-space:nowrap;transition:.18s ease}
+  .admin-tab:hover{background:rgba(32,33,36,.06)}
+  .admin-tab.is-active{background:#1F2024;color:#fff;box-shadow:0 10px 24px rgba(32,33,36,.16)}
+
+  .admin-table-wrap{overflow:auto;border:1px solid rgba(32,33,36,.08);border-radius:24px;background:rgba(255,255,255,.86);box-shadow:0 24px 70px rgba(32,33,36,.08)}
+  .admin-table{width:100%;min-width:1120px;border-collapse:collapse}
+  .admin-table th,.admin-table td{padding:18px 16px;border-right:1px solid rgba(32,33,36,.07);border-bottom:1px solid rgba(32,33,36,.07);text-align:left;vertical-align:top}
+  .admin-table th:last-child,.admin-table td:last-child{border-right:0}
+  .admin-table th{background:rgba(245,245,243,.74);color:#5A5F5C;font-size:10px;font-weight:900;letter-spacing:.1em;text-transform:uppercase}
+  .admin-table td{color:#15171A;font-size:13px;line-height:1.5}
   .admin-table tr:last-child td{border-bottom:0}
-  .admin-lead strong,.admin-stack strong{display:block;color:var(--graphite);font-size:12px}
-  .admin-lead span,.admin-stack span{display:block;color:#747976;font-size:10px}
-  .admin-meta{display:block;margin-top:6px;color:#8A8F8C;font-size:9px}
-  .admin-message{max-width:380px;margin-top:8px;color:#69706C;font-size:10px}
-  .admin-link{display:inline-block;max-width:300px;overflow:hidden;color:var(--punchout-dark);font-size:10px;font-weight:800;text-overflow:ellipsis;white-space:nowrap}
-  .admin-status{display:inline-flex;align-items:center;gap:6px;padding:6px 9px;border-radius:999px;background:rgba(153,254,237,.32);color:var(--graphite);font-size:9px;font-weight:900}
-  .admin-status.is-failed{background:rgba(255,189,155,.23);color:#805C4A}
-  .admin-empty{margin:0;padding:18px;color:#777C79;font-size:12px}
+  .admin-cell-main{display:block;color:#15171A;font-weight:850}
+  .admin-cell-sub{display:block;margin-top:5px;color:#707572;font-size:11px}
+  .admin-status{display:inline-flex;align-items:center;justify-content:center;min-height:28px;padding:0 10px;border-radius:999px;background:#E8FF91;color:#405000;font-size:10px;font-weight:900;text-transform:uppercase}
+  .admin-status.is-failed{background:rgba(255,189,155,.45);color:#805C4A}
+  .admin-status.is-pending{background:#ECEDEB;color:#595E5B}
+  .admin-link{display:inline-block;max-width:210px;overflow:hidden;color:var(--punchout-dark);font-size:11px;font-weight:850;text-overflow:ellipsis;white-space:nowrap}
+  .admin-empty-state{min-height:140px;display:grid;place-items:center;border:1px dashed rgba(32,33,36,.14);border-radius:24px;color:#5D6460;font-size:15px}
+
   @media(max-width:900px){
-    .admin-head{align-items:start;flex-direction:column}
-    .admin-login{grid-template-columns:1fr}
-    .admin-login__copy{min-height:180px}
+    .admin-dashboard{padding-top:22px}
+    .admin-shell{width:min(100% - 28px,1240px)}
+    .admin-topbar{align-items:flex-start;border-radius:24px;flex-direction:column}
+    .admin-actions{width:100%}
+    .admin-actions .btn{flex:1}
     .admin-stats{grid-template-columns:1fr}
+  }
+  @media(max-width:560px){
+    .admin-login-screen{padding:18px}
+    .admin-login-card{padding:24px;border-radius:24px}
+    .admin-brand{align-items:flex-start;flex-direction:column;gap:10px}
+    .admin-brand div{padding-left:0;border-left:0}
+    .admin-actions{display:grid;grid-template-columns:1fr;width:100%}
+    .admin-title h1{font-size:3rem}
   }
 </style>
 
@@ -146,20 +198,31 @@ const adminEndpoint = import.meta.env.PUBLIC_ADMIN_SUBMISSIONS_ENDPOINT ?? '/api
   const adminRoot = document.querySelector('[data-admin-endpoint]');
 
   if (adminRoot) {
+    const ADMIN_TIME_ZONE = 'America/New_York';
     const endpoint = adminRoot.dataset.adminEndpoint;
     const loginCard = adminRoot.querySelector('[data-login-card]');
     const loginForm = adminRoot.querySelector('[data-login-form]');
+    const loginButton = loginForm.querySelector('button[type="submit"]');
     const dashboard = adminRoot.querySelector('[data-dashboard]');
+    const adminActions = adminRoot.querySelector('[data-admin-actions]');
     const refreshButton = adminRoot.querySelector('[data-refresh]');
+    const signOutButton = adminRoot.querySelector('[data-sign-out]');
     const errorBox = adminRoot.querySelector('[data-admin-error]');
+    const activeSummary = adminRoot.querySelector('[data-active-summary]');
     const bookRows = adminRoot.querySelector('[data-book-demo-rows]');
     const pricingRows = adminRoot.querySelector('[data-pricing-rows]');
+    const bookTable = adminRoot.querySelector('[data-book-demo-table]');
+    const pricingTable = adminRoot.querySelector('[data-pricing-table]');
     const bookEmpty = adminRoot.querySelector('[data-book-demo-empty]');
     const pricingEmpty = adminRoot.querySelector('[data-pricing-empty]');
     const bookCount = adminRoot.querySelector('[data-book-count]');
     const pricingCount = adminRoot.querySelector('[data-pricing-count]');
-    const lastSync = adminRoot.querySelector('[data-last-sync]');
+    const totalCount = adminRoot.querySelector('[data-total-count]');
+    const tabTriggers = [...adminRoot.querySelectorAll('[data-tab-trigger]')];
+    const tabPanels = [...adminRoot.querySelectorAll('[data-tab-panel]')];
     let authHeader = '';
+    let activeTab = 'book-demo';
+    let counts = { bookDemo: 0, pricing: 0 };
 
     const escapeHtml = value => String(value ?? '').replace(/[&<>"']/g, char => ({
       '&': '&amp;',
@@ -174,6 +237,13 @@ const adminEndpoint = import.meta.env.PUBLIC_ADMIN_SUBMISSIONS_ENDPOINT ?? '/api
       errorBox.classList.toggle('is-visible', Boolean(message));
     };
 
+    const setLoading = isLoading => {
+      loginButton.disabled = isLoading;
+      refreshButton.disabled = isLoading;
+      loginButton.textContent = isLoading ? 'Checking...' : 'Enter dashboard';
+      refreshButton.textContent = isLoading ? 'Loading...' : 'Refresh data';
+    };
+
     const basicAuth = (username, password) => {
       const bytes = new TextEncoder().encode(`${username}:${password}`);
       let binary = '';
@@ -183,97 +253,117 @@ const adminEndpoint = import.meta.env.PUBLIC_ADMIN_SUBMISSIONS_ENDPOINT ?? '/api
       return `Basic ${btoa(binary)}`;
     };
 
+    const plural = (count, label) => `${count} ${label} submission${count === 1 ? '' : 's'}`;
+
+    const updateActiveSummary = () => {
+      activeSummary.textContent = activeTab === 'book-demo'
+        ? plural(counts.bookDemo, 'book demo')
+        : plural(counts.pricing, 'pricing');
+    };
+
     const formatDate = value => {
       if (!value) return '-';
-      const date = new Date(String(value).replace(' ', 'T'));
-      if (Number.isNaN(date.getTime())) return value;
-      return new Intl.DateTimeFormat(undefined, {
+      const normalized = String(value).trim();
+      const sqlDate = normalized.match(/^(\d{4})-(\d{2})-(\d{2})[ T](\d{2}):(\d{2})/);
+      const date = sqlDate
+        ? new Date(Number(sqlDate[1]), Number(sqlDate[2]) - 1, Number(sqlDate[3]), Number(sqlDate[4]), Number(sqlDate[5]))
+        : new Date(normalized);
+      if (Number.isNaN(date.getTime())) return normalized;
+      return `${new Intl.DateTimeFormat('en-US', {
         month: 'short',
         day: 'numeric',
         year: 'numeric',
         hour: 'numeric',
         minute: '2-digit',
+      }).format(date)} ET`;
+    };
+
+    const formatUtcDate = value => {
+      if (!value) return '';
+      const date = new Date(`${String(value).replace(' ', 'T')}Z`);
+      if (Number.isNaN(date.getTime())) return value;
+      return new Intl.DateTimeFormat('en-US', {
+        month: 'short',
+        day: 'numeric',
+        year: 'numeric',
+        hour: 'numeric',
+        minute: '2-digit',
+        timeZone: ADMIN_TIME_ZONE,
+        timeZoneName: 'short',
       }).format(date);
     };
 
     const statusPill = row => {
-      const status = row.status || 'received';
-      const failed = status === 'failed' || row.error_message;
-      return `<span class="admin-status${failed ? ' is-failed' : ''}">${escapeHtml(status)}</span>`;
+      const failed = row.status === 'failed' || row.error_message;
+      const pending = !failed && row.email_enabled && !row.email_sent;
+      const label = failed ? 'Failed' : row.email_sent ? 'Sent' : pending ? 'Pending' : (row.status || 'Received');
+      return `<span class="admin-status${failed ? ' is-failed' : ''}${pending ? ' is-pending' : ''}">${escapeHtml(label)}</span>`;
     };
 
     const pageLink = row => row.page
-      ? `<a class="admin-link" href="${escapeHtml(row.page)}" target="_blank" rel="noreferrer">${escapeHtml(row.page)}</a>`
-      : '<span class="admin-meta">No page captured</span>';
+      ? `<a class="admin-link" href="${escapeHtml(row.page)}" target="_blank" rel="noreferrer">View page</a>`
+      : '<span class="admin-cell-sub">No page</span>';
 
     const renderBookDemo = rows => rows.map(row => `
       <tr>
-        <td>
-          <strong>${escapeHtml(formatDate(row.created_at))}</strong>
-          <span class="admin-meta">ID ${escapeHtml(row.id)}</span>
-        </td>
-        <td class="admin-lead">
-          <strong>${escapeHtml(row.name)}</strong>
-          <span>${escapeHtml(row.company || '-')}</span>
-          <span>${escapeHtml(row.email)}</span>
-          ${pageLink(row)}
-          ${row.buyer_request ? `<p class="admin-message">${escapeHtml(row.buyer_request)}</p>` : ''}
-        </td>
-        <td class="admin-stack">
-          <strong>${escapeHtml(row.buyer_procurement_system || '-')}</strong>
-          <span>${escapeHtml(row.commerce_platform || '-')}</span>
-          <span>${escapeHtml(row.website || '')}</span>
-        </td>
-        <td class="admin-stack">
-          <strong>${escapeHtml(row.selected_date || '-')}</strong>
-          <span>${escapeHtml(row.selected_time_label || '')} ${escapeHtml(row.timezone || '')}</span>
-          <span>${escapeHtml(row.meeting_start_utc || '')}</span>
-        </td>
+        <td><span class="admin-cell-main">${escapeHtml(formatDate(row.created_at))}</span><span class="admin-cell-sub">ID ${escapeHtml(row.id)}</span></td>
         <td>${statusPill(row)}</td>
+        <td><span class="admin-cell-main">${escapeHtml(row.name || '-')}</span><span class="admin-cell-sub">${escapeHtml(row.company || '-')}</span></td>
+        <td><span class="admin-cell-main">${escapeHtml(row.email || '-')}</span>${pageLink(row)}</td>
+        <td>${escapeHtml(row.company || '-')}</td>
+        <td>${escapeHtml(row.buyer_procurement_system || '-')}</td>
+        <td>${escapeHtml(row.commerce_platform || '-')}</td>
+        <td><span class="admin-cell-main">${escapeHtml(row.selected_date || '-')}</span><span class="admin-cell-sub">${escapeHtml(row.selected_time_label || '')} ${escapeHtml(row.timezone || '')}</span>${row.meeting_start_utc ? `<span class="admin-cell-sub">${escapeHtml(formatUtcDate(row.meeting_start_utc))}</span>` : ''}</td>
       </tr>
     `).join('');
 
     const renderPricing = rows => rows.map(row => `
       <tr>
-        <td>
-          <strong>${escapeHtml(formatDate(row.created_at))}</strong>
-          <span class="admin-meta">ID ${escapeHtml(row.id)}</span>
-        </td>
-        <td class="admin-lead">
-          <strong>${escapeHtml(row.name)}</strong>
-          <span>${escapeHtml(row.email)}</span>
-          <span>${escapeHtml(row.contact || '-')}</span>
-          ${pageLink(row)}
-        </td>
-        <td class="admin-stack">
-          <strong>${escapeHtml(row.pricing_plan || '-')}</strong>
-          <span>${escapeHtml(row.website || '')}</span>
-        </td>
-        <td class="admin-stack">
-          <strong>${escapeHtml(row.commerce_platform || '-')}</strong>
-          <span>${escapeHtml(row.technology || '')}</span>
-        </td>
+        <td><span class="admin-cell-main">${escapeHtml(formatDate(row.created_at))}</span><span class="admin-cell-sub">ID ${escapeHtml(row.id)}</span></td>
         <td>${statusPill(row)}</td>
+        <td><span class="admin-cell-main">${escapeHtml(row.name || '-')}</span>${pageLink(row)}</td>
+        <td>${escapeHtml(row.email || '-')}</td>
+        <td>${escapeHtml(row.contact || '-')}</td>
+        <td>${escapeHtml(row.pricing_plan || '-')}</td>
+        <td>${escapeHtml(row.commerce_platform || '-')}</td>
+        <td>${escapeHtml(row.technology || '-')}</td>
       </tr>
     `).join('');
+
+    const activateTab = tabName => {
+      activeTab = tabName;
+      tabTriggers.forEach(trigger => {
+        const selected = trigger.dataset.tabTrigger === tabName;
+        trigger.classList.toggle('is-active', selected);
+        trigger.setAttribute('aria-selected', selected ? 'true' : 'false');
+        trigger.tabIndex = selected ? 0 : -1;
+      });
+      tabPanels.forEach(panel => {
+        panel.hidden = panel.dataset.tabPanel !== tabName;
+      });
+      updateActiveSummary();
+    };
 
     const render = data => {
       const bookDemo = Array.isArray(data.book_demo) ? data.book_demo : [];
       const pricing = Array.isArray(data.pricing) ? data.pricing : [];
+      counts = { bookDemo: bookDemo.length, pricing: pricing.length };
 
       bookRows.innerHTML = renderBookDemo(bookDemo);
       pricingRows.innerHTML = renderPricing(pricing);
+      bookTable.hidden = bookDemo.length === 0;
+      pricingTable.hidden = pricing.length === 0;
       bookEmpty.hidden = bookDemo.length > 0;
       pricingEmpty.hidden = pricing.length > 0;
       bookCount.textContent = String(bookDemo.length);
       pricingCount.textContent = String(pricing.length);
-      lastSync.textContent = new Intl.DateTimeFormat(undefined, { hour: 'numeric', minute: '2-digit' }).format(new Date());
+      totalCount.textContent = String(bookDemo.length + pricing.length);
+      activateTab(activeTab);
     };
 
     const loadSubmissions = async () => {
       setError('');
-      refreshButton.disabled = true;
-      refreshButton.textContent = 'Loading...';
+      setLoading(true);
 
       try {
         const response = await fetch(endpoint, {
@@ -288,15 +378,14 @@ const adminEndpoint = import.meta.env.PUBLIC_ADMIN_SUBMISSIONS_ENDPOINT ?? '/api
         render(result);
         loginCard.hidden = true;
         dashboard.hidden = false;
-        refreshButton.hidden = false;
+        adminActions.hidden = false;
       } catch (error) {
         setError(error instanceof Error ? error.message : 'Could not load submissions.');
         loginCard.hidden = false;
         dashboard.hidden = true;
-        refreshButton.hidden = true;
+        adminActions.hidden = true;
       } finally {
-        refreshButton.disabled = false;
-        refreshButton.textContent = 'Refresh';
+        setLoading(false);
       }
     };
 
@@ -308,5 +397,16 @@ const adminEndpoint = import.meta.env.PUBLIC_ADMIN_SUBMISSIONS_ENDPOINT ?? '/api
     });
 
     refreshButton.addEventListener('click', loadSubmissions);
+    signOutButton.addEventListener('click', () => {
+      authHeader = '';
+      loginForm.reset();
+      loginCard.hidden = false;
+      dashboard.hidden = true;
+      adminActions.hidden = true;
+      setError('');
+    });
+    tabTriggers.forEach(trigger => {
+      trigger.addEventListener('click', () => activateTab(trigger.dataset.tabTrigger));
+    });
   }
 </script>

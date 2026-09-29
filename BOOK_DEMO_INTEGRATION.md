@@ -47,7 +47,7 @@ The frontend sends these main fields:
 - `selectedDateISO`
 - `selectedTime`
 - `selectedTimeLabel`
-- `timezone`
+- `timezone` (`America/New_York` by default)
 - `page`
 - `referrer`
 
@@ -73,6 +73,7 @@ Recommended Hostinger private config values:
 ```php
 'db_enabled' => true,
 'db_table' => 'book_demo_submissions',
+'timezone' => 'America/New_York',
 'db_host' => '127.0.0.1',
 'db_port' => '3306',
 'db_database' => 'your_database_name',
@@ -86,6 +87,7 @@ Environment variable setup is also supported:
 ```env
 BOOK_DEMO_DB_ENABLED=true
 BOOK_DEMO_DB_TABLE=book_demo_submissions
+BOOK_DEMO_TIMEZONE=America/New_York
 DB_HOST=127.0.0.1
 DB_PORT=3306
 DB_DATABASE=your_database_name
@@ -95,6 +97,8 @@ DB_CHARSET=utf8mb4
 ```
 
 The table stores contact details, website, selected pricing plan, selected ecommerce platform, book-demo meeting slot, page/referrer, IP/user agent, raw payload, and delivery status.
+
+The booking flow and admin dashboard default to US Eastern Time (`America/New_York`). Set `BOOK_DEMO_TIMEZONE` or the private config `timezone` value if you need a different US timezone, such as `America/Chicago`, `America/Denver`, or `America/Los_Angeles`.
 
 ## Enable admin dashboard
 

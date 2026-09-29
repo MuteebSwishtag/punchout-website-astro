@@ -109,7 +109,7 @@ const formToken = import.meta.env.PUBLIC_BOOK_DEMO_TOKEN ?? '';
                 <h3>Time</h3>
                 <p class="book-demo-selected-date" id="selectedDatePill" hidden><span></span></p>
                 <div class="book-demo-time-list" id="timeList" aria-label="Available demo times"></div>
-                <p class="book-demo-timezone">Times are shown in <strong id="timezoneText">your timezone</strong>.</p>
+                <p class="book-demo-timezone">Times are shown in <strong id="timezoneText">US Eastern Time</strong>.</p>
               </div>
             </div>
 
@@ -165,6 +165,7 @@ const formToken = import.meta.env.PUBLIC_BOOK_DEMO_TOKEN ?? '';
   const hiddenTimeLabel = document.getElementById('selectedTimeLabel');
   const hiddenTimezone = document.getElementById('timezone');
   const formLoadedAt = Date.now().toString();
+  const bookingTimezone = 'America/New_York';
 
   const state = {
     step: 1,
@@ -172,20 +173,33 @@ const formToken = import.meta.env.PUBLIC_BOOK_DEMO_TOKEN ?? '';
     selectedDateISO: '',
     selectedTime: '',
     selectedTimeLabel: '',
-    timezone: Intl.DateTimeFormat().resolvedOptions().timeZone || 'UTC',
+    timezone: bookingTimezone,
   };
 
   const slotTimes = ['09:00', '10:30', '12:00', '13:30', '15:00'];
   const dateOptions = [];
-  const today = new Date();
+  const today = getTodayInBookingTimezone();
 
-  timezoneText.textContent = state.timezone;
+  timezoneText.textContent = 'US Eastern Time';
   hiddenTimezone.value = state.timezone;
 
   for (let i = 1; dateOptions.length < 10 && i < 21; i += 1) {
     const date = new Date(today);
     date.setDate(today.getDate() + i);
     if (date.getDay() !== 0 && date.getDay() !== 6) dateOptions.push(date);
+  }
+
+  function getTodayInBookingTimezone() {
+    const parts = new Intl.DateTimeFormat('en-US', {
+      timeZone: bookingTimezone,
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit',
+    }).formatToParts(new Date()).reduce((memo, part) => {
+      memo[part.type] = part.value;
+      return memo;
+    }, {});
+    return new Date(`${parts.year}-${parts.month}-${parts.day}T12:00:00`);
   }
 
   function setStep(step) {
@@ -283,13 +297,13 @@ const formToken = import.meta.env.PUBLIC_BOOK_DEMO_TOKEN ?? '';
   }
 
   function formatDateLong(date) {
-    return new Intl.DateTimeFormat(undefined, { weekday: 'long', month: 'long', day: 'numeric' }).format(date);
+    return new Intl.DateTimeFormat('en-US', { weekday: 'long', month: 'long', day: 'numeric' }).format(date);
   }
 
   function formatDateParts(date) {
     return {
-      day: new Intl.DateTimeFormat(undefined, { weekday: 'short' }).format(date),
-      date: new Intl.DateTimeFormat(undefined, { month: 'short', day: 'numeric' }).format(date),
+      day: new Intl.DateTimeFormat('en-US', { weekday: 'short' }).format(date),
+      date: new Intl.DateTimeFormat('en-US', { month: 'short', day: 'numeric' }).format(date),
     };
   }
 
@@ -299,9 +313,9 @@ const formToken = import.meta.env.PUBLIC_BOOK_DEMO_TOKEN ?? '';
 
   function formatTimeLabel(time) {
     const [hour, minute] = time.split(':').map(Number);
-    const date = new Date();
-    date.setHours(hour, minute, 0, 0);
-    return new Intl.DateTimeFormat(undefined, { hour: 'numeric', minute: '2-digit' }).format(date);
+    const suffix = hour >= 12 ? 'PM' : 'AM';
+    const displayHour = hour % 12 || 12;
+    return `${displayHour}:${String(minute).padStart(2, '0')} ${suffix}`;
   }
 
   function updateHiddenFields() {
@@ -316,7 +330,7 @@ const formToken = import.meta.env.PUBLIC_BOOK_DEMO_TOKEN ?? '';
     updateHiddenFields();
     if (state.selectedDate && state.selectedTimeLabel) {
       bookingSummary.classList.add('show');
-      bookingSummary.innerHTML = `<strong>Selected slot</strong>${state.selectedDate} at ${state.selectedTimeLabel} - ${state.timezone}`;
+      bookingSummary.innerHTML = `<strong>Selected slot</strong>${state.selectedDate} at ${state.selectedTimeLabel} - US Eastern Time`;
     } else if (state.selectedDate) {
       bookingSummary.classList.add('show');
       bookingSummary.innerHTML = `<strong>Date selected</strong>${state.selectedDate}. Choose a time to finish booking.`;
@@ -421,7 +435,7 @@ const formToken = import.meta.env.PUBLIC_BOOK_DEMO_TOKEN ?? '';
 
       document.getElementById('successEmail').textContent = payload.email;
       document.getElementById('successDate').textContent = state.selectedDate;
-      document.getElementById('successTime').textContent = `${state.selectedTimeLabel} - ${state.timezone}`;
+      document.getElementById('successTime').textContent = `${state.selectedTimeLabel} - US Eastern Time`;
       document.getElementById('successCompany').textContent = payload.company;
       document.getElementById('successPlatform').textContent = payload.platform;
 
