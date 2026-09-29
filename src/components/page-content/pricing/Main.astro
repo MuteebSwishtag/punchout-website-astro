@@ -217,11 +217,11 @@ const otherIcon = icon(faStore).html.join('');
       const isShopify = platform === 'Shopify';
       shopifyPanel.hidden = !isShopify;
       leadPanel.hidden = isShopify;
+      technologyField.hidden = platform !== 'Other';
       if (!isShopify) {
         leadPanel.setAttribute('aria-labelledby', `pricing-tab-${platform.toLowerCase()}`);
         leadForm.elements.platform.value = platform;
         platformName.textContent = platform;
-        technologyField.hidden = platform !== 'Other';
       }
       setError(shopifyError);
       setError(leadError);
