@@ -511,6 +511,9 @@ body.inner-page{background:#fff}
   position:relative;min-height:410px;padding:22px;border:1px solid rgba(32,33,36,.075);
   border-radius:30px;background:rgba(255,255,255,.88);box-shadow:0 25px 70px rgba(32,33,36,.055)
 }
+.hero-visual:has(> picture){transform:translateY(-18px)}
+.hero-visual > picture{display:block;margin:0 auto}
+.hero-visual > picture img{display:block;width:100%;height:auto;object-fit:contain;border-radius:24px}
 .hero-visual__label{display:flex;align-items:center;justify-content:space-between;padding-bottom:16px;border-bottom:1px solid var(--line)}
 .hero-visual__label span{color:#8B908D;font-size:8px;font-weight:900;letter-spacing:.1em;text-transform:uppercase}
 .hero-visual__label b{padding:5px 8px;border-radius:999px;background:rgba(153,254,237,.38);font-size:7px}
