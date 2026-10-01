@@ -2,11 +2,11 @@
 ---
 <main>
 
-<section class="page-hero page-hero--mint" id="overview">
+<section class="page-hero page-hero--mint page-hero--purchase-orders" id="overview">
   <div class="wrap page-hero__grid">
     <div class="page-hero__copy reveal">
       <span class="ey">Purchase Orders</span>
-      <h1>Turn approved POs into Shopify orders automatically.</h1>
+      <h1 class="purchase-order-title"><span>Turn approved POs</span><span>into Shopify orders</span><span>automatically.</span></h1>
       <p class="lead">Keep the buyer’s approval process in procurement, then let PunchOut Central move the approved order into commerce.</p>
       <div class="page-hero__actions">
          <a class="btn pri" href="https://app.punchoutcentral.com/platform/register" target="_blank">Connect my first buyer <span aria-hidden="true">→</span></a>
@@ -19,9 +19,54 @@
       </div>
     </div>
     
-    <div class="hero-visual reveal">
-      <div class="hero-visual__label"><span>PunchOut Central</span><b>Connected</b></div>
-      <div class="visual-flow"><div class="visual-step is-accent"><i>01</i><span><strong>Cart returned</strong><small>Buyer reviews in procurement</small></span><em>Pending</em></div><div class="visual-step is-lavender"><i>02</i><span><strong>Buyer approved</strong><small>Internal approval completed</small></span><em>Approved</em></div><div class="visual-step is-peach"><i>03</i><span><strong>PO received</strong><small>PunchOut Central receives PO</small></span><em>Validated</em></div><div class="visual-step is-lime"><i>04</i><span><strong>Shopify order</strong><small>Matching store order created</small></span><em>Created</em></div></div>
+    <div class="purchase-order-flow reveal" aria-label="Purchase order workflow from returned cart to Shopify order">
+      <div class="purchase-order-flow__head">
+        <strong>PunchOut Central</strong>
+        <span><i aria-hidden="true"></i>Connected</span>
+      </div>
+
+      <div class="purchase-order-flow__steps">
+        <article class="purchase-order-step">
+          <span class="purchase-order-step__num purchase-order-step__num--mint">01</span>
+          <span class="purchase-order-step__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M3 4h2l2.2 10.2a2 2 0 0 0 2 1.6h7.7a2 2 0 0 0 2-1.6L20 8H7"></path><circle cx="10" cy="20" r="1"></circle><circle cx="17" cy="20" r="1"></circle></svg>
+          </span>
+          <span class="purchase-order-step__copy"><strong>Cart returned</strong><small>Buyer reviews in procurement</small></span>
+          <span class="purchase-order-step__status purchase-order-step__status--pending">Pending</span>
+        </article>
+
+        <article class="purchase-order-step">
+          <span class="purchase-order-step__num purchase-order-step__num--lavender">02</span>
+          <span class="purchase-order-step__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="7" r="4"></circle><path d="M5 21v-2a7 7 0 0 1 14 0v2"></path></svg>
+          </span>
+          <span class="purchase-order-step__copy"><strong>Buyer approves purchase</strong><small>Internal approval completed</small></span>
+          <span class="purchase-order-step__status purchase-order-step__status--approved">&#10003; Approved</span>
+        </article>
+
+        <article class="purchase-order-step">
+          <span class="purchase-order-step__num purchase-order-step__num--peach">03</span>
+          <span class="purchase-order-step__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M6 2h8l4 4v16H6z"></path><path d="M14 2v5h5M9 12h6M9 16h6"></path></svg>
+          </span>
+          <span class="purchase-order-step__copy"><strong>Approved PO received</strong><small>PunchOut Central validates the PO</small></span>
+          <span class="purchase-order-step__status purchase-order-step__status--validated">&#10003; Validated</span>
+        </article>
+
+        <div class="purchase-order-flow__automation" aria-hidden="true">
+          <span>Automatically creates</span>
+          <b>↓</b>
+        </div>
+
+        <article class="purchase-order-step purchase-order-step--final">
+          <span class="purchase-order-step__num purchase-order-step__num--lime">04</span>
+          <span class="purchase-order-step__icon purchase-order-step__icon--shopify">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/0/0e/Shopify_logo_2018.svg" alt="Shopify" loading="lazy" decoding="async">
+          </span>
+          <span class="purchase-order-step__copy"><strong>Shopify order created</strong><small>Matching order appears in your store</small></span>
+          <span class="purchase-order-step__status purchase-order-step__status--created">&#10003; Created</span>
+        </article>
+      </div>
     </div>
   </div>
 </section>

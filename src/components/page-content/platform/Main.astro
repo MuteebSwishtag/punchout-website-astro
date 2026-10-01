@@ -142,36 +142,225 @@
       <p class="lead">Every step stays connected to the same buyer transaction.</p>
     </div>
 
-    <div class="po-flow-shell reveal">
-      <div class="po-flow">
-        <div class="po-step"><span class="po-step__num">01</span><strong>PunchOut Started</strong><span>Buyer enters catalog</span></div>
-        <div class="po-step"><span class="po-step__num">02</span><strong>Cart Returned</strong><span>Cart goes to procurement</span></div>
-        <div class="po-step"><span class="po-step__num">03</span><strong>Buyer Approved</strong><span>Internal approval</span></div>
-        <div class="po-step"><span class="po-step__num">04</span><strong>PO Received</strong><span>Approved PO arrives</span></div>
-        <div class="po-step"><span class="po-step__num">05</span><strong>Store Order Created</strong><span>Commerce order created</span></div>
-        <div class="po-step"><span class="po-step__num">06</span><strong>Invoice Generated</strong><span>Invoice stays linked</span></div>
+    <div class="pc-order-shell reveal" id="pcOrderFlowPlatform" aria-label="PunchOut order process">
+      <div class="pc-order-progress pc-order-progress--integrated">
+        <div class="pc-order-progress__main">
+          <div class="pc-order-progress__action">
+            <span class="pc-order-progress__pulse"></span>
+            <div>
+              <span class="pc-order-progress__kicker" id="pcOrderStepLabelPlatform">Step 1 of 6</span>
+              <strong id="pcOrderStatusPlatform">Starting PunchOut session...</strong>
+            </div>
+          </div>
+
+          <div class="pc-order-progress__metric" aria-label="Order completion percentage">
+            <strong>
+              <span id="pcOrderPercentPlatform">0</span>
+              <span class="pc-order-progress__symbol">%</span>
+              <span class="pc-order-progress__complete-label">Complete</span>
+            </strong>
+          </div>
+        </div>
       </div>
+
+      <div class="pc-order-route" aria-hidden="true">
+        <div class="pc-order-route__line">
+          <span class="pc-order-route__fill"></span>
+          <span class="pc-order-route__packet"><span></span></span>
+        </div>
+
+        <div class="pc-order-route__nodes">
+          <span class="pc-order-route__node is-current" data-node="0"></span>
+          <span class="pc-order-route__node" data-node="1"></span>
+          <span class="pc-order-route__node" data-node="2"></span>
+          <span class="pc-order-route__node" data-node="3"></span>
+          <span class="pc-order-route__node" data-node="4"></span>
+          <span class="pc-order-route__node" data-node="5"></span>
+        </div>
+      </div>
+
+      <div class="pc-order-flow pc-order-flow--synced">
+        <article class="pc-order-step" data-step="0">
+          <div class="pc-order-step__icon" aria-hidden="true">
+            <svg viewBox="0 0 64 64">
+              <path d="M14 22h22a8 8 0 0 1 8 8v12"></path>
+              <path d="M32 16l6 6-6 6"></path>
+              <rect x="10" y="16" width="18" height="12" rx="4"></rect>
+              <rect x="36" y="36" width="18" height="12" rx="4"></rect>
+            </svg>
+          </div>
+          <div class="pc-order-step__meta">
+            <span class="pc-order-step__num">01</span>
+            <span class="pc-order-step__check" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M6.8 12.4l3.2 3.2 7.2-7.3"></path></svg>
+            </span>
+          </div>
+          <div class="pc-order-step__body">
+            <h3>PunchOut Started</h3>
+            <p>The buyer opens your Shopify catalog from their procurement system.</p>
+          </div>
+          <div class="pc-order-step__state">
+            <span class="pc-order-step__state-dot"></span>
+            <span class="pc-order-step__state-text">Waiting</span>
+          </div>
+        </article>
+
+        <article class="pc-order-step" data-step="1">
+          <div class="pc-order-step__icon" aria-hidden="true">
+            <svg viewBox="0 0 64 64">
+              <path d="M12 18h8l4 22h24l4-16H22"></path>
+              <circle cx="28" cy="48" r="3"></circle>
+              <circle cx="46" cy="48" r="3"></circle>
+              <path d="M47 12l6 6-6 6"></path>
+            </svg>
+          </div>
+          <div class="pc-order-step__meta">
+            <span class="pc-order-step__num">02</span>
+            <span class="pc-order-step__check" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M6.8 12.4l3.2 3.2 7.2-7.3"></path></svg>
+            </span>
+          </div>
+          <div class="pc-order-step__body">
+            <h3>Cart Returned</h3>
+            <p>The cart and order details go back to the buyer's procurement system.</p>
+          </div>
+          <div class="pc-order-step__state">
+            <span class="pc-order-step__state-dot"></span>
+            <span class="pc-order-step__state-text">Waiting</span>
+          </div>
+        </article>
+
+        <article class="pc-order-step" data-step="2">
+          <div class="pc-order-step__icon" aria-hidden="true">
+            <svg viewBox="0 0 64 64">
+              <circle cx="32" cy="32" r="19"></circle>
+              <path d="M22 32l7 7 14-15"></path>
+            </svg>
+          </div>
+          <div class="pc-order-step__meta">
+            <span class="pc-order-step__num">03</span>
+            <span class="pc-order-step__check" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M6.8 12.4l3.2 3.2 7.2-7.3"></path></svg>
+            </span>
+          </div>
+          <div class="pc-order-step__body">
+            <h3>Buyer Approved</h3>
+            <p>The buyer's team reviews and approves the purchase in their procurement system.</p>
+          </div>
+          <div class="pc-order-step__state">
+            <span class="pc-order-step__state-dot"></span>
+            <span class="pc-order-step__state-text">Waiting</span>
+          </div>
+        </article>
+
+        <article class="pc-order-step" data-step="3">
+          <div class="pc-order-step__icon" aria-hidden="true">
+            <svg viewBox="0 0 64 64">
+              <path d="M18 10h20l10 10v34H18z"></path>
+              <path d="M38 10v12h12"></path>
+              <path d="M24 32h18M24 40h14"></path>
+            </svg>
+          </div>
+          <div class="pc-order-step__meta">
+            <span class="pc-order-step__num">04</span>
+            <span class="pc-order-step__check" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M6.8 12.4l3.2 3.2 7.2-7.3"></path></svg>
+            </span>
+          </div>
+          <div class="pc-order-step__body">
+            <h3>PO Received</h3>
+            <p>The approved purchase order arrives in PunchOut Central for a quick preview.</p>
+          </div>
+          <div class="pc-order-step__state">
+            <span class="pc-order-step__state-dot"></span>
+            <span class="pc-order-step__state-text">Waiting</span>
+          </div>
+        </article>
+
+        <article class="pc-order-step" data-step="4">
+          <div class="pc-order-step__icon" aria-hidden="true">
+            <svg viewBox="0 0 64 64">
+              <path d="M12 26l20-12 20 12v24H12z"></path>
+              <path d="M20 32h24"></path>
+              <path d="M22 50V36h20v14"></path>
+              <path d="M32 20v8"></path>
+            </svg>
+          </div>
+          <div class="pc-order-step__meta">
+            <span class="pc-order-step__num">05</span>
+            <span class="pc-order-step__check" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M6.8 12.4l3.2 3.2 7.2-7.3"></path></svg>
+            </span>
+          </div>
+          <div class="pc-order-step__body">
+            <h3>Store Order Created</h3>
+            <p>PunchOut Central automatically creates the matching order in Shopify.</p>
+          </div>
+          <div class="pc-order-step__state">
+            <span class="pc-order-step__state-dot"></span>
+            <span class="pc-order-step__state-text">Waiting</span>
+          </div>
+        </article>
+
+        <article class="pc-order-step" data-step="5">
+          <div class="pc-order-step__icon" aria-hidden="true">
+            <svg viewBox="0 0 64 64">
+              <path d="M18 10h28v44l-5-4-5 4-5-4-5 4-5-4-3 3z"></path>
+              <path d="M24 24h16M24 32h16M24 40h10"></path>
+              <path d="M40 40h2"></path>
+            </svg>
+          </div>
+          <div class="pc-order-step__meta">
+            <span class="pc-order-step__num">06</span>
+            <span class="pc-order-step__check" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M6.8 12.4l3.2 3.2 7.2-7.3"></path></svg>
+            </span>
+          </div>
+          <div class="pc-order-step__body">
+            <h3>Invoice Generated</h3>
+            <p>The invoice stays linked to the buyer and PO, with a quick preview in PunchOut Central.</p>
+          </div>
+          <div class="pc-order-step__state">
+            <span class="pc-order-step__state-dot"></span>
+            <span class="pc-order-step__state-text">Waiting</span>
+          </div>
+        </article>
+      </div>
+
+      <div class="pc-order-process__close">
+        <div>
+          <strong>Six steps. One connected order.</strong>
+          <span>PunchOut Central handles the technical flow so you can focus on the customer.</span>
+        </div>
+      </div>
+
+      <div class="pc-order-celebration" aria-hidden="true">
+        <div class="pc-order-celebration__card">
+          <span class="pc-order-celebration__eyebrow">Order Completed</span>
+          <h3>You hit the SIXER!</h3>
+          <p>
+            Congratulations. Your order moved through all six steps.
+            <strong>That's how easy PunchOut can feel.</strong>
+          </p>
+
+          <button class="pc-order-restart" id="pcOrderRestartPlatform" type="button" aria-label="Replay the order journey">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M20 11a8 8 0 1 0-2.34 5.66"></path>
+              <path d="M20 5v6h-6"></path>
+            </svg>
+            <span>Replay the order</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="pc-order-confetti" id="pcOrderConfettiPlatform" aria-hidden="true"></div>
     </div>
   </div>
 </section>
 
 <section class="sec" id="control">
   <div class="wrap po-control">
-    <div class="po-dashboard reveal" aria-label="PunchOut Central control center preview">
-      <div class="po-dashboard__bar"><strong>Control Center</strong><span>All systems healthy</span></div>
-      <div class="po-dashboard__metrics">
-        <div class="po-stat"><span>Buyers</span><strong>8</strong></div>
-        <div class="po-stat"><span>Stores</span><strong>3</strong></div>
-        <div class="po-stat"><span>Orders</span><strong>1,284</strong></div>
-      </div>
-      <div class="po-table">
-        <div class="po-row po-row--head"><span>Buyer</span><span>PO</span><span>Store</span><span>Status</span></div>
-        <div class="po-row"><strong>University ABC</strong><span>#84721</span><span>Store 01</span><span class="po-status">Created</span></div>
-        <div class="po-row"><strong>Enterprise Co.</strong><span>#22918</span><span>Store 02</span><span class="po-status">Invoice</span></div>
-        <div class="po-row"><strong>Healthcare Group</strong><span>#10244</span><span>Store 03</span><span class="po-status">Healthy</span></div>
-        <div class="po-row"><strong>National Buyer</strong><span>#66201</span><span>Store 01</span><span class="po-status">Created</span></div>
-      </div>
-    </div>
+   <img src="/assets/platform.png" alt="PunchOut Central Control Center" class="po-control__img reveal" width="1776" height="768" loading="lazy" decoding="async">
 
     <div class="po-control__copy reveal">
       <span class="ey">Control Center</span>
@@ -286,3 +475,320 @@
   </div>
 </section>
 </main>
+
+<script is:inline>
+(() => {
+  const flow = document.getElementById('pcOrderFlowPlatform');
+  if (!flow) return;
+
+  const shell = flow.closest('.pc-order-shell');
+  const route = flow.querySelector('.pc-order-route');
+  const steps = Array.from(flow.querySelectorAll('.pc-order-step'));
+  const nodes = Array.from(flow.querySelectorAll('.pc-order-route__node'));
+  const percentEl = document.getElementById('pcOrderPercentPlatform');
+  const statusEl = document.getElementById('pcOrderStatusPlatform');
+  const stepLabelEl = document.getElementById('pcOrderStepLabelPlatform');
+  const restartBtn = document.getElementById('pcOrderRestartPlatform');
+  const confetti = document.getElementById('pcOrderConfettiPlatform');
+  const celebration = shell?.querySelector('.pc-order-celebration');
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+  if (
+    !shell || !route || !steps.length || !percentEl || !statusEl ||
+    !stepLabelEl || !restartBtn || !confetti || !celebration
+  ) return;
+
+  const stepMessages = [
+    'Starting PunchOut session...',
+    'Returning cart to procurement...',
+    'Waiting for buyer approval...',
+    'Receiving approved purchase order...',
+    'Creating Shopify order...',
+    'Generating invoice...'
+  ];
+
+  const completeMessages = [
+    'PunchOut session started',
+    'Cart returned successfully',
+    'Buyer approval completed',
+    'Purchase order received',
+    'Shopify order created',
+    'Invoice generated'
+  ];
+
+  let timers = [];
+  let running = false;
+  let visible = false;
+  let finished = false;
+  let currentPercent = 0;
+
+  const wait = (ms) => new Promise(resolve => {
+    const id = window.setTimeout(resolve, ms);
+    timers.push(id);
+  });
+
+  const clearTimers = () => {
+    timers.forEach(window.clearTimeout);
+    timers = [];
+  };
+
+  const setCardText = (step, text) => {
+    const el = step.querySelector('.pc-order-step__state-text');
+    if (el) el.textContent = text;
+  };
+
+  const checkpointPercent = (index) => {
+    const max = Math.max(steps.length - 1, 1);
+    return (index / max) * 100;
+  };
+
+  const completedPercent = (index) => Math.round(((index + 1) / steps.length) * 100);
+
+  const animatePercent = (from, to, duration = 460) => {
+    const startTime = performance.now();
+
+    return new Promise(resolve => {
+      const tick = (now) => {
+        if (!running || !visible) return resolve();
+
+        const p = Math.min(1, (now - startTime) / duration);
+        const eased = 1 - Math.pow(1 - p, 3);
+        percentEl.textContent = String(Math.round(from + (to - from) * eased));
+
+        if (p < 1) requestAnimationFrame(tick);
+        else resolve();
+      };
+
+      requestAnimationFrame(tick);
+    });
+  };
+
+  const setCheckpointState = (currentIndex) => {
+    nodes.forEach((node, i) => {
+      node.classList.toggle('is-current', i === currentIndex);
+      node.classList.toggle('is-complete', i < currentIndex);
+    });
+  };
+
+  const clearConfetti = () => {
+    confetti.innerHTML = '';
+  };
+
+  const fireConfetti = () => {
+    clearConfetti();
+    if (reduceMotion.matches) return;
+
+    const colors = ['#C2FF02', '#99FEED', '#D9D6FD', '#FFBD9B', '#202124', '#FFFFFF'];
+    const pieces = 140;
+
+    for (let i = 0; i < pieces; i++) {
+      const piece = document.createElement('span');
+      piece.className = 'pc-order-confetti__piece';
+
+      const x = 2 + Math.random() * 96;
+      const y = -8 + Math.random() * 36;
+      const w = 4 + Math.random() * 7;
+      const h = Math.random() > .35 ? 8 + Math.random() * 12 : w;
+      const radius = Math.random() > .65 ? '50%' : `${Math.random() * 3}px`;
+      const drift = -180 + Math.random() * 360;
+      const fall = 360 + Math.random() * 280;
+      const startRot = -90 + Math.random() * 180;
+      const rot = 360 + Math.random() * 900;
+      const scale = .72 + Math.random() * .72;
+      const duration = 2200 + Math.random() * 650;
+      const delay = Math.random() * 180;
+      const color = colors[Math.floor(Math.random() * colors.length)];
+
+      piece.style.setProperty('--x', `${x}%`);
+      piece.style.setProperty('--y', `${y}%`);
+      piece.style.setProperty('--w', `${w}px`);
+      piece.style.setProperty('--h', `${h}px`);
+      piece.style.setProperty('--radius', radius);
+      piece.style.setProperty('--drift', `${drift}px`);
+      piece.style.setProperty('--fall', `${fall}px`);
+      piece.style.setProperty('--start-rot', `${startRot}deg`);
+      piece.style.setProperty('--rot', `${rot}deg`);
+      piece.style.setProperty('--scale', scale.toFixed(2));
+      piece.style.setProperty('--d', `${duration}ms`);
+      piece.style.setProperty('--delay', `${delay}ms`);
+      piece.style.setProperty('--c', color);
+
+      confetti.appendChild(piece);
+    }
+
+    window.setTimeout(clearConfetti, 3050);
+  };
+
+  const reset = () => {
+    clearTimers();
+    clearConfetti();
+
+    finished = false;
+    currentPercent = 0;
+    shell.classList.remove('is-finished');
+    celebration.setAttribute('aria-hidden', 'true');
+
+    percentEl.textContent = '0';
+    flow.style.setProperty('--pc-route', '0%');
+    statusEl.textContent = stepMessages[0];
+    stepLabelEl.textContent = `Step 1 of ${steps.length}`;
+    route.classList.remove('is-travelling');
+
+    steps.forEach((step, i) => {
+      step.classList.remove('is-active', 'is-complete');
+      step.classList.toggle('is-waiting', i !== 0);
+      setCardText(step, 'Waiting');
+    });
+
+    nodes.forEach((node, i) => {
+      node.classList.remove('is-complete');
+      node.classList.toggle('is-current', i === 0);
+    });
+  };
+
+  const travelToCheckpoint = async (nextIndex) => {
+    if (!running || !visible || finished) return;
+
+    statusEl.textContent = 'Moving order to the next checkpoint...';
+    stepLabelEl.textContent = `Moving to step ${nextIndex + 1} of ${steps.length}`;
+
+    nodes.forEach(node => node.classList.remove('is-current'));
+    route.classList.add('is-travelling');
+    void route.offsetWidth;
+    flow.style.setProperty('--pc-route', `${checkpointPercent(nextIndex)}%`);
+
+    await wait(630);
+    if (!running || !visible || finished) return;
+
+    route.classList.remove('is-travelling');
+    setCheckpointState(nextIndex);
+    stepLabelEl.textContent = `Step ${nextIndex + 1} of ${steps.length}`;
+  };
+
+  const finishJourney = () => {
+    finished = true;
+    running = false;
+    clearTimers();
+    route.classList.remove('is-travelling');
+
+    nodes.forEach(node => {
+      node.classList.remove('is-current');
+      node.classList.add('is-complete');
+    });
+
+    flow.style.setProperty('--pc-route', '100%');
+    percentEl.textContent = '100';
+    currentPercent = 100;
+    statusEl.textContent = 'Order completed successfully';
+    stepLabelEl.textContent = '6 of 6 steps complete';
+
+    shell.classList.add('is-finished');
+    celebration.setAttribute('aria-hidden', 'false');
+    fireConfetti();
+  };
+
+  const processStep = async (index) => {
+    if (!running || !visible || finished) return;
+
+    const step = steps[index];
+
+    step.classList.remove('is-waiting');
+    step.classList.add('is-active');
+    statusEl.textContent = stepMessages[index];
+    stepLabelEl.textContent = `Step ${index + 1} of ${steps.length}`;
+    setCardText(step, 'Processing');
+
+    await wait(550);
+    if (!running || !visible || finished) return;
+
+    step.classList.remove('is-active');
+    step.classList.add('is-complete');
+    setCardText(step, 'Complete');
+    statusEl.textContent = completeMessages[index];
+
+    await wait(90);
+    if (!running || !visible || finished) return;
+
+    const targetPercent = completedPercent(index);
+    await animatePercent(currentPercent, targetPercent, 280);
+    currentPercent = targetPercent;
+
+    await wait(260);
+    if (!running || !visible || finished) return;
+
+    if (index < steps.length - 1) {
+      const next = index + 1;
+      await travelToCheckpoint(next);
+      if (!running || !visible || finished) return;
+      await wait(80);
+      await processStep(next);
+    } else {
+      finishJourney();
+    }
+  };
+
+  const start = () => {
+    if (running || finished) return;
+
+    running = true;
+    reset();
+
+    if (reduceMotion.matches) {
+      steps.forEach(step => {
+        step.classList.remove('is-waiting');
+        step.classList.add('is-complete');
+        setCardText(step, 'Complete');
+      });
+      finishJourney();
+      return;
+    }
+
+    wait(280).then(() => {
+      if (running && visible && !finished) processStep(0);
+    });
+  };
+
+  const stop = () => {
+    if (finished) return;
+    running = false;
+    clearTimers();
+    route.classList.remove('is-travelling');
+  };
+
+  const restart = () => {
+    running = false;
+    finished = false;
+    reset();
+
+    if (!visible) return;
+
+    running = true;
+    wait(180).then(() => {
+      if (running && visible && !finished) processStep(0);
+    });
+  };
+
+  restartBtn.addEventListener('click', restart);
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      visible = entry.isIntersecting && entry.intersectionRatio > 0.22;
+
+      if (visible) {
+        if (!running && !finished) start();
+      } else {
+        stop();
+      }
+    });
+  }, { threshold:[0,.22,.5] });
+
+  observer.observe(flow);
+
+  reduceMotion.addEventListener?.('change', () => {
+    running = false;
+    finished = false;
+    reset();
+    if (visible) start();
+  });
+})();
+</script>
