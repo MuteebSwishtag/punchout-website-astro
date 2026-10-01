@@ -511,7 +511,7 @@ body.inner-page{background:#fff}
   position:relative;min-height:410px;padding:22px;border:1px solid rgba(32,33,36,.075);
   border-radius:30px;background:rgba(255,255,255,.88);box-shadow:0 25px 70px rgba(32,33,36,.055)
 }
-.page-hero--transactions .hero-visual{transform:translateY(-58px)}
+.page-hero--transactions .hero-visual{top:-72px}
 .hero-visual:has(> picture){transform:translateY(-18px)}
 .hero-visual > picture{display:block;margin:0 auto}
 .hero-visual > picture img{display:block;width:100%;height:auto;object-fit:contain;border-radius:24px}
@@ -1066,7 +1066,7 @@ body.pricing-modal-open{overflow:hidden}
 
 @media(max-width:1080px){
   .page-hero__grid,.form-shell{grid-template-columns:1fr}
-  .page-hero--transactions .hero-visual{transform:none}
+  .page-hero--transactions .hero-visual{top:0}
   .page-hero__grid:has(.purchase-order-flow){
     grid-template-columns:1fr;
     gap:38px;
