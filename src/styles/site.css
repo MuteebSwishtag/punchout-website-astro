@@ -692,8 +692,8 @@ body.inner-page{background:#fff}
   padding:142px 0 82px
 }
 .page-hero__grid:has(.purchase-order-flow){
-  grid-template-columns:minmax(0,560px) minmax(500px,620px);
-  gap:clamp(36px,5vw,66px);
+  grid-template-columns:minmax(0,560px) minmax(440px,620px);
+  gap:clamp(32px,4.3vw,66px);
   justify-content:space-between
 }
 .page-hero--purchase-orders .page-hero__copy{
@@ -1255,6 +1255,52 @@ body.pricing-modal-open{overflow:hidden}
 @media(max-width:480px){
   .footer-main{grid-template-columns:1fr}
   .trust-strip__inner{grid-template-columns:1fr}
+}
+@media(max-width:560px){
+  .purchase-order-flow{
+    padding:18px 12px;
+    border-radius:20px
+  }
+  .purchase-order-flow__head{
+    align-items:flex-start;
+    flex-direction:column;
+    gap:10px;
+    padding:0 3px 14px
+  }
+  .purchase-order-flow__steps:before{
+    left:31px;
+    top:41px;
+    bottom:39px
+  }
+  .purchase-order-step{
+    grid-template-columns:42px minmax(0,1fr);
+    gap:10px;
+    padding:12px;
+    border-radius:16px
+  }
+  .purchase-order-step__num{
+    width:40px;
+    height:40px;
+    font-size:12px
+  }
+  .purchase-order-step__icon{
+    display:none
+  }
+  .purchase-order-step__copy strong{
+    font-size:12.5px
+  }
+  .purchase-order-step__copy small{
+    font-size:10.5px
+  }
+  .purchase-order-step__status{
+    grid-column:2;
+    padding:6px 10px;
+    font-size:9px
+  }
+  .purchase-order-flow__automation{
+    gap:9px;
+    margin:0 0 9px 52px
+  }
 }
 @media(prefers-reduced-motion:reduce){
   .punchout-architecture__connectors path{animation:none}
