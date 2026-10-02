@@ -29,15 +29,13 @@ const siteScriptSrc = '/assets/site.js?v=20261002';
 <!doctype html>
 <html lang="en">
   <head>
-    <GoogleTagManagerHead />
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
+    <GoogleTagManagerHead />
     {description && <meta name="description" content={description}>}
     <meta name="theme-color" content="#99FEEC">
     <Favicons />
     <title>{title}</title>
-    <link rel="preconnect" href="https://cdn.brandfetch.io" crossorigin>
-    <link rel="dns-prefetch" href="//cdn.brandfetch.io">
     <link rel="preload" as="font" type="font/woff2" href={jakartaSansLatin} crossorigin>
     {deferredStylesheets.map((href) => (
       <>
