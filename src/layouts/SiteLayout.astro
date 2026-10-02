@@ -4,6 +4,8 @@ import Footer from '../components/Footer.astro';
 import Favicons from '../components/Favicons.astro';
 import GoogleTagManagerHead from '../components/GoogleTagManagerHead.astro';
 import GoogleTagManagerNoScript from '../components/GoogleTagManagerNoScript.astro';
+import jakartaSansLatin from '@fontsource-variable/plus-jakarta-sans/files/plus-jakarta-sans-latin-wght-normal.woff2?url';
+import '../styles/fonts.css';
 import '../styles/site.css';
 
 interface Props {
@@ -22,7 +24,6 @@ const {
   deferredStylesheets = []
 } = Astro.props;
 
-const fontStylesheet = 'https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap';
 const siteScriptSrc = '/assets/site.js?v=20261002';
 ---
 <!doctype html>
@@ -35,13 +36,9 @@ const siteScriptSrc = '/assets/site.js?v=20261002';
     <meta name="theme-color" content="#99FEEC">
     <Favicons />
     <title>{title}</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="preconnect" href="https://cdn.brandfetch.io" crossorigin>
     <link rel="dns-prefetch" href="//cdn.brandfetch.io">
-    <link rel="preload" as="style" href={fontStylesheet}>
-    <link rel="stylesheet" href={fontStylesheet} media="print" onload="this.media='all'">
-    <noscript><link rel="stylesheet" href={fontStylesheet}></noscript>
+    <link rel="preload" as="font" type="font/woff2" href={jakartaSansLatin} crossorigin>
     {deferredStylesheets.map((href) => (
       <>
         <link rel="preload" as="style" href={href}>
