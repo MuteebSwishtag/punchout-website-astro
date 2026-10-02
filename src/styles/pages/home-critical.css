@@ -147,20 +147,36 @@
 .pc-hub__core strong{display:block;margin-top:7px;color:var(--graphite);font-size:22px;line-height:.95;letter-spacing:-.045em}
 .pc-hub__core small{display:block;margin-top:8px;color:#63726F;font-size:10px;font-weight:850}
 .pc-subnav{
-  position:sticky;
-  top:var(--pc-header-height);
+  position:fixed;
+  left:0;
+  right:0;
+  top:88px;
   z-index:70;
-  min-height:var(--pc-subnav-height);
-  border-bottom:1px solid rgba(32,33,36,.08);
-  background:rgba(255,255,255,.96);
-  backdrop-filter:blur(16px);
+  opacity:0;
+  visibility:hidden;
+  pointer-events:none;
+  transform:translateY(-7px);
+  transition:.2s ease;
 }
-.pc-subnav__inner{min-height:var(--pc-subnav-height);display:flex;align-items:center;gap:22px}
-.pc-subnav__label{flex:0 0 auto;color:var(--muted);font-size:.60rem;font-weight:800;letter-spacing:.11em;text-transform:uppercase}
-.pc-subnav__scroll{min-width:0;display:flex;align-items:center;gap:5px;overflow-x:auto;scrollbar-width:none}
+body.subnav-on .pc-subnav{opacity:1;visibility:visible;pointer-events:auto;transform:none}
+.pc-subnav__inner{
+  min-height:48px;
+  padding:0 15px;
+  display:flex;
+  align-items:center;
+  gap:18px;
+  border:1px solid rgba(32,33,36,.075);
+  border-top:0;
+  border-radius:12px 12px 25px 25px;
+  background:rgba(255,255,255,.96);
+  box-shadow:0 10px 26px rgba(32,33,36,.04);
+}
+.pc-subnav__label{color:#909491;font-size:8px;font-weight:900;letter-spacing:.1em;text-transform:uppercase}
+.pc-subnav__scroll{display:flex;gap:4px;min-width:0;overflow-x:auto;scrollbar-width:none}
 .pc-subnav__scroll::-webkit-scrollbar{display:none}
-.pc-subnav__link{flex:0 0 auto;padding:8px 12px;border-radius:999px;color:#62666D;font-size:.69rem;font-weight:700}
-.pc-subnav__link.is-active{color:var(--graphite);background:var(--punchout)}
+.pc-subnav__link{flex:0 0 auto;padding:7px 11px;border-radius:999px;color:#646965;font-size:9.5px;font-weight:750;white-space:nowrap}
+.pc-subnav__link:hover{background:var(--gray);color:var(--graphite)}
+.pc-subnav__link.is-active{background:var(--punchout);color:var(--graphite)}
 @media(max-width:1080px){
   :root{--pc-header-height:66px;--pc-subnav-height:46px}
   .pc-hero{padding-top:104px}
@@ -189,7 +205,7 @@
   .pc-hub__core small{font-size:8px}
   .pc-connector{stroke-width:1.25}
   .pc-subnav__label{display:none}
-  .pc-subnav__inner{gap:0}
-  .pc-subnav__scroll{width:100%;padding:5px 0}
+  .pc-subnav__inner{gap:0;width:calc(100% - 28px);padding:0 7px;backdrop-filter:none}
+  .pc-subnav__scroll{width:100%;padding:4px 0}
   .pc-subnav__link{font-size:9px;padding:7px 10px}
 }

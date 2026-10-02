@@ -1052,35 +1052,6 @@
 })();
 </script>
 
-<script is:inline>
-(() => {
-  const body = document.body;
-  const secondSection = document.getElementById('problem');
-  if (!body || !secondSection) return;
-
-  const syncSecondaryNav = (connected) => {
-    body.classList.toggle('pc-subnav-connected', connected);
-  };
-
-  if ('IntersectionObserver' in window) {
-    const observer = new IntersectionObserver((entries) => {
-      syncSecondaryNav(!entries[0].isIntersecting);
-    }, {
-      rootMargin: '-98px 0px 0px 0px',
-      threshold: 0
-    });
-    observer.observe(secondSection);
-  } else {
-    syncSecondaryNav(false);
-  }
-})();
-</script>
-
-
-
-
-
-
 
 <script is:inline>
 (() => {
