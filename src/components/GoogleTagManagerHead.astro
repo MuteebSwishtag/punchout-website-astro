@@ -1,9 +1,35 @@
 <!-- Google Tag Manager -->
 <script is:inline>
-  (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-  })(window,document,'script','dataLayer','GTM-KCVWC5C5');
+  window.dataLayer = window.dataLayer || [];
+  window.dataLayer.push({event:'gtm.defer'});
+
+  (() => {
+    const id = 'GTM-KCVWC5C5';
+    let loaded = false;
+    const load = () => {
+      if (loaded) return;
+      loaded = true;
+      window.dataLayer.push({'gtm.start': Date.now(), event:'gtm.js'});
+      const script = document.createElement('script');
+      script.async = true;
+      script.src = `https://www.googletagmanager.com/gtm.js?id=${id}`;
+      document.head.appendChild(script);
+    };
+    const schedule = () => {
+      window.removeEventListener('pointerdown', schedule);
+      window.removeEventListener('keydown', schedule);
+      window.removeEventListener('scroll', schedule);
+      if ('requestIdleCallback' in window) {
+        requestIdleCallback(load, {timeout: 1800});
+      } else {
+        window.setTimeout(load, 900);
+      }
+    };
+
+    window.addEventListener('load', () => window.setTimeout(load, 3500), {once:true});
+    window.addEventListener('pointerdown', schedule, {once:true, passive:true});
+    window.addEventListener('keydown', schedule, {once:true});
+    window.addEventListener('scroll', schedule, {once:true, passive:true});
+  })();
 </script>
 <!-- End Google Tag Manager -->

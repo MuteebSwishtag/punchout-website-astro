@@ -137,6 +137,7 @@ h3{margin-bottom:8px;color:var(--graphite);font-size:20px;line-height:1.2;letter
 .secbtn:hover{border-color:var(--graphite)}
 .reveal{opacity:0;transform:translateY(15px);transition:.5s ease}
 .reveal.on{opacity:1;transform:none}
+.page-hero .reveal,.po-hero .reveal{opacity:1;transform:none}
 
 /* ---------- Primary nav ---------- */
 header#hdr{position:fixed;inset:0 0 auto;z-index:90;padding:14px 0;pointer-events:none}
@@ -393,7 +394,7 @@ section[id]{scroll-margin-top:150px}
 /* FAQ */
 .faq{max-width:850px;margin:auto;border-top:1px solid var(--line)}
 .fi{border-bottom:1px solid var(--line)}.fq{width:100%;padding:20px 0;display:flex;align-items:center;justify-content:space-between;gap:20px;border:0;background:transparent;text-align:left;color:var(--graphite);font-size:13px;font-weight:800;cursor:pointer}
-.fa{max-height:0;overflow:hidden;transition:max-height .25s ease}.fa p{padding:0 45px 20px 0;margin:0;color:#747976;font-size:11px;line-height:1.65}.plus{width:27px;height:27px;display:grid;place-items:center;border:1px solid var(--line);border-radius:50%}.fi.open .plus{background:var(--punchout)}
+.fa{max-height:0;overflow:hidden;transition:max-height .25s ease}.fi.open .fa{max-height:360px}.fa p{padding:0 45px 20px 0;margin:0;color:#747976;font-size:11px;line-height:1.65}.plus{width:27px;height:27px;display:grid;place-items:center;border:1px solid var(--line);border-radius:50%}.fi.open .plus{background:var(--punchout)}
 
 /* CTA + footer */
 .po-cta{padding:115px 0;text-align:center;background:radial-gradient(circle at 50% 20%,rgba(153,254,237,.34),transparent 31%),linear-gradient(180deg,#fff,#F8F8F5)}

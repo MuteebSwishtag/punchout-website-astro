@@ -609,12 +609,16 @@
     </div>
 
     <figure class="buyers-shot reveal">
-      <img
-        src="/assets/buyers.jpg"
-        alt="PunchOut Central overview showing connected stores, buyer connections, procurement networks, and live buyer status"
-        loading="lazy"
-        decoding="async"
-      />
+      <picture>
+        <source srcset="/assets/buyers.avif" type="image/avif">
+        <source srcset="/assets/buyers.webp" type="image/webp">
+        <img
+          src="/assets/buyers.jpg"
+          alt="PunchOut Central overview showing connected stores, buyer connections, procurement networks, and live buyer status"
+          loading="lazy"
+          decoding="async"
+        />
+      </picture>
     </figure>
   </div>
 </section>

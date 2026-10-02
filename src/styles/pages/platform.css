@@ -898,6 +898,7 @@ section[id]{scroll-margin-top:150px}
 /* Control center */
 .po-control{width:min(1320px,calc(100% - 48px));display:grid;grid-template-columns:minmax(0,1.08fr) minmax(430px,.92fr);gap:78px;align-items:center}
 .po-control__img{display:block;width:100%;height:auto;aspect-ratio:1776/768;object-fit:contain;justify-self:end}
+.po-control__img img{display:block;width:100%;height:auto}
 .po-control__copy{max-width:560px}
 .po-dashboard{padding:16px;border:1px solid rgba(32,33,36,.075);border-radius:28px;background:#fff;box-shadow:var(--shadow)}
 .po-dashboard__bar{display:flex;align-items:center;justify-content:space-between;padding:8px 8px 15px;border-bottom:1px solid var(--line)}

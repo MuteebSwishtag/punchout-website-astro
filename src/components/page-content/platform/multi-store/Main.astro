@@ -27,7 +27,21 @@
     border-radius: 15px;
     padding-bottom: 4px;
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
-"><img src="/assets/multi-store.png" alt="PunchOut Central multi-store control center" width="600" height="400" loading="lazy"></div>
+">
+      <picture>
+        <source srcset="/assets/multi-store.avif" type="image/avif">
+        <source srcset="/assets/multi-store.webp" type="image/webp">
+        <img
+          src="/assets/multi-store.png"
+          alt="PunchOut Central multi-store control center"
+          width="600"
+          height="400"
+          loading="eager"
+          decoding="async"
+          fetchpriority="high"
+        >
+      </picture>
+    </div>
   </div>
 </section>
 

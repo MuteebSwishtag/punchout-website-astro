@@ -21,6 +21,7 @@ const {
 } = Astro.props;
 
 const fontStylesheet = 'https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap';
+const siteScriptSrc = '/assets/site.js?v=20261002';
 ---
 <!doctype html>
 <html lang="en">
@@ -45,6 +46,6 @@ const fontStylesheet = 'https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sa
     <Header />
     <slot />
     <Footer />
-    {includeSiteScript && <script src="/assets/site.js" defer></script>}
+    {includeSiteScript && <script src={siteScriptSrc} defer></script>}
   </body>
 </html>
