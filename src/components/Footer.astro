@@ -5,14 +5,29 @@
   <div class="wrap">
     <div class="footer-main">
       <div>
-        <img
-          class="footer-logo"
-          src="/assets/punchout-logo-black.png"
-          alt="PunchOut Central"
-          width="937"
-          height="469"
-          loading="lazy"
-        />
+        <picture>
+          <source
+            type="image/avif"
+            srcset="/assets/punchout-logo-black-208.avif 208w, /assets/punchout-logo-black-340.avif 340w"
+            sizes="170px"
+          >
+          <source
+            type="image/webp"
+            srcset="/assets/punchout-logo-black-208.webp 208w, /assets/punchout-logo-black-340.webp 340w"
+            sizes="170px"
+          >
+          <img
+            class="footer-logo"
+            src="/assets/punchout-logo-black-340.png"
+            srcset="/assets/punchout-logo-black-208.png 208w, /assets/punchout-logo-black-340.png 340w"
+            sizes="170px"
+            alt="PunchOut Central"
+            width="340"
+            height="170"
+            loading="lazy"
+            decoding="async"
+          />
+        </picture>
         <p class="footer-copy">
           PunchOut for growing suppliers. Connect procurement systems to modern
           ecommerce and manage the transaction from one place.

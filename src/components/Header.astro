@@ -3,7 +3,28 @@
 <header id="hdr">
   <div class="nav">
     <a class="brand pc-brand" href="/" aria-label="PunchOut Central home">
-      <img class="pc-brand-logo" src="/assets/punchout-logo-black.png" alt="PunchOut Central" width="937" height="469" decoding="async" fetchpriority="high">
+      <picture>
+        <source
+          type="image/avif"
+          srcset="/assets/punchout-logo-black-104.avif 104w, /assets/punchout-logo-black-208.avif 208w, /assets/punchout-logo-black-312.avif 312w"
+          sizes="104px"
+        >
+        <source
+          type="image/webp"
+          srcset="/assets/punchout-logo-black-104.webp 104w, /assets/punchout-logo-black-208.webp 208w, /assets/punchout-logo-black-312.webp 312w"
+          sizes="104px"
+        >
+        <img
+          class="pc-brand-logo"
+          src="/assets/punchout-logo-black-208.png"
+          srcset="/assets/punchout-logo-black-104.png 104w, /assets/punchout-logo-black-208.png 208w, /assets/punchout-logo-black-312.png 312w"
+          sizes="104px"
+          alt="PunchOut Central"
+          width="208"
+          height="104"
+          decoding="async"
+        >
+      </picture>
     </a>
 
     <nav class="dnav pc-meganav" aria-label="Primary">
