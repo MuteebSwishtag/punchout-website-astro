@@ -6,7 +6,8 @@ import GoogleTagManagerHead from '../components/GoogleTagManagerHead.astro';
 import GoogleTagManagerNoScript from '../components/GoogleTagManagerNoScript.astro';
 import jakartaSansLatin from '@fontsource-variable/plus-jakarta-sans/files/plus-jakarta-sans-latin-wght-normal.woff2?url';
 import '../styles/fonts.css';
-import '../styles/site.css';
+import '../styles/site-critical.css';
+import siteStylesheet from '../styles/site.css?url';
 
 interface Props {
   title: string;
@@ -25,6 +26,7 @@ const {
 } = Astro.props;
 
 const siteScriptSrc = '/assets/site.js?v=20261002';
+const lazyStylesheets = [siteStylesheet, ...deferredStylesheets];
 ---
 <!doctype html>
 <html lang="en">
@@ -37,19 +39,47 @@ const siteScriptSrc = '/assets/site.js?v=20261002';
     <Favicons />
     <title>{title}</title>
     <link rel="preload" as="font" type="font/woff2" href={jakartaSansLatin} crossorigin>
-    {deferredStylesheets.map((href) => (
-      <>
-        <link rel="preload" as="style" href={href}>
-        <link rel="stylesheet" href={href} media="print" onload="this.media='all'">
-        <noscript><link rel="stylesheet" href={href}></noscript>
-      </>
-    ))}
+    <noscript>
+      {lazyStylesheets.map((href) => <link rel="stylesheet" href={href}> )}
+    </noscript>
   </head>
   <body class={bodyClass || undefined}>
     <GoogleTagManagerNoScript />
     <Header />
     <slot />
     <Footer />
+    {lazyStylesheets.length > 0 && (
+      <script is:inline define:vars={{ lazyStylesheets }}>
+        (() => {
+          const loaded = new Set();
+          const loadStylesheet = (href) => {
+            if (!href || loaded.has(href) || document.querySelector(`link[rel="stylesheet"][href="${href}"]`)) return;
+            loaded.add(href);
+            const link = document.createElement('link');
+            link.rel = 'stylesheet';
+            link.href = href;
+            document.head.appendChild(link);
+          };
+
+          const loadAll = () => lazyStylesheets.forEach(loadStylesheet);
+          const schedule = () => {
+            window.removeEventListener('pointerdown', schedule);
+            window.removeEventListener('keydown', schedule);
+            window.removeEventListener('scroll', schedule);
+            if ('requestIdleCallback' in window) {
+              requestIdleCallback(loadAll, { timeout: 2600 });
+            } else {
+              window.setTimeout(loadAll, 900);
+            }
+          };
+
+          window.addEventListener('load', () => window.setTimeout(loadAll, 9000), { once: true });
+          window.addEventListener('pointerdown', schedule, { once: true, passive: true });
+          window.addEventListener('keydown', schedule, { once: true });
+          window.addEventListener('scroll', schedule, { once: true, passive: true });
+        })();
+      </script>
+    )}
     {includeSiteScript && <script src={siteScriptSrc} defer></script>}
   </body>
 </html>

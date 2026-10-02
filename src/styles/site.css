@@ -15,7 +15,7 @@ body{
 a{color:inherit;text-decoration:none}
 /* Plane Animation */
 .site-footer {
-  background-image: url(../../assets/skyline.webp) !important;
+  background-image: url(/assets/skyline.webp) !important;
   background-position: 0% 70% !important;
   width: 100%;
   padding:150px 0;

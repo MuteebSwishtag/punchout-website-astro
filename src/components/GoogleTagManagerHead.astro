@@ -20,13 +20,13 @@
       window.removeEventListener('keydown', schedule);
       window.removeEventListener('scroll', schedule);
       if ('requestIdleCallback' in window) {
-        requestIdleCallback(load, {timeout: 1800});
+        requestIdleCallback(load, {timeout: 2400});
       } else {
-        window.setTimeout(load, 900);
+        window.setTimeout(load, 1200);
       }
     };
 
-    window.addEventListener('load', () => window.setTimeout(load, 3500), {once:true});
+    window.addEventListener('load', () => window.setTimeout(load, 9000), {once:true});
     window.addEventListener('pointerdown', schedule, {once:true, passive:true});
     window.addEventListener('keydown', schedule, {once:true});
     window.addEventListener('scroll', schedule, {once:true, passive:true});
