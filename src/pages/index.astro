@@ -5,7 +5,7 @@ import PageNav from '../components/page-content/home/PageNav.astro';
 import '../styles/pages/home-critical.css';
 import homeStylesheet from '../styles/pages/home.css?url';
 ---
-<SiteLayout title="PunchOut Central | PunchOut for Growing B2B Suppliers" description="PunchOut Central connects B2B ecommerce stores to enterprise procurement systems and gives your team one place to manage every buyer, order and transaction." includeSiteScript={false} deferredStylesheets={[homeStylesheet]}>
+<SiteLayout title="PunchOut Central | PunchOut for Growing B2B Suppliers" description="PunchOut Central connects B2B ecommerce stores to enterprise procurement systems and gives your team one place to manage every buyer, order and transaction." includeSiteScript={false} deferSiteStylesheet={true} deferredStylesheets={[homeStylesheet]}>
   <PageNav />
   <Content />
 </SiteLayout>

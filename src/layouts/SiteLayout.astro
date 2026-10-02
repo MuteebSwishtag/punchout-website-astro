@@ -14,6 +14,8 @@ interface Props {
   description?: string;
   bodyClass?: string;
   includeSiteScript?: boolean;
+  deferSiteStylesheet?: boolean;
+  eagerStylesheets?: string[];
   deferredStylesheets?: string[];
 }
 
@@ -22,11 +24,22 @@ const {
   description = '',
   bodyClass = 'inner-page',
   includeSiteScript = true,
+  deferSiteStylesheet = false,
+  eagerStylesheets = [],
   deferredStylesheets = []
 } = Astro.props;
 
 const siteScriptSrc = '/assets/site.js?v=20261002';
-const lazyStylesheets = [siteStylesheet, ...deferredStylesheets];
+const eagerStylesheetSet = new Set([
+  ...(deferSiteStylesheet ? [] : [siteStylesheet]),
+  ...eagerStylesheets
+]);
+const renderEagerStylesheets = [...eagerStylesheetSet];
+const lazyStylesheets = [
+  ...(deferSiteStylesheet ? [siteStylesheet] : []),
+  ...deferredStylesheets
+].filter((href) => !eagerStylesheetSet.has(href));
+const noscriptStylesheets = [...renderEagerStylesheets, ...lazyStylesheets];
 ---
 <!doctype html>
 <html lang="en">
@@ -39,8 +52,9 @@ const lazyStylesheets = [siteStylesheet, ...deferredStylesheets];
     <Favicons />
     <title>{title}</title>
     <link rel="preload" as="font" type="font/woff2" href={jakartaSansLatin} crossorigin>
+    {renderEagerStylesheets.map((href) => <link rel="stylesheet" href={href}> )}
     <noscript>
-      {lazyStylesheets.map((href) => <link rel="stylesheet" href={href}> )}
+      {noscriptStylesheets.map((href) => <link rel="stylesheet" href={href}> )}
     </noscript>
   </head>
   <body class={bodyClass || undefined}>
