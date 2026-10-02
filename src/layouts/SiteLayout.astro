@@ -11,13 +11,15 @@ interface Props {
   description?: string;
   bodyClass?: string;
   includeSiteScript?: boolean;
+  deferredStylesheets?: string[];
 }
 
 const {
   title,
   description = '',
   bodyClass = 'inner-page',
-  includeSiteScript = true
+  includeSiteScript = true,
+  deferredStylesheets = []
 } = Astro.props;
 
 const fontStylesheet = 'https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap';
@@ -40,6 +42,13 @@ const siteScriptSrc = '/assets/site.js?v=20261002';
     <link rel="preload" as="style" href={fontStylesheet}>
     <link rel="stylesheet" href={fontStylesheet} media="print" onload="this.media='all'">
     <noscript><link rel="stylesheet" href={fontStylesheet}></noscript>
+    {deferredStylesheets.map((href) => (
+      <>
+        <link rel="preload" as="style" href={href}>
+        <link rel="stylesheet" href={href} media="print" onload="this.media='all'">
+        <noscript><link rel="stylesheet" href={href}></noscript>
+      </>
+    ))}
   </head>
   <body class={bodyClass || undefined}>
     <GoogleTagManagerNoScript />

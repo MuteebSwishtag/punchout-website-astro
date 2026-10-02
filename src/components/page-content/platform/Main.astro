@@ -657,8 +657,10 @@
     stepLabelEl.textContent = `Moving to step ${nextIndex + 1} of ${steps.length}`;
 
     nodes.forEach(node => node.classList.remove('is-current'));
+    route.classList.remove('is-travelling');
+    await wait(0);
+    if (!running || !visible || finished) return;
     route.classList.add('is-travelling');
-    void route.offsetWidth;
     flow.style.setProperty('--pc-route', `${checkpointPercent(nextIndex)}%`);
 
     await wait(630);

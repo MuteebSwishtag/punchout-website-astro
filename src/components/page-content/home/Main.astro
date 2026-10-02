@@ -646,11 +646,12 @@
   updateHeader();
   window.addEventListener('scroll', updateHeader, { passive: true });
 
-  // Keep the sticky secondary navigation directly below the real header height.
+  // Keep the sticky secondary navigation in sync with the CSS header heights.
   const syncNavigationStack = () => {
-    if (!header) return;
-    const height = Math.ceil(header.getBoundingClientRect().height);
-    document.documentElement.style.setProperty('--pc-header-height', `${height}px`);
+    document.documentElement.style.setProperty(
+      '--pc-header-height',
+      window.matchMedia('(max-width: 1080px)').matches ? '66px' : '90px'
+    );
   };
 
   syncNavigationStack();
@@ -702,7 +703,6 @@
 
     question.addEventListener('click', () => {
       item.classList.toggle('open');
-      answer.style.maxHeight = item.classList.contains('open') ? `${answer.scrollHeight}px` : '0';
     });
   });
 
@@ -797,23 +797,9 @@
 
   const keepActiveSubnavVisible = (link) => {
     if (!subnavScroll || !link) return;
-
-    const containerRect = subnavScroll.getBoundingClientRect();
-    const linkRect = link.getBoundingClientRect();
-    const padding = 24;
-
-    let nextLeft = subnavScroll.scrollLeft;
-
-    if (linkRect.left < containerRect.left + padding) {
-      nextLeft -= (containerRect.left + padding) - linkRect.left;
-    } else if (linkRect.right > containerRect.right - padding) {
-      nextLeft += linkRect.right - (containerRect.right - padding);
-    } else {
-      return;
-    }
-
-    subnavScroll.scrollTo({
-      left: Math.max(0, nextLeft),
+    link.scrollIntoView({
+      block: 'nearest',
+      inline: 'nearest',
       behavior: (
         window.matchMedia('(prefers-reduced-motion: reduce)').matches ||
         window.innerWidth <= 760
@@ -837,13 +823,33 @@
   let subnavFrame = 0;
   const updateSubnav = () => {
     subnavFrame = 0;
-    const marker = window.scrollY + Math.min(220, window.innerHeight * .34);
-    let activeSection = subnavSections[0];
-    subnavSections.forEach((section) => { if (section.offsetTop <= marker) activeSection = section; });
-    if (activeSection) setActiveSubnav(activeSection.id);
+    document.body.classList.toggle('subnav-on', window.scrollY > 500);
   };
   window.addEventListener('scroll', () => { if (!subnavFrame) subnavFrame = window.requestAnimationFrame(updateSubnav); }, { passive:true });
   updateSubnav();
+
+  if (subnavLinks.length && subnavSections.length && 'IntersectionObserver' in window) {
+    const visibleSections = new Map();
+    const subnavObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          visibleSections.set(entry.target.id, entry.boundingClientRect.top);
+        } else {
+          visibleSections.delete(entry.target.id);
+        }
+      });
+
+      const active = [...visibleSections.entries()].sort((a, b) => Math.abs(a[1]) - Math.abs(b[1]))[0];
+      if (active) setActiveSubnav(active[0]);
+    }, {
+      rootMargin: '-22% 0px -62% 0px',
+      threshold: [0, .12, .5]
+    });
+
+    subnavSections.forEach((section) => subnavObserver.observe(section));
+  } else if (subnavSections.length) {
+    setActiveSubnav(subnavSections[0].id);
+  }
 
   // Interactive integration builder:
   // supports multiple source and destination instances, including duplicates.
@@ -1047,30 +1053,24 @@
 <script is:inline>
 (() => {
   const body = document.body;
-  const header = document.getElementById('hdr');
   const secondSection = document.getElementById('problem');
-  if (!body || !header || !secondSection) return;
+  if (!body || !secondSection) return;
 
-  let ticking = false;
-
-  const syncSecondaryNav = () => {
-    ticking = false;
-    const headerHeight = header.getBoundingClientRect().height || 76;
-    const shouldConnect = secondSection.getBoundingClientRect().top <= headerHeight + 8;
-    body.classList.toggle('pc-subnav-connected', shouldConnect);
+  const syncSecondaryNav = (connected) => {
+    body.classList.toggle('pc-subnav-connected', connected);
   };
 
-  const requestSync = () => {
-    if (!ticking) {
-      ticking = true;
-      requestAnimationFrame(syncSecondaryNav);
-    }
-  };
-
-  window.addEventListener('scroll', requestSync, { passive: true });
-  window.addEventListener('resize', requestSync, { passive: true });
-  window.addEventListener('load', syncSecondaryNav, { once: true });
-  syncSecondaryNav();
+  if ('IntersectionObserver' in window) {
+    const observer = new IntersectionObserver((entries) => {
+      syncSecondaryNav(!entries[0].isIntersecting);
+    }, {
+      rootMargin: '-98px 0px 0px 0px',
+      threshold: 0
+    });
+    observer.observe(secondSection);
+  } else {
+    syncSecondaryNav(false);
+  }
 })();
 </script>
 
@@ -1268,9 +1268,10 @@
     stepLabelEl.textContent = `Moving to step ${nextIndex + 1} of ${steps.length}`;
 
     nodes.forEach(node => node.classList.remove('is-current'));
+    route.classList.remove('is-travelling');
+    await wait(0);
+    if (!running || !visible || finished) return;
     route.classList.add('is-travelling');
-
-    void route.offsetWidth;
 
     flow.style.setProperty(
       '--pc-route',

@@ -102,24 +102,6 @@
 
     sections.forEach((section) => observer.observe(section));
   } else if (links.length && sections.length) {
-    const setActive = (id) => {
-      links.forEach((link) => {
-        const active = link.dataset.scrollspy === id;
-        link.classList.toggle('is-active', active);
-        active ? link.setAttribute('aria-current','true') : link.removeAttribute('aria-current');
-      });
-    };
-    let frame = 0;
-    const update = () => {
-      frame = 0;
-      const marker = window.scrollY + Math.min(230, window.innerHeight * .34);
-      let active = sections[0];
-      sections.forEach((section) => { if (section.offsetTop <= marker) active = section; });
-      if (active) setActive(active.id);
-    };
-    window.addEventListener('scroll', () => {
-      if (!frame) frame = requestAnimationFrame(update);
-    }, {passive:true});
-    update();
+    setActive(sections[0].id);
   }
 })();
