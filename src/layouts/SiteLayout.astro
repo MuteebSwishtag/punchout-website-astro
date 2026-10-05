@@ -4,6 +4,8 @@ import Footer from '../components/Footer.astro';
 import Favicons from '../components/Favicons.astro';
 import GoogleTagManagerHead from '../components/GoogleTagManagerHead.astro';
 import GoogleTagManagerNoScript from '../components/GoogleTagManagerNoScript.astro';
+import MetaPixelHead from '../components/MetaPixelHead.astro';
+import MetaPixelNoScript from '../components/MetaPixelNoScript.astro';
 import jakartaSansLatin from '@fontsource-variable/plus-jakarta-sans/files/plus-jakarta-sans-latin-wght-normal.woff2?url';
 import '../styles/fonts.css';
 import '../styles/site-critical.css';
@@ -47,6 +49,7 @@ const noscriptStylesheets = [...renderEagerStylesheets, ...lazyStylesheets];
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <GoogleTagManagerHead />
+    <MetaPixelHead />
     {description && <meta name="description" content={description}>}
     <meta name="theme-color" content="#99FEEC">
     <Favicons />
@@ -59,6 +62,7 @@ const noscriptStylesheets = [...renderEagerStylesheets, ...lazyStylesheets];
   </head>
   <body class={bodyClass || undefined}>
     <GoogleTagManagerNoScript />
+    <MetaPixelNoScript />
     <Header />
     <slot />
     <Footer />
