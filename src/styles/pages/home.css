@@ -4795,6 +4795,117 @@ button,
   }
 }
 
+/* Match the platform workflow animation on the homepage.
+   Earlier homepage-only revisions intentionally override these names, so this
+   final block restores the working card, check, route and confetti behavior. */
+.pc-order-process--v21 .pc-order-step.is-active{
+  transform:none!important;
+  border-color:rgba(75,171,154,.34)!important;
+  background:linear-gradient(160deg,rgba(153,254,236,.20),#fff 72%)!important;
+  box-shadow:0 14px 32px rgba(64,137,124,.075)!important;
+}
+
+.pc-order-process--v21 .pc-order-step.is-complete{
+  opacity:1!important;
+  border-color:rgba(65,156,141,.22)!important;
+  background:linear-gradient(145deg,rgba(112,220,202,.96),rgba(153,254,236,.72))!important;
+  box-shadow:0 9px 26px rgba(67,145,132,.08)!important;
+}
+
+.pc-order-process--v21 .pc-order-step.is-complete .pc-order-step__num{
+  color:var(--graphite)!important;
+  background:rgba(255,255,255,.72)!important;
+}
+
+.pc-order-process--v21 .pc-order-step.is-complete .pc-order-step__check{
+  border-color:var(--graphite)!important;
+  background:var(--graphite)!important;
+  box-shadow:none!important;
+  animation:pcV21CheckPop .40s cubic-bezier(.2,.85,.25,1.25) both!important;
+}
+
+.pc-order-process--v21 .pc-order-step.is-complete .pc-order-step__check path{
+  stroke:#fff!important;
+  animation:pcV21CheckDraw .34s ease .06s forwards!important;
+}
+
+.pc-order-process--v21 .pc-order-step.is-complete .pc-order-step__body p,
+.pc-order-process--v21 .pc-order-step.is-complete .pc-order-step__state{
+  color:rgba(32,33,36,.72)!important;
+}
+
+.pc-order-process--v21 .pc-order-step.is-complete .pc-order-step__state-dot{
+  background:var(--graphite)!important;
+  box-shadow:none!important;
+}
+
+.pc-order-process--v21 .pc-order-route.is-travelling .pc-order-route__packet span{
+  animation:pcV24PacketPulse .7s ease-in-out infinite!important;
+}
+
+.pc-order-process--v21 .pc-order-confetti{
+  position:absolute!important;
+  inset:0!important;
+  z-index:50!important;
+  overflow:hidden!important;
+  pointer-events:none!important;
+}
+
+.pc-order-process--v21 .pc-order-confetti__piece{
+  position:absolute!important;
+  top:var(--y)!important;
+  left:var(--x)!important;
+  width:var(--w)!important;
+  height:var(--h)!important;
+  border-radius:var(--radius)!important;
+  background:var(--c)!important;
+  opacity:0;
+  transform:translate3d(0,0,0) rotate(var(--start-rot)) scale(var(--scale));
+  transform-origin:center;
+  animation:pcV29ConfettiBurst var(--d) cubic-bezier(.12,.68,.24,1) var(--delay) forwards!important;
+  will-change:transform,opacity;
+}
+
+@keyframes pcV21Spinner{to{transform:rotate(360deg)}}
+@keyframes pcV21Scan{
+  0%{transform:translateX(-90%);opacity:0}
+  20%{opacity:1}
+  100%{transform:translateX(95%);opacity:0}
+}
+@keyframes pcV21Pulse{
+  0%,100%{transform:scale(1);opacity:.65}
+  50%{transform:scale(1.45);opacity:1}
+}
+@keyframes pcV21CheckPop{
+  0%{transform:scale(.72)}
+  72%{transform:scale(1.12)}
+  100%{transform:scale(1)}
+}
+@keyframes pcV21CheckDraw{to{stroke-dashoffset:0}}
+@keyframes pcV24PacketPulse{
+  0%,100%{transform:scale(.88);opacity:.78}
+  50%{transform:scale(1.16);opacity:1}
+}
+@keyframes pcV26IconComplete{
+  0%{opacity:.10;transform:scale(.92)}
+  58%{opacity:.28;transform:scale(1.26)}
+  100%{opacity:.22;transform:scale(1.18)}
+}
+@keyframes pcV29ConfettiBurst{
+  0%{opacity:0;transform:translate3d(0,-8px,0) rotate(var(--start-rot)) scale(var(--scale))}
+  8%{opacity:1}
+  20%{opacity:1;transform:translate3d(calc(var(--drift) * .18),32px,0) rotate(calc(var(--rot) * .18)) scale(var(--scale))}
+  72%{opacity:1}
+  100%{opacity:0;transform:translate3d(var(--drift),var(--fall),0) rotate(var(--rot)) scale(var(--scale))}
+}
+
+@media(prefers-reduced-motion:reduce){
+  .pc-order-process--v21 .pc-order-route.is-travelling .pc-order-route__packet span,
+  .pc-order-process--v21 .pc-order-confetti__piece{
+    animation:none!important;
+  }
+}
+
 /* V39 shared navigation */
 /* Keep deferred home styles from restyling the shared site header after scroll/click. */
 header#hdr{
