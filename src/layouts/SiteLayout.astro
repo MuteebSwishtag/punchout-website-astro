@@ -3,7 +3,6 @@ import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import Favicons from '../components/Favicons.astro';
 import GoogleTagManagerHead from '../components/GoogleTagManagerHead.astro';
-import GoogleTagManagerNoScript from '../components/GoogleTagManagerNoScript.astro';
 import LinkedInInsightHead from '../components/LinkedInInsightHead.astro';
 import LinkedInInsightNoScript from '../components/LinkedInInsightNoScript.astro';
 import MetaPixelHead from '../components/MetaPixelHead.astro';
@@ -69,7 +68,6 @@ const noscriptStylesheets = [...renderEagerStylesheets, ...lazyStylesheets];
     </noscript>
   </head>
   <body class={bodyClass || undefined}>
-    <GoogleTagManagerNoScript />
     <MetaPixelNoScript />
     <LinkedInInsightNoScript />
     <PinterestTagNoScript />
