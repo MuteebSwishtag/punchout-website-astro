@@ -1,0 +1,10 @@
+---
+import SiteLayout from '../../../layouts/SiteLayout.astro';
+import InsightArticle from '../../../components/page-content/InsightArticle.astro';
+import { insightPages } from '../../../content/phase6-pages.mjs';
+const path = '/insights/how-oracle-punchout-works/';
+const content = insightPages[path];
+---
+<SiteLayout title="How Oracle PunchOut Works with Shopify | PunchOut Central" description="Learn the Oracle procurement PunchOut pattern for Shopify suppliers, including catalog launch, cart return, approval and PO receipt." ogType="article" includeSiteScript={true} bodyClass="inner-page">
+  <InsightArticle {...content} />
+</SiteLayout>

@@ -1,0 +1,10 @@
+---
+import SiteLayout from '../../../layouts/SiteLayout.astro';
+import InsightArticle from '../../../components/page-content/InsightArticle.astro';
+import { insightPages } from '../../../content/phase6-pages.mjs';
+const path = '/insights/what-is-shopify-punchout/';
+const content = insightPages[path];
+---
+<SiteLayout title="What Is Shopify PunchOut? | PunchOut Central" description="Learn how Shopify PunchOut connects procurement, a supplier catalog, cart return, buyer approval and the approved purchase order." ogType="article" includeSiteScript={true} bodyClass="inner-page">
+  <InsightArticle {...content} />
+</SiteLayout>

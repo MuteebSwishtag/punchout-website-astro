@@ -1,0 +1,10 @@
+---
+import SiteLayout from '../../../layouts/SiteLayout.astro';
+import InsightArticle from '../../../components/page-content/InsightArticle.astro';
+import { insightPages } from '../../../content/phase6-pages.mjs';
+const path = '/insights/does-shopify-support-punchout/';
+const content = insightPages[path];
+---
+<SiteLayout title="Does Shopify Support PunchOut? | PunchOut Central" description="Understand how Shopify can serve as the supplier catalog in a configured PunchOut connection to enterprise procurement." ogType="article" includeSiteScript={true} bodyClass="inner-page">
+  <InsightArticle {...content} />
+</SiteLayout>

@@ -1,0 +1,10 @@
+---
+import SiteLayout from '../../../layouts/SiteLayout.astro';
+import InsightArticle from '../../../components/page-content/InsightArticle.astro';
+import { insightPages } from '../../../content/phase6-pages.mjs';
+const path = '/insights/how-coupa-punchout-works/';
+const content = insightPages[path];
+---
+<SiteLayout title="How Coupa PunchOut Works with Shopify | PunchOut Central" description="Follow the Coupa PunchOut sequence from procurement launch to Shopify catalog, cart return, approval, purchase order and store order." ogType="article" includeSiteScript={true} bodyClass="inner-page">
+  <InsightArticle {...content} />
+</SiteLayout>

@@ -1,0 +1,10 @@
+---
+import SiteLayout from '../../../layouts/SiteLayout.astro';
+import ResourceArticle from '../../../components/page-content/ResourceArticle.astro';
+import { resourcePages } from '../../../content/resources.mjs';
+const path = '/resources/level-1-vs-level-2-punchout/';
+const content = resourcePages[path];
+---
+<SiteLayout title="Level 1 vs Level 2 PunchOut Guide | PunchOut Central" description="Understand store-level and item-level PunchOut entry points, buyer terminology, catalog context and the tests required for each level." ogType="article" includeSiteScript={true} bodyClass="inner-page">
+  <ResourceArticle path={path} {...content} />
+</SiteLayout>

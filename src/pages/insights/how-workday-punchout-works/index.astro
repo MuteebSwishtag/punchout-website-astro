@@ -1,0 +1,10 @@
+---
+import SiteLayout from '../../../layouts/SiteLayout.astro';
+import InsightArticle from '../../../components/page-content/InsightArticle.astro';
+import { insightPages } from '../../../content/phase6-pages.mjs';
+const path = '/insights/how-workday-punchout-works/';
+const content = insightPages[path];
+---
+<SiteLayout title="How Workday PunchOut Works with Shopify | PunchOut Central" description="Understand the Workday PunchOut buying sequence from procurement launch to Shopify catalog, cart return, approved PO and order." ogType="article" includeSiteScript={true} bodyClass="inner-page">
+  <InsightArticle {...content} />
+</SiteLayout>

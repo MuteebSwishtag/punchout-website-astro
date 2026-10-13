@@ -1,0 +1,41 @@
+---
+import { canonicalUrl, normalizePublicPath } from '../lib/site-config.mjs';
+import { defaultSchemaForPath } from '../lib/structured-data.mjs';
+
+interface Props {
+  pathname: string;
+  title: string;
+  description: string;
+  canonicalPath?: string;
+  ogType?: 'website' | 'article';
+  ogImage?: string;
+  twitterCard?: 'summary' | 'summary_large_image';
+  structuredData?: Record<string, unknown>[];
+}
+
+const {
+  pathname,
+  title,
+  description,
+  canonicalPath,
+  ogType = 'website',
+  ogImage,
+  twitterCard,
+  structuredData
+} = Astro.props;
+
+const canonical = canonicalUrl(canonicalPath ?? pathname);
+const schemas = structuredData ?? defaultSchemaForPath(normalizePublicPath(pathname), description);
+const encodedSchemas = schemas.map((schema) => JSON.stringify(schema).replace(/</g, '\\u003c'));
+---
+<link rel="canonical" href={canonical}>
+<meta property="og:type" content={ogType}>
+<meta property="og:site_name" content="PunchOut Central">
+<meta property="og:title" content={title}>
+{description && <meta property="og:description" content={description}>}
+<meta property="og:url" content={canonical}>
+{ogImage && <meta property="og:image" content={ogImage.startsWith('/') ? new URL(ogImage, canonical).href : ogImage}>}
+<meta name="twitter:card" content={twitterCard ?? (ogImage ? 'summary_large_image' : 'summary')}>
+<meta name="twitter:title" content={title}>
+{description && <meta name="twitter:description" content={description}>}
+{encodedSchemas.map((json) => <script type="application/ld+json" set:html={json} />)}

@@ -1,66 +1,31 @@
 ---
+const steps = [
+  ['01', 'Session launch', 'A cXML buyer connection starts PunchOut from procurement and opens the configured supplier catalog.'],
+  ['02', 'Cart return', 'The selected cart returns to procurement for the buyer’s approval. No Shopify order is created at this point.'],
+  ['03', 'Approved PO', 'PunchOut Central connects the approved purchase order to the buyer and earlier cart.'],
+  ['04', 'Supplier order', 'The approved PO creates the corresponding Shopify order, with invoice activity visible later in the transaction.']
+];
 ---
 <main>
-
-<section class="page-hero page-hero--mint" id="overview">
-  <div class="wrap page-hero__grid">
-    <div class="page-hero__copy reveal">
-      <span class="ey">cXML Integration</span><h1>Use cXML to connect procurement and commerce.</h1><p class="lead">PunchOut Central supports cXML for buyer sessions, cart return and procurement transaction workflows.</p>
-      <div class="page-hero__actions"><a class="btn pri" href="/book-demo/">Discuss this integration →</a><a class="btn secbtn" href="#flow">See the flow ↓</a></div>
-      <div class="page-proofline"><span><b>✓</b> Free Integration</span><span><b>✓</b> No transaction fees</span><span><b>✓</b> Cancel anytime</span></div>
-    </div>
-    <div class="hero-visual logo-hero reveal">
-      <div class="hero-visual__label"><span>Integration</span><b>Protocol</b></div>
-      <div class="logo-hero__mark"><strong>cXML</strong></div>
-      <span class="logo-hero__status">PunchOut Central</span>
-      <h3>cXML</h3>
-      <p>Procurement connectivity managed through PunchOut Central.</p>
-    </div>
-  </div>
-</section>
-<!-- <section class="trust-strip" aria-label="PunchOut Central credibility">
-  <div class="wrap trust-strip__inner">
-    <div class="trust-strip__item"><span class="trust-strip__icon">★</span><div><strong>Trustpilot 4.7+</strong><span>Customer rating</span></div></div>
-    <span class="trust-strip__divider"></span>
-    <div class="trust-strip__item"><span class="trust-strip__icon">PPAI</span><div><strong>PPAI Member</strong><span>Promotional products industry</span></div></div>
-    <span class="trust-strip__divider"></span>
-    <div class="trust-strip__item"><span class="trust-strip__icon">S</span><div><strong>Shopify Partner</strong><span>Commerce experience</span></div></div>
-  </div>
-</section> -->
-
-<section class="sec" id="flow"><div class="wrap"><div class="section-head center reveal"><span class="ey">Connection flow</span><h2>Keep procurement and commerce in their own lanes.</h2></div>
-<div class="integration-flow reveal"><div class="integration-node"><strong>cXML</strong><span>Buyer / procurement side</span></div><div class="integration-arrow">→</div><div class="integration-node integration-node--accent"><strong>PunchOut Central</strong><span>Authentication, session + transactions</span></div><div class="integration-arrow">→</div><div class="integration-node"><strong>Shopify</strong><span>Supplier catalog + store order</span></div></div></div></section>
-<section class="sec soft" id="details">
-  <div class="wrap">
-    <div class="section-head reveal"><span class="ey">What PunchOut Central handles</span><h2>The integration layer between the buyer and your store.</h2><p class="lead">Your team keeps the business relationship. PunchOut Central handles the procurement connectivity.</p></div>
-    <div class="feature-grid"><article class="feature-card reveal"><span class="feature-card__icon">01</span><h3>Buyer connection</h3><p>Configure credentials and buyer-specific connection settings.</p></article><article class="feature-card reveal"><span class="feature-card__icon">02</span><h3>PunchOut session</h3><p>Authenticate the request and open the correct ecommerce session.</p></article><article class="feature-card reveal"><span class="feature-card__icon">03</span><h3>Cart return</h3><p>Send the selected cart back to procurement for approval.</p></article><article class="feature-card reveal"><span class="feature-card__icon">04</span><h3>Approved PO</h3><p>Receive the PO after the buyer finishes internal approval.</p></article><article class="feature-card reveal"><span class="feature-card__icon">05</span><h3>Store order</h3><p>Create the matching Shopify order from the approved PO.</p></article><article class="feature-card reveal"><span class="feature-card__icon">06</span><h3>Visibility</h3><p>Track the transaction and see where an issue occurred.</p></article></div>
-  </div>
-</section>
-<section class="sec soft" id="proof">
-  <div class="wrap">
-    <div class="section-head reveal"><span class="ey">Built for trust</span><h2>Proven enough for the customer you cannot afford to lose.</h2><p class="lead">Simple on the surface. Dependable underneath.</p></div>
-    <div class="metrics-row">
-      <article class="metric reveal"><strong>90+</strong><span>customers use PunchOut technology built by our team.</span></article>
-      <article class="metric reveal"><strong>$50M+</strong><span>in order value processed through our technology every year.</span></article>
-      <article class="metric metric--dark reveal"><strong>cXML + OCI</strong><span>Buyer sessions, carts, POs, store orders and invoices stay connected and visible.</span></article>
-    </div>
-  </div>
-</section>
-<section class="sec soft" id="faq">
-  <div class="wrap">
-    <div class="section-head center reveal"><span class="ey">FAQ</span><h2>Questions suppliers usually ask</h2></div>
-    <div class="faq reveal"><div class="fi"><button class="fq" type="button"><span>Does PunchOut Central support cXML?</span><span class="plus">+</span></button><div class="fa"><p>This page reflects the current integration direction of PunchOut Central. Exact buyer-specific requirements still need to be confirmed during setup.</p></div></div><div class="fi"><button class="fq" type="button"><span>Do we have to replace Shopify?</span><span class="plus">+</span></button><div class="fa"><p>No. Shopify is the current production commerce connector and remains your ecommerce system.</p></div></div><div class="fi"><button class="fq" type="button"><span>Is setup included?</span><span class="plus">+</span></button><div class="fa"><p>Standard supported integration is positioned as free. Buyer-specific custom development is separate.</p></div></div></div>
-  </div>
-</section>
-<section class="page-cta">
-  <div class="wrap reveal">
-    <span class="ey">A bigger opportunity is waiting</span>
-    <h2>When the buyer asks for PunchOut, say yes.</h2>
-    <p class="lead">Start with your first enterprise buyer and grow from there.</p>
-    <div class="page-hero__actions">
-      <a class="btn pri" href="https://app.punchoutcentral.com/platform/register" target="_blank">Connect my first buyer →</a>
-      <a class="btn secbtn" href="/pricing/">See pricing</a>
-    </div>
-  </div>
-</section>
+  <section class="page-hero page-hero--mint" id="overview"><div class="wrap page-hero__grid">
+    <div class="page-hero__copy reveal"><span class="ey">Shopify cXML PunchOut</span><h1>Connect cXML procurement workflows to Shopify.</h1><p class="lead">PunchOut Central supports cXML buyer connections while your existing Shopify or Shopify Plus store remains the supplier catalog. The returned cart goes through buyer approval before a store order is created.</p><div class="page-hero__actions"><a class="btn pri" href="/book-demo/">Discuss cXML requirements &rarr;</a><a class="btn secbtn" href="#flow">Follow the flow &darr;</a></div></div>
+    <div class="hero-visual logo-hero reveal"><div class="hero-visual__label"><span>Procurement protocol</span><b>cXML</b></div><div class="logo-hero__mark"><strong>cXML</strong></div><span class="logo-hero__status">PunchOut Central</span><h3>Buyer to supplier</h3><p>Protocol support for PunchOut and procurement transactions.</p></div>
+  </div></section>
+  <section class="sec" id="flow"><div class="wrap">
+    <div class="section-head center reveal"><span class="ey">Connection roles</span><h2>cXML is the protocol, not the storefront.</h2><p class="lead">The buyer uses a procurement system; the supplier uses Shopify. PunchOut Central connects their configured workflow.</p></div>
+    <div class="integration-flow reveal"><div class="integration-node"><strong>Buyer procurement</strong><span>cXML connection</span></div><div class="integration-arrow">&rarr;</div><div class="integration-node integration-node--accent"><strong>PunchOut Central</strong><span>Session and transaction</span></div><div class="integration-arrow">&rarr;</div><div class="integration-node"><strong>Shopify</strong><span>Supplier catalog and order</span></div></div>
+  </div></section>
+  <section class="sec soft" id="details"><div class="wrap">
+    <div class="section-head reveal"><span class="ey">cXML workflow</span><h2>Keep cart selection separate from the approved order.</h2><p class="lead">The connection is configured and tested for each buyer’s requirements.</p></div>
+    <div class="simple-steps">{steps.map(([number, title, description]) => <article class="simple-step reveal"><span class="simple-step__num">{number}</span><h3>{title}</h3><p>{description}</p></article>)}</div>
+  </div></section>
+  <section class="sec" id="proof"><div class="wrap">
+    <div class="section-head reveal"><span class="ey">Implementation scope</span><h2>Confirm the buyer configuration before launch.</h2><p class="lead">The procurement system, buyer credentials, catalog access, cart return and purchase-order handling should be checked with the buyer during onboarding.</p></div>
+    <div class="related-grid"><a class="related-card reveal" href="/integrations/procurement-systems/"><span>Buyer side</span><h3>Procurement systems</h3><p>Review the buyer ecosystem and connection planning.</p><b>Explore &rarr;</b></a><a class="related-card reveal" href="/integrations/shopify/"><span>Supplier side</span><h3>Shopify integration</h3><p>See how the existing store serves the catalog and orders.</p><b>Explore &rarr;</b></a><a class="related-card reveal" href="/integrations/oci/"><span>Another protocol</span><h3>OCI PunchOut</h3><p>Review the OCI catalog launch and cart-return path.</p><b>Explore &rarr;</b></a></div>
+  </div></section>
+  <section class="sec soft" id="faq"><div class="wrap">
+    <div class="section-head center reveal"><span class="ey">FAQ</span><h2>cXML questions</h2></div>
+    <div class="faq reveal"><div class="fi"><button class="fq" type="button"><span>Is cXML a buyer platform?</span><span class="plus">+</span></button><div class="fa"><p>No. cXML is a procurement communication protocol. The buyer’s procurement system and its configuration determine the connection requirements.</p></div></div><div class="fi"><button class="fq" type="button"><span>Does the buyer pay in Shopify checkout?</span><span class="plus">+</span></button><div class="fa"><p>No. The selected cart returns to procurement for approval; the approved PO leads to the Shopify order.</p></div></div><div class="fi"><button class="fq" type="button"><span>Is buyer-specific testing needed?</span><span class="plus">+</span></button><div class="fa"><p>Yes. Confirm the buyer’s settings and test the session, cart return and PO flow before launch.</p></div></div></div>
+  </div></section>
+  <section class="page-cta"><div class="wrap reveal"><span class="ey">Plan a cXML connection</span><h2>Bring the buyer’s cXML requirements.</h2><p class="lead">Review the procurement system, Shopify catalog and transaction steps together.</p><div class="page-hero__actions"><a class="btn pri" href="/book-demo/">Discuss the connection &rarr;</a><a class="btn secbtn" href="/how-it-works/">See the full workflow</a></div></div></section>
 </main>

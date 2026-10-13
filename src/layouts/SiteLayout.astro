@@ -10,6 +10,9 @@ import MetaPixelNoScript from '../components/MetaPixelNoScript.astro';
 import PinterestTagHead from '../components/PinterestTagHead.astro';
 import PinterestTagNoScript from '../components/PinterestTagNoScript.astro';
 import XConversionTrackingHead from '../components/XConversionTrackingHead.astro';
+import SeoMeta from '../components/SeoMeta.astro';
+import { getRoute, pageRobots } from '../lib/site-registry.mjs';
+import { canonicalUrl } from '../lib/site-config.mjs';
 import jakartaSansLatin from '@fontsource-variable/plus-jakarta-sans/files/plus-jakarta-sans-latin-wght-normal.woff2?url';
 import '../styles/fonts.css';
 import '../styles/site-critical.css';
@@ -18,6 +21,12 @@ import siteStylesheet from '../styles/site.css?url';
 interface Props {
   title: string;
   description?: string;
+  robots?: string;
+  canonicalPath?: string;
+  ogType?: 'website' | 'article';
+  ogImage?: string;
+  twitterCard?: 'summary' | 'summary_large_image';
+  structuredData?: Record<string, unknown>[];
   bodyClass?: string;
   includeSiteScript?: boolean;
   deferSiteStylesheet?: boolean;
@@ -28,12 +37,24 @@ interface Props {
 const {
   title,
   description = '',
+  robots = '',
+  canonicalPath,
+  ogType,
+  ogImage,
+  twitterCard,
+  structuredData,
   bodyClass = 'inner-page',
   includeSiteScript = true,
   deferSiteStylesheet = false,
   eagerStylesheets = [],
   deferredStylesheets = []
 } = Astro.props;
+
+const pathname = Astro.url.pathname;
+const isHomepage = pathname === '/';
+const requiredRobots = pageRobots(pathname);
+const resolvedRobots = requiredRobots || robots;
+const showSeoMeta = !isHomepage && getRoute(pathname)?.publicationEligible && !/\bnoindex\b/i.test(resolvedRobots);
 
 const siteScriptSrc = '/assets/site.js?v=20261002';
 const eagerStylesheetSet = new Set([
@@ -58,9 +79,12 @@ const noscriptStylesheets = [...renderEagerStylesheets, ...lazyStylesheets];
     <PinterestTagHead />
     <XConversionTrackingHead />
     {description && <meta name="description" content={description}>}
+    {resolvedRobots && <meta name="robots" content={resolvedRobots}>}
     <meta name="theme-color" content="#99FEEC">
     <Favicons />
     <title>{title}</title>
+    {isHomepage && <link rel="canonical" href={canonicalUrl('/')} />}
+    {showSeoMeta && <SeoMeta pathname={pathname} title={title} description={description} canonicalPath={canonicalPath} ogType={ogType} ogImage={ogImage} twitterCard={twitterCard} structuredData={structuredData} />}
     <link rel="preload" as="font" type="font/woff2" href={jakartaSansLatin} crossorigin>
     {renderEagerStylesheets.map((href) => <link rel="stylesheet" href={href}> )}
     <noscript>

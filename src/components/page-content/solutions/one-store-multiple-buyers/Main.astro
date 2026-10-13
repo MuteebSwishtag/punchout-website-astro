@@ -1,0 +1,80 @@
+---
+import RelatedLinks from '../../../RelatedLinks.astro';
+
+const steps = [
+  ['01', 'Connect the Shopify store', 'Keep the supplier catalog in the Shopify or Shopify Plus storefront you already operate.'],
+  ['02', 'Add each enterprise buyer', 'Create a buyer connection for the procurement environment that will launch PunchOut. A new buyer counts as a connection.'],
+  ['03', 'Set catalog access', 'Assign the store and the relevant collections or catalog access to that buyer. Repeat the mapping for other buyers using the same store.'],
+  ['04', 'Test and launch', 'Check the buyer’s session, cart return and approved purchase-order path before going live.']
+];
+---
+<main>
+  <section class="page-hero page-hero--peach" id="overview">
+    <div class="wrap page-hero__grid">
+      <div class="page-hero__copy reveal">
+        <span class="ey">One store, multiple buyers</span>
+        <h1>Serve multiple enterprise buyers from one Shopify store.</h1>
+        <p class="lead">Give each buyer its own PunchOut connection and catalog access while keeping products and orders in your existing Shopify or Shopify Plus storefront.</p>
+        <div class="page-hero__actions"><a class="btn pri" href="/book-demo/">Discuss your buyer setup &rarr;</a><a class="btn secbtn" href="#setup">See how it works &darr;</a></div>
+      </div>
+      <div class="hero-visual reveal">
+        <div class="hero-visual__label"><span>Connection model</span><b>One supplier store</b></div>
+        <div class="visual-flow">
+          <div class="visual-step is-accent"><i>01</i><span><strong>Buyer A</strong><small>Own procurement connection</small></span></div>
+          <div class="visual-step is-lavender"><i>02</i><span><strong>Buyer B</strong><small>Own catalog access</small></span></div>
+          <div class="visual-step is-peach"><i>03</i><span><strong>Buyer C</strong><small>Own transaction history</small></span></div>
+          <div class="visual-step is-lime"><i>&rarr;</i><span><strong>One Shopify store</strong><small>Supplier catalog and orders</small></span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="sec" id="setup">
+    <div class="wrap">
+      <div class="section-head reveal"><span class="ey">Buyer onboarding</span><h2>Configure each buyer without duplicating the storefront.</h2><p class="lead">PunchOut Central manages the buyer connections centrally. Each connection identifies the buyer and the catalog it may use.</p></div>
+      <div class="simple-steps">{steps.map(([number, title, description]) => <article class="simple-step reveal"><span class="simple-step__num">{number}</span><h3>{title}</h3><p>{description}</p></article>)}</div>
+    </div>
+  </section>
+  <section class="sec soft" id="access">
+    <div class="wrap">
+      <div class="section-head reveal"><span class="ey">Buyer-specific experience</span><h2>Same store. Different buyer settings.</h2><p class="lead">The store remains the supplier’s source of catalog content. PunchOut Central maps each enterprise buyer to the right store, collections and catalog access.</p></div>
+      <div class="feature-grid">
+        <article class="feature-card reveal"><span class="feature-card__icon">01</span><h3>Catalog access</h3><p>Choose which products or collections a buyer can reach through its PunchOut connection.</p></article>
+        <article class="feature-card reveal"><span class="feature-card__icon">02</span><h3>Protocol requirements</h3><p>Configure the buyer’s supported <a href="/integrations/cxml/">cXML</a> or <a href="/integrations/oci/">OCI</a> workflow as required by its procurement system.</p></article>
+        <article class="feature-card reveal"><span class="feature-card__icon">03</span><h3>Central view</h3><p>Manage buyer connections and follow transaction status, history and issues in one platform.</p></article>
+      </div>
+    </div>
+  </section>
+  <section class="sec" id="workflow">
+    <div class="wrap">
+      <div class="section-head reveal"><span class="ey">Transaction boundary</span><h2>Each buyer’s cart returns to its own procurement process.</h2><p class="lead">PunchOut Central links the buyer’s session and returned cart to the later approved <a href="/platform/purchase-orders/">purchase order</a>. The corresponding Shopify order is created after that PO arrives; <a href="/platform/invoices/">invoice activity</a> remains associated with the transaction.</p></div>
+      <div class="related-grid">
+        <a class="related-card reveal" href="/how-it-works/"><span>Process</span><h3>Six-stage workflow</h3><p>See the journey from PunchOut launch to invoice.</p><b>Explore &rarr;</b></a>
+        <a class="related-card reveal" href="/platform/transactions/"><span>Visibility</span><h3>Transaction tracking</h3><p>Follow sessions, carts, POs, orders and issues.</p><b>Explore &rarr;</b></a>
+        <a class="related-card reveal" href="/integrations/shopify/"><span>Storefront</span><h3>Shopify PunchOut</h3><p>See how the supplier store connects to procurement.</p><b>Explore &rarr;</b></a>
+      </div>
+    </div>
+  </section>
+  <section class="sec soft" id="pricing">
+    <div class="wrap">
+      <div class="section-head reveal"><span class="ey">Connection pricing</span><h2>Choose a plan for your buyer count.</h2><p class="lead">A new buyer or an additional store counts as a connection. Additional connections beyond any plan’s allowance are $200/month each. Free onboarding assistance is included, with no setup or transaction fees.</p></div>
+      <div class="metrics-row">
+        <article class="metric reveal"><strong>Launch · $500/mo</strong><span>1 connection.</span></article>
+        <article class="metric reveal"><strong>Growth · $1,000/mo</strong><span>Up to 4 connections.</span></article>
+        <article class="metric metric--dark reveal"><strong>Scale · $1,500/mo</strong><span>Up to 7 connections.</span></article>
+      </div>
+      <p><a href="/pricing/">Compare all pricing details &rarr;</a></p>
+    </div>
+  </section>
+  <section class="sec soft" id="faq">
+    <div class="wrap">
+      <div class="section-head center reveal"><span class="ey">FAQ</span><h2>One-store questions</h2></div>
+      <div class="faq reveal">
+        <div class="fi"><button class="fq" type="button"><span>Does each buyer need a separate Shopify store?</span><span class="plus">+</span></button><div class="fa"><p>No. One Shopify store can serve multiple enterprise buyer connections, each with its own catalog access settings.</p></div></div>
+        <div class="fi"><button class="fq" type="button"><span>Does each new buyer count as a connection?</span><span class="plus">+</span></button><div class="fa"><p>Yes. A new buyer or additional store counts as a connection. Plan allowances are 1 for Launch, up to 4 for Growth and up to 7 for Scale.</p></div></div>
+        <div class="fi"><button class="fq" type="button"><span>When is the Shopify order created?</span><span class="plus">+</span></button><div class="fa"><p>After the buyer approves the returned cart and PunchOut Central receives the approved PO.</p></div></div>
+      </div>
+    </div>
+  </section>
+  <RelatedLinks source="/solutions/one-store-multiple-buyers/" heading="Plan the store and buyer connections" />
+  <section class="page-cta"><div class="wrap reveal"><span class="ey">Map your buyers</span><h2>Show us the Shopify store and buyers you need to connect.</h2><p class="lead">We can review catalog access, procurement requirements and the right connection allowance.</p><div class="page-hero__actions"><a class="btn pri" href="/book-demo/">Request a demo &rarr;</a><a class="btn secbtn" href="/pricing/">Compare plans</a></div></div></section>
+</main>

@@ -1,0 +1,103 @@
+---
+import '../../styles/pages/resources.css';
+
+interface Step { title: string; text: string }
+interface Section {
+  id: string;
+  title: string;
+  paragraphs?: string[];
+  bullets?: string[];
+  steps?: Step[];
+}
+interface ComparisonRow { label: string; cxml: string; oci: string }
+interface Props {
+  path: string;
+  eyebrow: string;
+  breadcrumb: string;
+  title: string;
+  lead: string;
+  sections?: Section[];
+  comparison?: ComparisonRow[];
+  comparisonHeaders?: [string, string];
+  definitions?: [string, string][];
+  references?: [string, string][];
+  related: [string, string, string][];
+  ctaTitle: string;
+  ctaText: string;
+  secondaryLabel: string;
+  secondaryHref: string;
+}
+
+const {
+  path, eyebrow, breadcrumb, title, lead, sections = [], comparison,
+  comparisonHeaders = ['cXML', 'OCI'], definitions, references, related,
+  ctaTitle, ctaText, secondaryLabel, secondaryHref
+} = Astro.props;
+---
+<main>
+  <section class="page-hero page-hero--peach resource-hero" id="overview">
+    <div class="wrap page-hero__grid">
+      <div class="page-hero__copy reveal">
+        <nav class="resource-breadcrumbs" aria-label="Breadcrumb"><a href="/">Home</a><span>/</span><a href="/resources/">Resources</a><span>/</span><span aria-current="page">{breadcrumb}</span></nav>
+        <span class="ey">{eyebrow}</span>
+        <h1>{title}</h1>
+        <p class="lead">{lead}</p>
+        <div class="page-hero__actions">
+          <a class="btn pri" href="/book-demo/">Discuss a buyer requirement &rarr;</a>
+          <a class="btn secbtn" href="#article">Read the guide &darr;</a>
+        </div>
+      </div>
+      <div class="hero-visual reveal" aria-label={`${eyebrow} learning path`}>
+        <div class="hero-visual__label"><span>Resource guide</span><b>PunchOut Central</b></div>
+        <div class="visual-flow">
+          <div class="visual-step is-accent"><i>01</i><span><strong>Understand</strong><small>Define the buyer question</small></span></div>
+          <div class="visual-step is-lavender"><i>02</i><span><strong>Map</strong><small>Connect store and protocol</small></span></div>
+          <div class="visual-step is-peach"><i>03</i><span><strong>Validate</strong><small>Test the full transaction</small></span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec resource-article" id="article">
+    <div class="wrap content-shell">
+      <article class="prose reveal">
+        {comparison && <div class="resource-comparison" role="region" aria-label={`${comparisonHeaders[0]} and ${comparisonHeaders[1]} comparison`}>
+          <div class="resource-comparison__head"><span>At a glance</span><strong>Compare the two models</strong></div>
+          <div class="resource-comparison__table" role="table">
+            <div class="resource-comparison__row resource-comparison__row--head" role="row">
+              <span role="columnheader">Question</span><span role="columnheader">{comparisonHeaders[0]}</span><span role="columnheader">{comparisonHeaders[1]}</span>
+            </div>
+            {comparison.map((row) => <div class="resource-comparison__row" role="row"><strong role="rowheader">{row.label}</strong><span role="cell">{row.cxml}</span><span role="cell">{row.oci}</span></div>)}
+          </div>
+        </div>}
+
+        {definitions && <section class="resource-definitions" aria-labelledby="terms-title">
+          <h2 id="terms-title">Key terms</h2>
+          <dl>{definitions.map(([term, definition]) => <><dt>{term}</dt><dd>{definition}</dd></>)}</dl>
+        </section>}
+
+        {sections.map((section) => <section id={section.id} class="resource-section">
+          <h2>{section.title}</h2>
+          {section.paragraphs?.map((paragraph) => <p>{paragraph}</p>)}
+          {section.bullets && <ul>{section.bullets.map((bullet) => <li>{bullet}</li>)}</ul>}
+          {section.steps && <ol class="resource-steps">{section.steps.map((step, index) => <li><span class="resource-steps__number">{String(index + 1).padStart(2, '0')}</span><div><h3>{step.title}</h3><p>{step.text}</p></div></li>)}</ol>}
+        </section>)}
+
+        {references && <section class="resource-references" aria-labelledby="references-title">
+          <h2 id="references-title">Reference material</h2>
+          <p>These primary-source references explain the general protocol or catalog concepts. Buyer-specific implementation requirements still take precedence.</p>
+          <ul>{references.map(([href, label]) => <li><a href={href} target="_blank" rel="noreferrer">{label} &rarr;</a></li>)}</ul>
+        </section>}
+      </article>
+      <aside class="side-nav resource-side-nav"><span>In this guide</span><a href="#overview">Overview</a>{comparison && <a href="#article">Comparison</a>}{definitions && <a href="#terms-title">Key terms</a>}{sections.map((section) => <a href={`#${section.id}`}>{section.title}</a>)}{references && <a href="#references-title">References</a>}</aside>
+    </div>
+  </section>
+
+  <section class="sec soft resource-related" aria-label="Related resources">
+    <div class="wrap"><div class="section-head reveal"><span class="ey">Continue learning</span><h2>Connect the explanation to the next step.</h2></div>
+      <div class="related-grid">{related.map(([href, label, description]) => <a class="related-card reveal" href={href}><span>Related resource</span><h3>{label}</h3><p>{description}</p><b>Explore &rarr;</b></a>)}</div>
+    </div>
+  </section>
+
+  <section class="page-cta"><div class="wrap reveal"><span class="ey">Put the guide into practice</span><h2>{ctaTitle}</h2><p class="lead">{ctaText}</p><div class="page-hero__actions"><a class="btn pri" href="/book-demo/">Request a demo &rarr;</a><a class="btn secbtn" href={secondaryHref}>{secondaryLabel}</a></div></div></section>
+</main>

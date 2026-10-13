@@ -191,6 +191,7 @@ function clean_string($value, int $max = 1000): string
 {
     $value = is_scalar($value) ? (string) $value : '';
     $value = trim(strip_tags($value));
+    $value = preg_replace('/[\x00-\x08\x0B\x0C\x0E-\x1F\x7F]/', '', $value) ?? $value;
     $value = preg_replace('/[ \t]+/', ' ', $value) ?? $value;
     return substr($value, 0, $max);
 }
@@ -213,6 +214,55 @@ function request_basic_auth(): array
     return [(string) $user, (string) $pass];
 }
 
+function record_admin_auth_failure(): int
+{
+    $path = rtrim(sys_get_temp_dir(), DIRECTORY_SEPARATOR) . DIRECTORY_SEPARATOR . 'punchout-central-admin-auth-rate-limit.json';
+    $handle = @fopen($path, 'c+');
+    if ($handle === false || !@flock($handle, LOCK_EX)) {
+        if (is_resource($handle)) {
+            fclose($handle);
+        }
+        return 0;
+    }
+
+    $raw = stream_get_contents($handle);
+    $state = json_decode($raw ?: '{}', true);
+    $state = is_array($state) ? $state : [];
+    $now = time();
+    $windowSeconds = 600;
+    $maxAttempts = 8;
+    foreach ($state as $key => $entry) {
+        if (!is_array($entry) || ($now - (int) ($entry['started'] ?? 0)) >= $windowSeconds) {
+            unset($state[$key]);
+        }
+    }
+
+    $ip = trim((string) ($_SERVER['REMOTE_ADDR'] ?? ''));
+    $ip = filter_var($ip, FILTER_VALIDATE_IP) ? $ip : 'unknown';
+    $key = hash('sha256', $ip);
+    $entry = $state[$key] ?? ['started' => $now, 'count' => 0];
+    $entry['count'] = (int) ($entry['count'] ?? 0) + 1;
+    $state[$key] = $entry;
+
+    rewind($handle);
+    ftruncate($handle, 0);
+    fwrite($handle, json_encode($state, JSON_UNESCAPED_SLASHES));
+    fflush($handle);
+    flock($handle, LOCK_UN);
+    fclose($handle);
+
+    return $entry['count'] > $maxAttempts ? max(1, $windowSeconds - ($now - (int) $entry['started'])) : 0;
+}
+
+function admin_password_matches(string $expectedPassword, string $providedPassword): bool
+{
+    $passwordInfo = password_get_info($expectedPassword);
+    if (($passwordInfo['algo'] ?? 0) !== 0) {
+        return password_verify($providedPassword, $expectedPassword);
+    }
+    return hash_equals($expectedPassword, $providedPassword);
+}
+
 function require_admin_auth(): void
 {
     $expectedUser = env_value('BOOK_DEMO_ADMIN_USERNAME');
@@ -223,7 +273,13 @@ function require_admin_auth(): void
     }
 
     [$user, $pass] = request_basic_auth();
-    if (!hash_equals($expectedUser, $user) || !hash_equals($expectedPass, $pass)) {
+    if (!hash_equals($expectedUser, $user) || !admin_password_matches($expectedPass, $pass)) {
+        $retryAfter = record_admin_auth_failure();
+        if ($retryAfter > 0) {
+            header('Retry-After: ' . $retryAfter);
+            respond(429, ['ok' => false, 'message' => 'Too many failed login attempts. Please wait before trying again.']);
+        }
+        header('WWW-Authenticate: Basic realm="PunchOut Central Admin", charset="UTF-8"');
         respond(401, ['ok' => false, 'message' => 'Invalid admin username or password.']);
     }
 }

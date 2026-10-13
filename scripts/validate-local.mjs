@@ -52,7 +52,7 @@ for (const route of routes) {
   }
 
   for (const href of collectAttributes(html, 'href')) {
-    if (!href.startsWith('/') || href.startsWith('//') || href.startsWith('/assets/') || href.startsWith('/_astro/')) continue;
+    if (!href.startsWith('/') || href.startsWith('//') || href.startsWith('/assets/') || href.startsWith('/_astro/') || href.startsWith('/src/') || href.startsWith('/node_modules/') || href.startsWith('/@')) continue;
     const cleanHref = href.split('#')[0].split('?')[0];
     if (!cleanHref || cleanHref === '/') continue;
     if (!expectedRoutes.has(cleanHref) && !expectedRoutes.has(`${cleanHref.replace(/\/$/, '')}/`)) {

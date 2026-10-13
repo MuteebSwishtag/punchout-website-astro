@@ -130,6 +130,8 @@ Or in the private PHP config:
 
 The dashboard requires `BOOK_DEMO_DB_ENABLED=true` because it reads the MySQL submissions table.
 
+For better password storage, `BOOK_DEMO_ADMIN_PASSWORD` or the private config `admin_password` may contain a PHP password hash generated with `password_hash()`. Existing plain-text configuration remains supported for backward compatibility, but production credentials should be long, unique and stored only outside the public web root.
+
 ## Enable email delivery
 
 Recommended Hostinger setup:
@@ -231,7 +233,8 @@ This is not a secret because the public value is visible in the browser. It only
 - Keep SMTP and Zoom credentials only in the hosting environment.
 - Keep MySQL credentials only in the hosting environment or private config outside `public_html`.
 - Keep admin credentials only in the hosting environment or private config outside `public_html`.
-- Do not commit real `.env` files.
+- Treat any credential-like value previously present in an example or local config as exposed: rotate it manually with the database, hosting, SMTP and Zoom providers before production use.
+- Do not commit real `.env` files or private PHP config files. The repository example contains placeholders only.
 - Do not place the real `punchout-book-demo-config.php` inside `public_html`.
 - PHP must have PDO MySQL enabled for database storage.
 - PHP must have `curl` enabled for Zoom.

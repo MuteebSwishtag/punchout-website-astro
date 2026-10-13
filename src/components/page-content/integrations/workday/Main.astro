@@ -1,66 +1,31 @@
 ---
+const checks = [
+  ['Supplier PunchOut connection', 'Workday configures a connection to a supplier catalog. Identify the buyer’s integration owner and the Shopify store that should open.'],
+  ['cXML credentials', 'Workday’s setup guide requests cXML credential values from the supplier. Exchange and test the values required by this buyer.'],
+  ['Cart and requisition', 'Check that selected Shopify items return to the Workday cart and can proceed through the buyer’s requisition process.'],
+  ['Separate PO integration', 'Workday documents a separate integration for PunchOut purchase orders. Confirm the approved PO delivery before expecting a Shopify order.'],
+  ['Optional invoicing', 'Workday’s supplier invoicing integration is optional and buyer-specific. Keep PunchOut Central invoice tracking distinct from a claim of delivery into Workday.']
+];
 ---
 <main>
-
-<section class="page-hero page-hero--mint" id="overview">
-  <div class="wrap page-hero__grid">
-    <div class="page-hero__copy reveal">
-      <span class="ey">Workday Integration</span><h1>Connect Workday procurement to your supplier catalog.</h1><p class="lead">Support buyers using Workday procurement with a managed PunchOut-to-commerce workflow.</p>
-      <div class="page-hero__actions"><a class="btn pri" href="/book-demo/">Discuss this integration →</a><a class="btn secbtn" href="#flow">See the flow ↓</a></div>
-      <div class="page-proofline"><span><b>✓</b> Free Integration</span><span><b>✓</b> No transaction fees</span><span><b>✓</b> Cancel anytime</span></div>
-    </div>
-    <div class="hero-visual logo-hero reveal">
-      <div class="hero-visual__label"><span>Integration</span><b>cXML</b></div>
-      <div class="logo-hero__mark"><img src="/assets/logos/workday.svg" alt="Workday logo"></div>
-      <span class="logo-hero__status">PunchOut Central</span>
-      <h3>Workday</h3>
-      <p>Procurement connectivity managed through PunchOut Central.</p>
-    </div>
-  </div>
-</section>
-<!-- <section class="trust-strip" aria-label="PunchOut Central credibility">
-  <div class="wrap trust-strip__inner">
-    <div class="trust-strip__item"><span class="trust-strip__icon">★</span><div><strong>Trustpilot 4.7+</strong><span>Customer rating</span></div></div>
-    <span class="trust-strip__divider"></span>
-    <div class="trust-strip__item"><span class="trust-strip__icon">PPAI</span><div><strong>PPAI Member</strong><span>Promotional products industry</span></div></div>
-    <span class="trust-strip__divider"></span>
-    <div class="trust-strip__item"><span class="trust-strip__icon">S</span><div><strong>Shopify Partner</strong><span>Commerce experience</span></div></div>
-  </div>
-</section> -->
-
-<section class="sec" id="flow"><div class="wrap"><div class="section-head center reveal"><span class="ey">Connection flow</span><h2>Keep procurement and commerce in their own lanes.</h2></div>
-<div class="integration-flow reveal"><div class="integration-node"><strong>Workday</strong><span>Buyer / procurement side</span></div><div class="integration-arrow">→</div><div class="integration-node integration-node--accent"><strong>PunchOut Central</strong><span>Authentication, session + transactions</span></div><div class="integration-arrow">→</div><div class="integration-node"><strong>Shopify</strong><span>Supplier catalog + store order</span></div></div></div></section>
-<section class="sec soft" id="details">
-  <div class="wrap">
-    <div class="section-head reveal"><span class="ey">What PunchOut Central handles</span><h2>The integration layer between the buyer and your store.</h2><p class="lead">Your team keeps the business relationship. PunchOut Central handles the procurement connectivity.</p></div>
-    <div class="feature-grid"><article class="feature-card reveal"><span class="feature-card__icon">01</span><h3>Buyer connection</h3><p>Configure credentials and buyer-specific connection settings.</p></article><article class="feature-card reveal"><span class="feature-card__icon">02</span><h3>PunchOut session</h3><p>Authenticate the request and open the correct ecommerce session.</p></article><article class="feature-card reveal"><span class="feature-card__icon">03</span><h3>Cart return</h3><p>Send the selected cart back to procurement for approval.</p></article><article class="feature-card reveal"><span class="feature-card__icon">04</span><h3>Approved PO</h3><p>Receive the PO after the buyer finishes internal approval.</p></article><article class="feature-card reveal"><span class="feature-card__icon">05</span><h3>Store order</h3><p>Create the matching Shopify order from the approved PO.</p></article><article class="feature-card reveal"><span class="feature-card__icon">06</span><h3>Visibility</h3><p>Track the transaction and see where an issue occurred.</p></article></div>
-  </div>
-</section>
-<section class="sec soft" id="proof">
-  <div class="wrap">
-    <div class="section-head reveal"><span class="ey">Built for trust</span><h2>Proven enough for the customer you cannot afford to lose.</h2><p class="lead">Simple on the surface. Dependable underneath.</p></div>
-    <div class="metrics-row">
-      <article class="metric reveal"><strong>90+</strong><span>customers use PunchOut technology built by our team.</span></article>
-      <article class="metric reveal"><strong>$50M+</strong><span>in order value processed through our technology every year.</span></article>
-      <article class="metric metric--dark reveal"><strong>cXML + OCI</strong><span>Buyer sessions, carts, POs, store orders and invoices stay connected and visible.</span></article>
-    </div>
-  </div>
-</section>
-<section class="sec soft" id="faq">
-  <div class="wrap">
-    <div class="section-head center reveal"><span class="ey">FAQ</span><h2>Questions suppliers usually ask</h2></div>
-    <div class="faq reveal"><div class="fi"><button class="fq" type="button"><span>Does PunchOut Central support Workday?</span><span class="plus">+</span></button><div class="fa"><p>This page reflects the current integration direction of PunchOut Central. Exact buyer-specific requirements still need to be confirmed during setup.</p></div></div><div class="fi"><button class="fq" type="button"><span>Do we have to replace Shopify?</span><span class="plus">+</span></button><div class="fa"><p>No. Shopify is the current production commerce connector and remains your ecommerce system.</p></div></div><div class="fi"><button class="fq" type="button"><span>Is setup included?</span><span class="plus">+</span></button><div class="fa"><p>Standard supported integration is positioned as free. Buyer-specific custom development is separate.</p></div></div></div>
-  </div>
-</section>
-<section class="page-cta">
-  <div class="wrap reveal">
-    <span class="ey">A bigger opportunity is waiting</span>
-    <h2>When the buyer asks for PunchOut, say yes.</h2>
-    <p class="lead">Start with your first enterprise buyer and grow from there.</p>
-    <div class="page-hero__actions">
-      <a class="btn pri" href="https://app.punchoutcentral.com/platform/register" target="_blank">Connect my first buyer →</a>
-      <a class="btn secbtn" href="/pricing/">See pricing</a>
-    </div>
-  </div>
-</section>
+  <section class="page-hero page-hero--mint" id="overview"><div class="wrap page-hero__grid">
+    <div class="page-hero__copy reveal"><span class="ey">Shopify Workday PunchOut</span><h1>Connect Workday Procurement to your Shopify catalog.</h1><p class="lead">Workday can open a supplier PunchOut catalog and bring selected items back to its purchasing cart. PunchOut Central connects the buyer session to your Shopify store and links the later approved PO to the store order.</p><div class="page-hero__actions"><a class="btn pri" href="/book-demo/">Discuss a Workday buyer &rarr;</a><a class="btn secbtn" href="#details">See setup checkpoints &darr;</a></div></div>
+    <div class="hero-visual logo-hero reveal"><div class="hero-visual__label"><span>Buyer system</span><b>cXML setup</b></div><div class="logo-hero__mark"><img src="/assets/logos/workday.svg" alt="Workday"></div><span class="logo-hero__status">PunchOut Central</span><h3>Workday to Shopify</h3><p>Catalog launch and purchase-order delivery require distinct checks.</p></div>
+  </div></section>
+  <section class="sec" id="flow"><div class="wrap"><div class="section-head center reveal"><span class="ey">Workday workflow</span><h2>Catalog connection and PO delivery are separate setup steps.</h2><p class="lead">Workday’s administrator guide describes a supplier PunchOut connection, cXML credentials and a separate purchase-order integration. The buyer’s configuration decides how each step is routed.</p></div>
+    <div class="integration-flow reveal"><div class="integration-node"><strong>Workday</strong><span>Buyer cart and requisition</span></div><div class="integration-arrow">&rarr;</div><div class="integration-node integration-node--accent"><strong>PunchOut Central</strong><span>Buyer and PO context</span></div><div class="integration-arrow">&rarr;</div><div class="integration-node"><strong>Shopify</strong><span>Supplier catalog and order</span></div></div>
+  </div></section>
+  <section class="sec soft" id="details"><div class="wrap"><div class="section-head reveal"><span class="ey">Onboarding checklist</span><h2>Test both Workday integrations.</h2><p class="lead">A successful PunchOut session only proves catalog access. The approved PO must arrive through the configured purchasing integration before PunchOut Central creates the Shopify order.</p></div>
+    <div class="simple-steps">{checks.map(([title, description], index) => <article class="simple-step reveal"><span class="simple-step__num">{String(index + 1).padStart(2, '0')}</span><h3>{title}</h3><p>{description}</p></article>)}</div>
+  </div></section>
+  <section class="sec" id="proof"><div class="wrap"><div class="section-head reveal"><span class="ey">Validation</span><h2>Trace the buyer’s cart through the approved PO.</h2><p class="lead">Have the Workday buyer test catalog launch, item return, requisition, PO issue and Shopify order creation. Confirm invoice delivery only if the buyer has configured that optional channel.</p></div>
+    <div class="related-grid"><a class="related-card reveal" href="/integrations/cxml/"><span>Protocol</span><h3>cXML</h3><p>Understand the PunchOut session protocol.</p><b>Explore &rarr;</b></a><a class="related-card reveal" href="/platform/purchase-orders/"><span>Order stage</span><h3>Purchase orders</h3><p>See the approved PO handoff.</p><b>Explore &rarr;</b></a><a class="related-card reveal" href="/platform/invoices/"><span>Later stage</span><h3>Invoices</h3><p>Review invoice activity after ordering.</p><b>Explore &rarr;</b></a></div>
+    <p><small>Buyer-side reference: <a href="https://doc.workday.com/admin-guide/en-us/spend-management/procurement/supplier-punchout/dan1370797005165.html">Workday’s supplier PunchOut setup guide</a>.</small></p>
+  </div></section>
+  <section class="sec soft" id="faq"><div class="wrap"><div class="section-head center reveal"><span class="ey">FAQ</span><h2>Workday questions</h2></div><div class="faq reveal">
+    <div class="fi"><button class="fq" type="button"><span>Is the PunchOut catalog integration enough for POs?</span><span class="plus">+</span></button><div class="fa"><p>No. Workday documents a separate purchase-order integration for PunchOut items. Its routing must be confirmed with the buyer.</p></div></div>
+    <div class="fi"><button class="fq" type="button"><span>Does PunchOut Central create an order when the cart returns?</span><span class="plus">+</span></button><div class="fa"><p>No. The cart returns to Workday for the buyer’s purchasing process; the approved PO leads to the Shopify order.</p></div></div>
+    <div class="fi"><button class="fq" type="button"><span>Are invoices automatically delivered into Workday?</span><span class="plus">+</span></button><div class="fa"><p>No delivery is assumed. Workday describes supplier invoicing integration as optional, so confirm the buyer’s selected invoice channel.</p></div></div>
+  </div></div></section>
+  <section class="page-cta"><div class="wrap reveal"><span class="ey">Check the Workday setup</span><h2>Review catalog access and PO routing before go-live.</h2><p class="lead">Bring the buyer’s Workday integration requirements and the Shopify store you want to connect.</p><div class="page-hero__actions"><a class="btn pri" href="/book-demo/">Book a demo &rarr;</a><a class="btn secbtn" href="/how-it-works/">See the full workflow</a></div></div></section>
 </main>

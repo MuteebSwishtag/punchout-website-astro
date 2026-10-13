@@ -1,0 +1,10 @@
+---
+import SiteLayout from '../../../layouts/SiteLayout.astro';
+import ResourceArticle from '../../../components/page-content/ResourceArticle.astro';
+import { resourcePages } from '../../../content/resources.mjs';
+const path = '/resources/punchout-vs-hosted-catalog/';
+const content = resourcePages[path];
+---
+<SiteLayout title="PunchOut vs Hosted Catalog: Which Model Fits? | PunchOut Central" description="Compare supplier-hosted PunchOut shopping with buyer-maintained catalog content, including ownership, search, product changes and buyer questions." ogType="article" includeSiteScript={true} bodyClass="inner-page">
+  <ResourceArticle path={path} {...content} />
+</SiteLayout>

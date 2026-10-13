@@ -1,0 +1,12 @@
+---
+import SiteLayout from '../../../layouts/SiteLayout.astro';
+import DetailPage from '../../../components/page-content/DetailPage.astro';
+import PageNav from '../../../components/page-content/industries/PageNav.astro';
+import { industryPages } from '../../../content/phase6-pages.mjs';
+const path = '/industries/it-hardware/';
+const content = industryPages[path];
+---
+<SiteLayout title="IT Hardware PunchOut for Suppliers | PunchOut Central" description="Support enterprise IT hardware procurement with a Shopify catalog, buyer-specific access, cart return, approved POs and store-order visibility." includeSiteScript={true} bodyClass="inner-page">
+  <PageNav />
+  <DetailPage {...content} />
+</SiteLayout>

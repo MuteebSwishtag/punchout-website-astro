@@ -1,0 +1,10 @@
+---
+import SiteLayout from '../../../layouts/SiteLayout.astro';
+import ResourceArticle from '../../../components/page-content/ResourceArticle.astro';
+import { resourcePages } from '../../../content/resources.mjs';
+const path = '/resources/shopify-punchout-guide/';
+const content = resourcePages[path];
+---
+<SiteLayout title="Shopify PunchOut Guide for B2B Suppliers | PunchOut Central" description="Learn how to connect an existing Shopify or Shopify Plus store to enterprise procurement, assign buyer catalog access and test the full PunchOut-to-order flow." ogType="article" includeSiteScript={true} bodyClass="inner-page">
+  <ResourceArticle path={path} {...content} />
+</SiteLayout>

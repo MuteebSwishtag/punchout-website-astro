@@ -1,0 +1,10 @@
+---
+import SiteLayout from '../../../layouts/SiteLayout.astro';
+import ResourceArticle from '../../../components/page-content/ResourceArticle.astro';
+import { resourcePages } from '../../../content/resources.mjs';
+const path = '/resources/punchout-supplier-onboarding/';
+const content = resourcePages[path];
+---
+<SiteLayout title="PunchOut Supplier Onboarding Guide | PunchOut Central" description="Prepare the Shopify store, buyer system, catalog access, project roles and repeatable test sequence for a new enterprise PunchOut connection." ogType="article" includeSiteScript={true} bodyClass="inner-page">
+  <ResourceArticle path={path} {...content} />
+</SiteLayout>

@@ -1,0 +1,10 @@
+---
+import SiteLayout from '../../../layouts/SiteLayout.astro';
+import ResourceArticle from '../../../components/page-content/ResourceArticle.astro';
+import { resourcePages } from '../../../content/resources.mjs';
+const path = '/resources/oci-guide/';
+const content = resourcePages[path];
+---
+<SiteLayout title="What Is OCI? Open Catalog Interface Guide | PunchOut Central" description="Learn how OCI connects an external supplier catalog to procurement or ERP, and which version, field mapping, authentication and return details to confirm." ogType="article" includeSiteScript={true} bodyClass="inner-page">
+  <ResourceArticle path={path} {...content} />
+</SiteLayout>

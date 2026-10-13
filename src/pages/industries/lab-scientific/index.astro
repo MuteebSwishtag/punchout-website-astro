@@ -1,9 +1,12 @@
 ---
 import SiteLayout from '../../../layouts/SiteLayout.astro';
-import Content from '../../../components/page-content/industries/lab-scientific/Main.astro';
-import PageNav from '../../../components/page-content/industries/lab-scientific/PageNav.astro';
+import DetailPage from '../../../components/page-content/DetailPage.astro';
+import PageNav from '../../../components/page-content/industries/PageNav.astro';
+import { industryPages } from '../../../content/phase6-pages.mjs';
+const path = '/industries/lab-scientific/';
+const content = industryPages[path];
 ---
-<SiteLayout title="Lab / Scientific PunchOut | PunchOut Central" description="Support universities, hospitals, pharmaceutical companies and research organizations that purchase through structured procurement." includeSiteScript={true} bodyClass="inner-page">
+<SiteLayout title="Lab / Scientific PunchOut for Suppliers | PunchOut Central" description="Support lab and scientific suppliers selling to universities, hospitals, pharmaceutical companies and research organizations through structured procurement." includeSiteScript={true} bodyClass="inner-page">
   <PageNav />
-  <Content />
+  <DetailPage {...content} />
 </SiteLayout>

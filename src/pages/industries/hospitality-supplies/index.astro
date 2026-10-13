@@ -1,0 +1,12 @@
+---
+import SiteLayout from '../../../layouts/SiteLayout.astro';
+import DetailPage from '../../../components/page-content/DetailPage.astro';
+import PageNav from '../../../components/page-content/industries/PageNav.astro';
+import { industryPages } from '../../../content/phase6-pages.mjs';
+const path = '/industries/hospitality-supplies/';
+const content = industryPages[path];
+---
+<SiteLayout title="Hospitality Supplies PunchOut | PunchOut Central" description="Support hospitality and operational suppliers selling to hotels, restaurants, venues and multi-location buyers through Shopify PunchOut." includeSiteScript={true} bodyClass="inner-page">
+  <PageNav />
+  <DetailPage {...content} />
+</SiteLayout>

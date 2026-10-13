@@ -1,0 +1,10 @@
+---
+import SiteLayout from '../../../layouts/SiteLayout.astro';
+import ResourceArticle from '../../../components/page-content/ResourceArticle.astro';
+import { resourcePages } from '../../../content/resources.mjs';
+const path = '/resources/cxml-vs-oci/';
+const content = resourcePages[path];
+---
+<SiteLayout title="cXML vs OCI PunchOut: Protocol Comparison | PunchOut Central" description="Compare cXML and OCI PunchOut workflows, buyer-specific setup questions and the testing responsibilities suppliers should clarify before choosing a path." ogType="article" includeSiteScript={true} bodyClass="inner-page">
+  <ResourceArticle path={path} {...content} />
+</SiteLayout>

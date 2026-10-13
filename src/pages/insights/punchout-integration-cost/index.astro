@@ -1,0 +1,10 @@
+---
+import SiteLayout from '../../../layouts/SiteLayout.astro';
+import InsightArticle from '../../../components/page-content/InsightArticle.astro';
+import { insightPages } from '../../../content/phase6-pages.mjs';
+const path = '/insights/punchout-integration-cost/';
+const content = insightPages[path];
+---
+<SiteLayout title="PunchOut Integration Cost: Plans and Connection Pricing | PunchOut Central" description="Understand PunchOut Central's published connection-based pricing, what counts as a connection and which buyer costs still need confirmation." ogType="article" includeSiteScript={true} bodyClass="inner-page">
+  <InsightArticle {...content} />
+</SiteLayout>

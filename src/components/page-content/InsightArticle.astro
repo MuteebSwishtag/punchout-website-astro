@@ -1,0 +1,53 @@
+---
+import RelatedLinks from '../RelatedLinks.astro';
+import '../../styles/pages/resources.css';
+import '../../styles/pages/insights.css';
+
+interface Step { title: string; text: string }
+interface Section { id: string; title: string; paragraphs?: string[]; bullets?: string[]; steps?: Step[] }
+interface Question { question: string; answer: string }
+interface Props {
+  path: string; eyebrow: string; breadcrumb: string; title: string; lead: string;
+  visualLabel: string; visualSteps: Step[]; sections: Section[];
+  related: [string, string, string][]; questions?: Question[]; ctaTitle: string; ctaText: string;
+}
+
+const { path, eyebrow, breadcrumb, title, lead, visualLabel, visualSteps, sections, related, questions = [], ctaTitle, ctaText } = Astro.props;
+---
+<main>
+  <section class="page-hero page-hero--peach resource-hero insight-hero" id="overview">
+    <div class="wrap page-hero__grid">
+      <div class="page-hero__copy reveal">
+        <nav class="resource-breadcrumbs" aria-label="Breadcrumb"><a href="/">Home</a><span>/</span><a href="/insights/">Insights</a><span>/</span><span aria-current="page">{breadcrumb}</span></nav>
+        <span class="ey">{eyebrow}</span>
+        <h1>{title}</h1>
+        <p class="lead">{lead}</p>
+        <div class="page-hero__actions"><a class="btn pri" href="/book-demo/">Discuss your requirement &rarr;</a><a class="btn secbtn" href="#article">Read the article &darr;</a></div>
+      </div>
+      <div class="hero-visual reveal" aria-label={visualLabel}>
+        <div class="hero-visual__label"><span>Insight</span><b>{visualLabel}</b></div>
+        <div class="visual-flow">{visualSteps.map((step, index) => <div class={`visual-step ${['is-accent', 'is-lavender', 'is-peach', 'is-lime'][index % 4]}`}><i>{String(index + 1).padStart(2, '0')}</i><span><strong>{step.title}</strong><small>{step.text}</small></span></div>)}</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec insight-article" id="article">
+    <div class="wrap content-shell">
+      <article class="prose reveal">
+        {sections.map((section) => <section id={section.id} class="resource-section insight-section">
+          <h2>{section.title}</h2>
+          {section.paragraphs?.map((paragraph) => <p>{paragraph}</p>)}
+          {section.bullets && <ul>{section.bullets.map((bullet) => <li>{bullet}</li>)}</ul>}
+          {section.steps && <ol class="resource-steps">{section.steps.map((step, index) => <li><span class="resource-steps__number">{String(index + 1).padStart(2, '0')}</span><div><h3>{step.title}</h3><p>{step.text}</p></div></li>)}</ol>}
+        </section>)}
+        {questions.length > 0 && <section class="insight-questions" id="questions"><h2>Questions to clarify</h2><div class="faq">{questions.map((item) => <div class="fi"><button class="fq" type="button"><span>{item.question}</span><span class="plus">+</span></button><div class="fa"><p>{item.answer}</p></div></div>)}</div></section>}
+      </article>
+      <aside class="side-nav resource-side-nav"><span>In this insight</span><a href="#overview">Overview</a>{sections.map((section) => <a href={`#${section.id}`}>{section.title}</a>)}{questions.length > 0 && <a href="#questions">Questions</a>}</aside>
+    </div>
+  </section>
+
+  <section class="sec soft resource-related" aria-label="Related PunchOut pages">
+    <div class="wrap"><div class="section-head reveal"><span class="ey">Next step</span><h2>Connect the explanation to the right page.</h2></div><div class="related-grid">{related.map(([href, label, description]) => <a class="related-card reveal" href={href}><span>Related topic</span><h3>{label}</h3><p>{description}</p><b>Explore &rarr;</b></a>)}</div></div>
+  </section>
+  <section class="page-cta"><div class="wrap reveal"><span class="ey">Make it practical</span><h2>{ctaTitle}</h2><p class="lead">{ctaText}</p><div class="page-hero__actions"><a class="btn pri" href="/book-demo/">Request a demo &rarr;</a><a class="btn secbtn" href="/pricing/">Compare plans</a></div></div></section>
+</main>

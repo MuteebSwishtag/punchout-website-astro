@@ -1,0 +1,10 @@
+---
+import SiteLayout from '../../../layouts/SiteLayout.astro';
+import ResourceArticle from '../../../components/page-content/ResourceArticle.astro';
+import { resourcePages } from '../../../content/resources.mjs';
+const path = '/resources/punchout-glossary/';
+const content = resourcePages[path];
+---
+<SiteLayout title="PunchOut Glossary: Procurement Terms Explained | PunchOut Central" description="Definitions for PunchOut, cXML, OCI, cart return, buyer approval, purchase orders, catalog access, hosted catalogs and transaction stages." ogType="article" includeSiteScript={true} bodyClass="inner-page">
+  <ResourceArticle path={path} {...content} />
+</SiteLayout>

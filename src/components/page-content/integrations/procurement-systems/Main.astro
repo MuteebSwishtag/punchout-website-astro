@@ -1,0 +1,68 @@
+---
+const systems = [
+  ['Coupa', '/integrations/coupa/'],
+  ['SAP Ariba', '/integrations/sap-ariba/'],
+  ['JAGGAER', '/integrations/jaggaer/'],
+  ['Oracle Procurement', '/integrations/oracle/'],
+  ['Workday', '/integrations/workday/'],
+  ['Ivalua', '/integrations/ivalua/'],
+  ['GEP SMART', '/integrations/gep/']
+];
+---
+<main>
+  <section class="page-hero page-hero--mint" id="overview">
+    <div class="wrap page-hero__grid">
+      <div class="page-hero__copy reveal">
+        <span class="ey">PunchOut procurement systems</span>
+        <h1>Connect the buyer's procurement system to your Shopify catalog.</h1>
+        <p class="lead">PunchOut Central supports buyer connections across a procurement ecosystem that includes Coupa, SAP Ariba, JAGGAER, Oracle Procurement, Workday, Ivalua and GEP. Each buyer's protocol and setup requirements need to be confirmed.</p>
+        <div class="page-hero__actions"><a class="btn pri" href="/book-demo/">Discuss your buyer system &rarr;</a><a class="btn secbtn" href="#systems">Explore the ecosystem &darr;</a></div>
+      </div>
+      <div class="hero-visual reveal">
+        <div class="hero-visual__label"><span>Buyer side</span><b>Procurement</b></div>
+        <div class="visual-flow">
+          <div class="visual-step is-accent"><i>01</i><span><strong>Buyer system</strong><small>Starts the PunchOut session</small></span></div>
+          <div class="visual-step is-lavender"><i>02</i><span><strong>PunchOut Central</strong><small>Matches the buyer connection</small></span></div>
+          <div class="visual-step is-peach"><i>03</i><span><strong>Shopify store</strong><small>Supplier catalog</small></span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="sec" id="systems">
+    <div class="wrap">
+      <div class="section-head reveal"><span class="ey">Buyer ecosystem</span><h2>Start with the system your customer uses.</h2><p class="lead">These systems are named in the product's supported procurement ecosystem. The exact connection still depends on that buyer's configuration, protocol and testing requirements.</p></div>
+      <div class="feature-grid">{systems.map(([system, path], index) => <article class="feature-card reveal"><span class="feature-card__icon">{String(index + 1).padStart(2, '0')}</span><h3><a href={path}>{system}</a></h3></article>)}</div>
+    </div>
+  </section>
+  <section class="sec soft" id="requirements">
+    <div class="wrap">
+      <div class="section-head reveal"><span class="ey">Connection planning</span><h2>What to confirm for a buyer connection.</h2><p class="lead">A platform name alone does not define the implementation. The buyer and supplier need to agree on the connection details.</p></div>
+      <div class="simple-steps">
+        <article class="simple-step reveal"><span class="simple-step__num">01</span><h3>Protocol</h3><p>Determine whether the buyer requires <a href="/integrations/cxml/">cXML</a> or <a href="/integrations/oci/">OCI</a> PunchOut.</p></article>
+        <article class="simple-step reveal"><span class="simple-step__num">02</span><h3>Catalog access</h3><p>Choose the supplier Shopify store and the products or collections available to that buyer.</p></article>
+        <article class="simple-step reveal"><span class="simple-step__num">03</span><h3>Order flow</h3><p>Confirm how the cart returns for approval and how the approved PO reaches PunchOut Central.</p></article>
+        <article class="simple-step reveal"><span class="simple-step__num">04</span><h3>Testing</h3><p>Test session launch, cart return and purchase-order handling with the buyer before go-live.</p></article>
+      </div>
+    </div>
+  </section>
+  <section class="sec" id="workflow">
+    <div class="wrap">
+      <div class="section-head reveal"><span class="ey">Keep the roles clear</span><h2>The procurement system belongs to the buyer.</h2><p class="lead">The buyer starts PunchOut and approves the cart in procurement. Shopify remains the supplier storefront. PunchOut Central connects the session, cart, approved PO, store order and invoice activity.</p></div>
+      <div class="related-grid">
+        <a class="related-card reveal" href="/integrations/shopify/"><span>Supplier store</span><h3>Shopify PunchOut</h3><p>See how your existing storefront serves the buyer catalog.</p><b>Explore &rarr;</b></a>
+        <a class="related-card reveal" href="/how-it-works/"><span>Process</span><h3>How it works</h3><p>Follow the six stages from session to invoice.</p><b>Explore &rarr;</b></a>
+        <a class="related-card reveal" href="/integrations/"><span>Overview</span><h3>All integrations</h3><p>Compare buyer systems, protocols and the Shopify connection.</p><b>Explore &rarr;</b></a>
+      </div>
+    </div>
+  </section>
+  <section class="sec soft" id="faq">
+    <div class="wrap"><div class="section-head center reveal"><span class="ey">FAQ</span><h2>Buyer-system questions</h2></div>
+      <div class="faq reveal">
+        <div class="fi"><button class="fq" type="button"><span>Does listing a system mean every buyer setup is identical?</span><span class="plus">+</span></button><div class="fa"><p>No. Protocol, credentials, catalog access and testing requirements vary by buyer and must be confirmed for each connection.</p></div></div>
+        <div class="fi"><button class="fq" type="button"><span>Is Shopify the buyer procurement system?</span><span class="plus">+</span></button><div class="fa"><p>No. Shopify or Shopify Plus is the supplier storefront. The buyer starts the session in their procurement system.</p></div></div>
+        <div class="fi"><button class="fq" type="button"><span>When does the Shopify order appear?</span><span class="plus">+</span></button><div class="fa"><p>After the buyer approves the returned cart and PunchOut Central receives the approved purchase order.</p></div></div>
+      </div>
+    </div>
+  </section>
+  <section class="page-cta"><div class="wrap reveal"><span class="ey">Check a buyer requirement</span><h2>Tell us which procurement system your buyer uses.</h2><p class="lead">We can review the protocol, Shopify catalog access and testing steps for that connection.</p><div class="page-hero__actions"><a class="btn pri" href="/book-demo/">Discuss the connection &rarr;</a><a class="btn secbtn" href="/integrations/">Explore integrations</a></div></div></section>
+</main>

@@ -1,4 +1,6 @@
 ---
+import { resourcePages } from '../../../content/resources.mjs';
+const resourceLinks = Object.entries(resourcePages);
 ---
 <main>
 
@@ -13,8 +15,8 @@
         <a class="btn secbtn" href="#details">Browse resources <span aria-hidden="true">↓</span></a>
       </div>
       <div class="page-proofline">
-        <span><b>✓</b> Free Integration</span>
-        <span><b>✓</b> Cancel anytime</span>
+        <span><b>✓</b> No setup fee</span>
+        <span><b>✓</b> Free onboarding assistance</span>
         <span><b>✓</b> No transaction fees</span>
       </div>
     </div>
@@ -26,23 +28,19 @@
   </div>
 </section>
 
-<!-- <section class="trust-strip" aria-label="PunchOut Central credibility">
-  <div class="wrap trust-strip__inner">
-    <div class="trust-strip__item"><span class="trust-strip__icon">★</span><div><strong>Trustpilot 4.7+</strong><span>Customer rating</span></div></div>
-    <span class="trust-strip__divider"></span>
-    <div class="trust-strip__item"><span class="trust-strip__icon">PPAI</span><div><strong>PPAI Member</strong><span>Promotional products industry</span></div></div>
-    <span class="trust-strip__divider"></span>
-    <div class="trust-strip__item"><span class="trust-strip__icon">S</span><div><strong>Shopify Partner</strong><span>Commerce experience</span></div></div>
-  </div>
-</section> -->
+
 
 
 <section class="sec" id="details"><div class="wrap"><div class="section-head reveal"><span class="ey">Resource library</span><h2>Start wherever your question starts.</h2></div>
 <div class="resource-list">
 <a class="resource-card reveal" href="/resources/punchout-guide/"><span>Guide</span><h3>What is PunchOut?</h3><p>A supplier-friendly introduction to PunchOut, cart return, procurement approval and POs.</p><b>Read guide →</b></a>
-<a class="resource-card reveal" href="/documentation/"><span>Documentation</span><h3>PunchOut Central Docs</h3><p>A starter documentation area for platform concepts, connections and transactions.</p><b>Open docs →</b></a>
+<a class="resource-card reveal" href="/documentation/"><span>Documentation</span><h3>PunchOut Central Docs</h3><p>Explore buyer connections, purchase orders, transactions and integrations.</p><b>Open docs →</b></a>
 <a class="resource-card reveal" href="/faq/"><span>FAQ</span><h3>Supplier Questions</h3><p>Simple answers to the questions that usually come up before a PunchOut project starts.</p><b>Read FAQ →</b></a>
-<a class="resource-card reveal" href="/insights/"><span>Insights</span><h3>Procurement + Commerce Insights</h3><p>Starter article topics for growing B2B suppliers and ecommerce teams.</p><b>Browse insights →</b></a>
+<a class="resource-card reveal" href="/insights/"><span>Insights</span><h3>Procurement + Commerce Insights</h3><p>Follow the PunchOut journey through Shopify, protocols and purchase orders.</p><b>Browse insights →</b></a>
+</div></div></section>
+<section class="sec soft" id="technical-guides"><div class="wrap"><div class="section-head reveal"><span class="ey">Technical guides</span><h2>Go deeper on the question in front of you.</h2><p class="lead">These guides explain protocols, catalog models, implementation steps and the purchase-order journey without replacing the buyer's own technical requirements.</p></div>
+<div class="resource-list">
+{resourceLinks.map(([path, page]) => <a class="resource-card reveal" href={path}><span>{page.eyebrow}</span><h3>{page.title}</h3><p>{page.lead}</p><b>Read the guide &rarr;</b></a>)}
 </div></div></section>
 <section class="page-cta">
   <div class="wrap reveal">

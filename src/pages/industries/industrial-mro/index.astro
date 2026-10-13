@@ -1,9 +1,12 @@
 ---
 import SiteLayout from '../../../layouts/SiteLayout.astro';
-import Content from '../../../components/page-content/industries/industrial-mro/Main.astro';
-import PageNav from '../../../components/page-content/industries/industrial-mro/PageNav.astro';
+import DetailPage from '../../../components/page-content/DetailPage.astro';
+import PageNav from '../../../components/page-content/industries/PageNav.astro';
+import { industryPages } from '../../../content/phase6-pages.mjs';
+const path = '/industries/industrial-mro/';
+const content = industryPages[path];
 ---
-<SiteLayout title="Industrial / MRO PunchOut | PunchOut Central" description="Connect manufacturers, facilities teams, utilities, universities and other institutional buyers when procurement requires PunchOut." includeSiteScript={true} bodyClass="inner-page">
+<SiteLayout title="Industrial / MRO PunchOut for Suppliers | PunchOut Central" description="Connect industrial and MRO suppliers to enterprise procurement through a Shopify catalog, buyer-specific access, approved POs and transaction visibility." includeSiteScript={true} bodyClass="inner-page">
   <PageNav />
-  <Content />
+  <DetailPage {...content} />
 </SiteLayout>

@@ -1,16 +1,20 @@
 ---
+import RelatedLinks from '../../../RelatedLinks.astro';
+import '../../../../styles/pages/resources.css';
 ---
 <main>
 
-<section class="page-hero page-hero--mint" id="overview"><div class="wrap"><div class="page-hero__copy reveal"><span class="ey">PunchOut Guide</span><h1>What is PunchOut?</h1><p class="lead">A simple supplier-friendly guide to what happens when an enterprise buyer wants to purchase from your ecommerce catalog through their procurement system.</p></div></div></section>
-<section class="sec"><div class="wrap content-shell"><article class="prose reveal">
+<section class="page-hero page-hero--mint" id="overview"><div class="wrap"><div class="page-hero__copy reveal"><nav class="resource-breadcrumbs" aria-label="Breadcrumb"><a href="/">Home</a><span>/</span><a href="/resources/">Resources</a><span>/</span><span aria-current="page">What is PunchOut?</span></nav><span class="ey">PunchOut Guide</span><h1>What is PunchOut?</h1><p class="lead">A simple supplier-friendly guide to what happens when an enterprise buyer wants to purchase from your ecommerce catalog through their procurement system.</p><div class="page-hero__actions"><a class="btn pri" href="/resources/shopify-punchout-guide/">Read the Shopify guide &rarr;</a><a class="btn secbtn" href="#article">Follow the flow &darr;</a></div></div></div></section>
+<section class="sec" id="article"><div class="wrap content-shell"><article class="prose reveal">
 <h2 id="what">The simple explanation</h2><p>PunchOut lets a buyer start inside a procurement system, open your ecommerce catalog, build a cart, and send that cart back to procurement for approval.</p>
 <h2 id="flow">The important flow</h2><p>The buyer does not complete normal ecommerce checkout during a PunchOut session. The cart returns to procurement. After approval, the procurement system sends the purchase order. That approved PO is what should create the final commerce order.</p>
 <h2 id="why">Why suppliers need it</h2><p>Some enterprise, university, healthcare and institutional buyers require procurement connectivity before they can buy from a supplier at scale. The supplier opportunity may be valuable, but the technology can become the blocker.</p>
 <h2 id="central">Where PunchOut Central fits</h2><p>PunchOut Central sits between procurement and ecommerce. It manages buyer connections, sessions, cart return, approved POs, store-order creation, invoices and transaction visibility.</p>
+<h2 id="next">Where to go next</h2><p>Use the <a href="/resources/punchout-implementation-guide/">implementation guide</a> to plan the connection, the <a href="/resources/punchout-testing-checklist/">testing checklist</a> to validate it, and the <a href="/resources/punchout-purchase-order-process/">purchase-order guide</a> to keep the cart-to-order boundary clear.</p>
 <div class="notice"><strong>Key rule:</strong> Cart return is not the final order. The approved purchase order comes after the buyer completes internal approval.</div>
-</article><aside class="side-nav"><span>In this guide</span><a href="#what">What PunchOut is</a><a href="#flow">The transaction flow</a><a href="#why">Why suppliers need it</a><a href="#central">PunchOut Central</a></aside></div></section>
+</article><aside class="side-nav"><span>In this guide</span><a href="#what">What PunchOut is</a><a href="#flow">The transaction flow</a><a href="#why">Why suppliers need it</a><a href="#central">PunchOut Central</a><a href="#next">Next steps</a></aside></div></section>
 
+<RelatedLinks source="/resources/punchout-guide/" heading="From the guide to implementation" />
 <section class="page-cta">
   <div class="wrap reveal">
     <span class="ey">A bigger opportunity is waiting</span>

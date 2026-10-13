@@ -1,0 +1,12 @@
+---
+import SiteLayout from '../../../layouts/SiteLayout.astro';
+import DetailPage from '../../../components/page-content/DetailPage.astro';
+import PageNav from '../../../components/page-content/industries/PageNav.astro';
+import { industryPages } from '../../../content/phase6-pages.mjs';
+const path = '/industries/promotional-products/';
+const content = industryPages[path];
+---
+<SiteLayout title="Promotional Products PunchOut | PunchOut Central" description="Connect promotional product suppliers to corporate, university and healthcare procurement through Shopify PunchOut and approved purchase orders." includeSiteScript={true} bodyClass="inner-page">
+  <PageNav />
+  <DetailPage {...content} />
+</SiteLayout>

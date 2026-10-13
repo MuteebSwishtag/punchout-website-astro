@@ -1,66 +1,30 @@
 ---
+const plan = [
+  ['Choose the catalog model', 'Oracle Fusion Cloud Procurement offers a direct cXML supplier PunchOut source as well as Oracle-native XML models. Confirm the buyer uses the cXML path supported by PunchOut Central.'],
+  ['Identify the buying unit', 'The Oracle catalog administrator sets up a PunchOut catalog for a procurement business unit. Confirm which buyer entity and supplier catalog should be linked.'],
+  ['Return requisition lines', 'The requester shops the supplier site and returns items to Oracle Self Service Procurement as requisition lines.'],
+  ['Receive an approved PO', 'After the buyer’s requisition process, confirm how the approved PO reaches PunchOut Central before a Shopify order is created.']
+];
 ---
 <main>
-
-<section class="page-hero page-hero--mint" id="overview">
-  <div class="wrap page-hero__grid">
-    <div class="page-hero__copy reveal">
-      <span class="ey">Oracle Procurement Integration</span><h1>Connect Oracle Procurement to modern ecommerce.</h1><p class="lead">Bridge enterprise procurement and Shopify through a managed PunchOut connection.</p>
-      <div class="page-hero__actions"><a class="btn pri" href="/book-demo/">Discuss this integration →</a><a class="btn secbtn" href="#flow">See the flow ↓</a></div>
-      <div class="page-proofline"><span><b>✓</b> Free Integration</span><span><b>✓</b> No transaction fees</span><span><b>✓</b> Cancel anytime</span></div>
-    </div>
-    <div class="hero-visual logo-hero reveal">
-      <div class="hero-visual__label"><span>Integration</span><b>cXML</b></div>
-      <div class="logo-hero__mark"><img src="/assets/logos/oracle.svg" alt="Oracle Procurement logo"></div>
-      <span class="logo-hero__status">PunchOut Central</span>
-      <h3>Oracle Procurement</h3>
-      <p>Procurement connectivity managed through PunchOut Central.</p>
-    </div>
-  </div>
-</section>
-<!-- <section class="trust-strip" aria-label="PunchOut Central credibility">
-  <div class="wrap trust-strip__inner">
-    <div class="trust-strip__item"><span class="trust-strip__icon">★</span><div><strong>Trustpilot 4.7+</strong><span>Customer rating</span></div></div>
-    <span class="trust-strip__divider"></span>
-    <div class="trust-strip__item"><span class="trust-strip__icon">PPAI</span><div><strong>PPAI Member</strong><span>Promotional products industry</span></div></div>
-    <span class="trust-strip__divider"></span>
-    <div class="trust-strip__item"><span class="trust-strip__icon">S</span><div><strong>Shopify Partner</strong><span>Commerce experience</span></div></div>
-  </div>
-</section> -->
-
-<section class="sec" id="flow"><div class="wrap"><div class="section-head center reveal"><span class="ey">Connection flow</span><h2>Keep procurement and commerce in their own lanes.</h2></div>
-<div class="integration-flow reveal"><div class="integration-node"><strong>Oracle Procurement</strong><span>Buyer / procurement side</span></div><div class="integration-arrow">→</div><div class="integration-node integration-node--accent"><strong>PunchOut Central</strong><span>Authentication, session + transactions</span></div><div class="integration-arrow">→</div><div class="integration-node"><strong>Shopify</strong><span>Supplier catalog + store order</span></div></div></div></section>
-<section class="sec soft" id="details">
-  <div class="wrap">
-    <div class="section-head reveal"><span class="ey">What PunchOut Central handles</span><h2>The integration layer between the buyer and your store.</h2><p class="lead">Your team keeps the business relationship. PunchOut Central handles the procurement connectivity.</p></div>
-    <div class="feature-grid"><article class="feature-card reveal"><span class="feature-card__icon">01</span><h3>Buyer connection</h3><p>Configure credentials and buyer-specific connection settings.</p></article><article class="feature-card reveal"><span class="feature-card__icon">02</span><h3>PunchOut session</h3><p>Authenticate the request and open the correct ecommerce session.</p></article><article class="feature-card reveal"><span class="feature-card__icon">03</span><h3>Cart return</h3><p>Send the selected cart back to procurement for approval.</p></article><article class="feature-card reveal"><span class="feature-card__icon">04</span><h3>Approved PO</h3><p>Receive the PO after the buyer finishes internal approval.</p></article><article class="feature-card reveal"><span class="feature-card__icon">05</span><h3>Store order</h3><p>Create the matching Shopify order from the approved PO.</p></article><article class="feature-card reveal"><span class="feature-card__icon">06</span><h3>Visibility</h3><p>Track the transaction and see where an issue occurred.</p></article></div>
-  </div>
-</section>
-<section class="sec soft" id="proof">
-  <div class="wrap">
-    <div class="section-head reveal"><span class="ey">Built for trust</span><h2>Proven enough for the customer you cannot afford to lose.</h2><p class="lead">Simple on the surface. Dependable underneath.</p></div>
-    <div class="metrics-row">
-      <article class="metric reveal"><strong>90+</strong><span>customers use PunchOut technology built by our team.</span></article>
-      <article class="metric reveal"><strong>$50M+</strong><span>in order value processed through our technology every year.</span></article>
-      <article class="metric metric--dark reveal"><strong>cXML + OCI</strong><span>Buyer sessions, carts, POs, store orders and invoices stay connected and visible.</span></article>
-    </div>
-  </div>
-</section>
-<section class="sec soft" id="faq">
-  <div class="wrap">
-    <div class="section-head center reveal"><span class="ey">FAQ</span><h2>Questions suppliers usually ask</h2></div>
-    <div class="faq reveal"><div class="fi"><button class="fq" type="button"><span>Does PunchOut Central support Oracle Procurement?</span><span class="plus">+</span></button><div class="fa"><p>This page reflects the current integration direction of PunchOut Central. Exact buyer-specific requirements still need to be confirmed during setup.</p></div></div><div class="fi"><button class="fq" type="button"><span>Do we have to replace Shopify?</span><span class="plus">+</span></button><div class="fa"><p>No. Shopify is the current production commerce connector and remains your ecommerce system.</p></div></div><div class="fi"><button class="fq" type="button"><span>Is setup included?</span><span class="plus">+</span></button><div class="fa"><p>Standard supported integration is positioned as free. Buyer-specific custom development is separate.</p></div></div></div>
-  </div>
-</section>
-<section class="page-cta">
-  <div class="wrap reveal">
-    <span class="ey">A bigger opportunity is waiting</span>
-    <h2>When the buyer asks for PunchOut, say yes.</h2>
-    <p class="lead">Start with your first enterprise buyer and grow from there.</p>
-    <div class="page-hero__actions">
-      <a class="btn pri" href="https://app.punchoutcentral.com/platform/register" target="_blank">Connect my first buyer →</a>
-      <a class="btn secbtn" href="/pricing/">See pricing</a>
-    </div>
-  </div>
-</section>
+  <section class="page-hero page-hero--mint" id="overview"><div class="wrap page-hero__grid">
+    <div class="page-hero__copy reveal"><span class="ey">Shopify Oracle Procurement PunchOut</span><h1>Connect Oracle procurement to a Shopify supplier catalog.</h1><p class="lead">Oracle Fusion Cloud Procurement can open a supplier-hosted PunchOut catalog and return selected items to a requisition. PunchOut Central supports the direct cXML connection path to your existing Shopify store.</p><div class="page-hero__actions"><a class="btn pri" href="/book-demo/">Discuss an Oracle connection &rarr;</a><a class="btn secbtn" href="#details">Review the catalog model &darr;</a></div></div>
+    <div class="hero-visual logo-hero reveal"><div class="hero-visual__label"><span>Buyer system</span><b>Direct cXML model</b></div><div class="logo-hero__mark"><img src="/assets/logos/oracle.svg" alt="Oracle"></div><span class="logo-hero__status">PunchOut Central</span><h3>Oracle to Shopify</h3><p>Requester catalog access and requisition on the buyer side.</p></div>
+  </div></section>
+  <section class="sec" id="flow"><div class="wrap"><div class="section-head center reveal"><span class="ey">Oracle workflow</span><h2>Return the cart to the Purchase Requisitions work area.</h2><p class="lead">Oracle describes a requester opening a supplier site from a PunchOut link, choosing products, then returning items to the requisition for editing and submission.</p></div>
+    <div class="integration-flow reveal"><div class="integration-node"><strong>Oracle Procurement</strong><span>Requisition and approval</span></div><div class="integration-arrow">&rarr;</div><div class="integration-node integration-node--accent"><strong>PunchOut Central</strong><span>cXML buyer connection</span></div><div class="integration-arrow">&rarr;</div><div class="integration-node"><strong>Shopify</strong><span>Supplier-hosted catalog</span></div></div>
+  </div></section>
+  <section class="sec soft" id="details"><div class="wrap"><div class="section-head reveal"><span class="ey">Buyer onboarding</span><h2>Confirm Oracle’s direct cXML supplier source.</h2><p class="lead">Oracle supports more than one PunchOut model. PunchOut Central’s documented protocols are cXML and OCI; this page describes the Oracle direct cXML path, not Oracle-native XML support.</p></div>
+    <div class="feature-grid">{plan.map(([title, description], index) => <article class="feature-card reveal"><span class="feature-card__icon">{String(index + 1).padStart(2, '0')}</span><h3>{title}</h3><p>{description}</p></article>)}</div>
+  </div></section>
+  <section class="sec" id="proof"><div class="wrap"><div class="section-head reveal"><span class="ey">Validation</span><h2>Test the exact catalog and buying unit.</h2><p class="lead">Ask the buyer to verify the PunchOut link, cXML launch, returned requisition lines, approval and PO delivery. Match the approved PO to the Shopify order and invoice record; do not treat the returned cart as an order.</p></div>
+    <div class="related-grid"><a class="related-card reveal" href="/integrations/cxml/"><span>Protocol</span><h3>cXML PunchOut</h3><p>Review the supported procurement protocol.</p><b>Explore &rarr;</b></a><a class="related-card reveal" href="/integrations/shopify/"><span>Supplier side</span><h3>Shopify integration</h3><p>See how the store supplies the catalog.</p><b>Explore &rarr;</b></a><a class="related-card reveal" href="/how-it-works/"><span>Transaction</span><h3>How it works</h3><p>Follow approval, PO, order and invoice.</p><b>Explore &rarr;</b></a></div>
+    <p><small>Buyer-side references: <a href="https://docs.oracle.com/en/cloud/saas/procurement/26d/oapro/punchout-catalogs.html">Oracle Punchout Catalogs</a> and <a href="https://docs.oracle.com/en/cloud/saas/procurement/26d/oapro/create-a-punchout-catalog-with-a-direct-cxml-supplier-punchout-source.html">direct cXML supplier source</a>.</small></p>
+  </div></section>
+  <section class="sec soft" id="faq"><div class="wrap"><div class="section-head center reveal"><span class="ey">FAQ</span><h2>Oracle Procurement questions</h2></div><div class="faq reveal">
+    <div class="fi"><button class="fq" type="button"><span>Does PunchOut Central support Oracle-native XML?</span><span class="plus">+</span></button><div class="fa"><p>This page covers Oracle’s direct cXML supplier PunchOut model. Oracle-native XML support is not claimed.</p></div></div>
+    <div class="fi"><button class="fq" type="button"><span>What returns to Oracle after shopping?</span><span class="plus">+</span></button><div class="fa"><p>The selected items return as requisition lines for the buyer’s review and submission, not as a Shopify order.</p></div></div>
+    <div class="fi"><button class="fq" type="button"><span>What about invoices?</span><span class="plus">+</span></button><div class="fa"><p>PunchOut Central tracks invoice activity with the transaction. Confirm the buyer’s invoice-delivery requirements separately.</p></div></div>
+  </div></div></section>
+  <section class="page-cta"><div class="wrap reveal"><span class="ey">Confirm the Oracle model</span><h2>Review the buyer’s cXML catalog setup with us.</h2><p class="lead">Share the procurement business unit, PunchOut source and Shopify store involved.</p><div class="page-hero__actions"><a class="btn pri" href="/book-demo/">Book a demo &rarr;</a><a class="btn secbtn" href="/integrations/procurement-systems/">Explore buyer systems</a></div></div></section>
 </main>

@@ -1,0 +1,10 @@
+---
+import SiteLayout from '../../../layouts/SiteLayout.astro';
+import ResourceArticle from '../../../components/page-content/ResourceArticle.astro';
+import { resourcePages } from '../../../content/resources.mjs';
+const path = '/resources/cxml-invoice-guide/';
+const content = resourcePages[path];
+---
+<SiteLayout title="cXML Invoice Guide for PunchOut Suppliers | PunchOut Central" description="Understand cXML invoice questions after a PunchOut order, including PO references, buyer-specific formats, delivery requirements and transaction review." ogType="article" includeSiteScript={true} bodyClass="inner-page">
+  <ResourceArticle path={path} {...content} />
+</SiteLayout>

@@ -1,0 +1,10 @@
+---
+import SiteLayout from '../../../layouts/SiteLayout.astro';
+import InsightArticle from '../../../components/page-content/InsightArticle.astro';
+import { insightPages } from '../../../content/phase6-pages.mjs';
+const path = '/insights/how-jaggaer-punchout-works/';
+const content = insightPages[path];
+---
+<SiteLayout title="How JAGGAER PunchOut Works with Shopify | PunchOut Central" description="Follow a JAGGAER PunchOut buyer session through the Shopify catalog, cart return, approval, purchase order and store-order handoff." ogType="article" includeSiteScript={true} bodyClass="inner-page">
+  <InsightArticle {...content} />
+</SiteLayout>

@@ -1,67 +1,55 @@
 ---
+import RelatedLinks from '../../RelatedLinks.astro';
 ---
 <main>
-
-<section class="page-hero page-hero--mint" id="overview">
-  <div class="wrap page-hero__grid">
-    <div class="page-hero__copy reveal">
-      <span class="ey">Integrations</span>
-      <h1>Multiple procurement systems. One simple commerce connection.</h1>
-      <p class="lead">Connect the procurement platforms your buyers use to the ecommerce system you already run.</p>
-      <div class="page-hero__actions">
-         <a class="btn pri" href="https://app.punchoutcentral.com/platform/register" target="_blank">Connect my first buyer <span aria-hidden="true">→</span></a>
-        <a class="btn secbtn" href="#details">See how it works <span aria-hidden="true">↓</span></a>
+  <section class="page-hero page-hero--mint" id="overview">
+    <div class="wrap page-hero__grid">
+      <div class="page-hero__copy reveal">
+        <span class="ey">PunchOut integrations</span>
+        <h1>Connect buyer procurement to your Shopify storefront.</h1>
+        <p class="lead">PunchOut Central sits between an enterprise buyer's procurement system and the supplier's existing Shopify or Shopify Plus store. Explore the storefront, buyer systems and protocols involved.</p>
+        <div class="page-hero__actions"><a class="btn pri" href="/book-demo/">Discuss an integration &rarr;</a><a class="btn secbtn" href="#details">Explore connection paths &darr;</a></div>
       </div>
-      <div class="page-proofline">
-        <span><b>✓</b> Free Integration</span>
-        <span><b>✓</b> Cancel anytime</span>
-        <span><b>✓</b> No transaction fees</span>
+      <div class="hero-visual reveal">
+        <div class="hero-visual__label"><span>Connection roles</span><b>Buyer to supplier</b></div>
+        <div class="visual-flow">
+          <div class="visual-step is-accent"><i>01</i><span><strong>Procurement system</strong><small>Buyer starts and approves</small></span></div>
+          <div class="visual-step is-lavender"><i>02</i><span><strong>PunchOut Central</strong><small>Connects the workflow</small></span></div>
+          <div class="visual-step is-peach"><i>03</i><span><strong>Shopify store</strong><small>Supplier catalog and order</small></span></div>
+        </div>
       </div>
     </div>
-    
-    <div class="hero-visual reveal">
-      <div class="hero-visual__label"><span>PunchOut Central</span><b>Connected</b></div>
-      <div class="visual-flow"><div class="visual-step is-accent"><i>01</i><span><strong>Coupa</strong><small>Procurement</small></span><em>Supported workflow</em></div><div class="visual-step is-lavender"><i>02</i><span><strong>SAP Ariba</strong><small>Procurement</small></span><em>Supported workflow</em></div><div class="visual-step is-peach"><i>03</i><span><strong>JAGGAER</strong><small>Procurement</small></span><em>Supported workflow</em></div><div class="visual-step is-lime"><i>04</i><span><strong>Shopify</strong><small>Commerce</small></span><em>Ready</em></div></div>
+  </section>
+  <section class="sec" id="details">
+    <div class="wrap">
+      <div class="section-head reveal"><span class="ey">Choose a starting point</span><h2>Three parts of a PunchOut integration.</h2><p class="lead">A buyer system is not a storefront, and a protocol is not a procurement product. Each part has a separate role.</p></div>
+      <div class="related-grid">
+        <a class="related-card reveal" href="/integrations/procurement-systems/"><span>Buyer side</span><h3>Procurement systems</h3><p>Review the buyer platforms in the supported ecosystem and what must be confirmed for each connection.</p><b>Explore buyer systems &rarr;</b></a>
+        <a class="related-card reveal" href="/integrations/shopify/"><span>Supplier side</span><h3>Shopify integration</h3><p>Use your existing Shopify or Shopify Plus store as the catalog and destination for approved orders.</p><b>Explore Shopify &rarr;</b></a>
+        <a class="related-card reveal" href="/how-it-works/"><span>Transaction</span><h3>Six-stage workflow</h3><p>See how cart return, buyer approval, purchase order, Shopify order and invoice relate.</p><b>Follow the workflow &rarr;</b></a>
+      </div>
     </div>
-  </div>
-</section>
-
-<!-- <section class="trust-strip" aria-label="PunchOut Central credibility">
-  <div class="wrap trust-strip__inner">
-    <div class="trust-strip__item"><span class="trust-strip__icon">★</span><div><strong>Trustpilot 4.7+</strong><span>Customer rating</span></div></div>
-    <span class="trust-strip__divider"></span>
-    <div class="trust-strip__item"><span class="trust-strip__icon">PPAI</span><div><strong>PPAI Member</strong><span>Promotional products industry</span></div></div>
-    <span class="trust-strip__divider"></span>
-    <div class="trust-strip__item"><span class="trust-strip__icon">S</span><div><strong>Shopify Partner</strong><span>Commerce experience</span></div></div>
-  </div>
-</section> -->
-
-<section class="sec" id="details"><div class="wrap"><div class="section-head reveal"><span class="ey">Procurement + commerce</span><h2>Connect the systems around the buyer.</h2><p class="lead">PunchOut Central sits between enterprise procurement and ecommerce so each side can keep working in the system it already knows.</p></div><div class="related-grid"><a class="related-card reveal" href="/integrations/coupa/"><span>Integration</span><h3>Coupa</h3><p>Enterprise procurement connectivity</p><b>Explore →</b></a><a class="related-card reveal" href="/integrations/sap-ariba/"><span>Integration</span><h3>SAP Ariba</h3><p>cXML procurement connectivity</p><b>Explore →</b></a><a class="related-card reveal" href="/integrations/jaggaer/"><span>Integration</span><h3>JAGGAER</h3><p>Catalog and PO workflows</p><b>Explore →</b></a><a class="related-card reveal" href="/integrations/oracle/"><span>Integration</span><h3>Oracle Procurement</h3><p>Procurement-to-commerce connectivity</p><b>Explore →</b></a><a class="related-card reveal" href="/integrations/workday/"><span>Integration</span><h3>Workday</h3><p>Institutional procurement workflows</p><b>Explore →</b></a><a class="related-card reveal" href="/integrations/shopify/"><span>Integration</span><h3>Shopify</h3><p>Current production commerce connector</p><b>Explore →</b></a></div></div></section>
-<section class="sec soft" id="protocols">
-  <div class="wrap">
-    <div class="section-head reveal"><span class="ey">Protocols</span><h2>cXML and OCI are built in.</h2><p class="lead">PunchOut Central supports the procurement communication required for the current product direction.</p></div>
-    <div class="feature-grid"><article class="feature-card reveal"><span class="feature-card__icon">01</span><h3>cXML</h3><p>Support cXML PunchOut and procurement transaction workflows.</p></article><article class="feature-card reveal"><span class="feature-card__icon">02</span><h3>OCI</h3><p>Support OCI-based PunchOut connectivity.</p></article><article class="feature-card reveal"><span class="feature-card__icon">03</span><h3>Shopify first</h3><p>Shopify is the current production commerce connector. BigCommerce and Magento are planned next.</p></article></div>
-  </div>
-</section>
-<section class="sec soft" id="proof">
-  <div class="wrap">
-    <div class="section-head reveal"><span class="ey">Built for trust</span><h2>Proven enough for the customer you cannot afford to lose.</h2><p class="lead">Simple on the surface. Dependable underneath.</p></div>
-    <div class="metrics-row">
-      <article class="metric reveal"><strong>90+</strong><span>customers use PunchOut technology built by our team.</span></article>
-      <article class="metric reveal"><strong>$50M+</strong><span>in order value processed through our technology every year.</span></article>
-      <article class="metric metric--dark reveal"><strong>cXML + OCI</strong><span>Buyer sessions, carts, POs, store orders and invoices stay connected and visible.</span></article>
+  </section>
+  <section class="sec soft" id="protocols">
+    <div class="wrap">
+      <div class="section-head reveal"><span class="ey">Procurement protocols</span><h2>Support for cXML and OCI.</h2><p class="lead">The buyer's requirements determine which protocol and connection settings are needed. Both are implemented in PunchOut Central.</p></div>
+      <div class="feature-grid">
+        <article class="feature-card reveal"><span class="feature-card__icon">01</span><h3>cXML PunchOut</h3><p>Connect cXML buyer sessions and cart return to the supplier catalog and wider procurement transaction.</p><a href="/integrations/cxml/">Explore cXML &rarr;</a></article>
+        <article class="feature-card reveal"><span class="feature-card__icon">02</span><h3>OCI PunchOut</h3><p>Connect OCI catalog launch and cart return to an existing Shopify storefront.</p><a href="/integrations/oci/">Explore OCI &rarr;</a></article>
+        <article class="feature-card reveal"><span class="feature-card__icon">03</span><h3>Buyer-specific setup</h3><p>Confirm the procurement system, protocol, buyer settings and test steps before a connection goes live.</p><a href="/book-demo/">Discuss requirements &rarr;</a></article>
+      </div>
     </div>
-  </div>
-</section>
-<section class="page-cta">
-  <div class="wrap reveal">
-    <span class="ey">A bigger opportunity is waiting</span>
-    <h2>When the buyer asks for PunchOut, say yes.</h2>
-    <p class="lead">Start with your first enterprise buyer and grow from there.</p>
-    <div class="page-hero__actions">
-      <a class="btn pri" href="https://app.punchoutcentral.com/platform/register" target="_blank">Connect my first buyer →</a>
-      <a class="btn secbtn" href="/pricing/">See pricing</a>
+  </section>
+  <section class="sec" id="proof">
+    <div class="wrap">
+      <div class="section-head reveal"><span class="ey">One operating view</span><h2>Manage connections and transactions centrally.</h2><p class="lead">Connect more than one enterprise buyer to a store, or manage multiple Shopify stores and buyer connections from one platform.</p></div>
+      <div class="metrics-row">
+        <article class="metric reveal"><strong>Buyer settings</strong><span>Configure the store and catalog access for each buyer connection.</span></article>
+        <article class="metric reveal"><strong>Order boundary</strong><span>Return the cart for approval; create the store order after the approved PO.</span></article>
+        <article class="metric metric--dark reveal"><strong>Visibility</strong><span>Track transaction stages, issues and reporting in one place.</span></article>
+      </div>
     </div>
-  </div>
-</section>
+  </section>
+  <RelatedLinks source="/integrations/" heading="Explore the integration paths" />
+  <section class="page-cta"><div class="wrap reveal"><span class="ey">Bring your requirements</span><h2>Map the buyer system to your store.</h2><p class="lead">Tell us which procurement system your buyer uses and which Shopify store you want to connect.</p><div class="page-hero__actions"><a class="btn pri" href="/book-demo/">Discuss your integration &rarr;</a><a class="btn secbtn" href="/pricing/">See pricing</a></div></div></section>
 </main>

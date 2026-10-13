@@ -7,11 +7,11 @@ const formToken = import.meta.env.PUBLIC_BOOK_DEMO_TOKEN ?? '';
     <div class="wrap form-shell book-demo-shell">
       <div class="page-hero__copy reveal">
         <span class="ey">Book a demo</span>
-        <h1>Show us the buyer requirement.</h1>
-        <p class="lead">Tell us which customer, procurement system and ecommerce store you need to connect. Then choose a demo time that works for your team.</p>
-        <div class="metrics-row" style="grid-template-columns:1fr 1fr;margin-top:30px">
-          <article class="metric"><strong>90+</strong><span>customers using PunchOut technology built by our team.</span></article>
-          <article class="metric"><strong>$50M+</strong><span>in order value processed through our technology every year.</span></article>
+        <h1>Show us the buyers and store you need to connect.</h1>
+        <p class="lead">Tell us which procurement systems your buyers use and whether they will share one Shopify store. Request a preferred demo time so we can discuss catalog access, connections and the order flow.</p>
+        <div class="metrics-row book-demo-intro-grid">
+          <article class="metric"><strong>One Shopify store</strong><span>Serve multiple buyers with buyer-specific catalog access.</span></article>
+          <article class="metric"><strong>Clear next step</strong><span>See whether the form saved your request, notified our team or created a Zoom meeting.</span></article>
         </div>
       </div>
 
@@ -25,7 +25,7 @@ const formToken = import.meta.env.PUBLIC_BOOK_DEMO_TOKEN ?? '';
           <input type="hidden" id="timezone" name="timezone">
           <input type="text" id="nickname" name="nickname" class="book-demo-hp" tabindex="-1" autocomplete="off" aria-hidden="true">
 
-          <div class="book-demo-stepper" aria-label="Booking steps">
+          <div class="book-demo-stepper" aria-label="Demo request steps">
             <div class="book-demo-step active" data-step-indicator="1">
               <span>1</span>
               <strong>Your details</strong>
@@ -38,8 +38,8 @@ const formToken = import.meta.env.PUBLIC_BOOK_DEMO_TOKEN ?? '';
 
           <section class="book-demo-panel active" data-step="1" aria-labelledby="demoStepOneTitle">
             <div class="book-demo-panel__head">
-              <h2 id="demoStepOneTitle">Start with the buyer request.</h2>
-              <p>Share the basics so the demo can focus on your procurement and commerce path.</p>
+              <h2 id="demoStepOneTitle">Tell us about your buyer setup.</h2>
+              <p>Share the store and procurement requirements so the conversation can focus on your connection.</p>
             </div>
 
             <div class="form-grid">
@@ -68,6 +68,8 @@ const formToken = import.meta.env.PUBLIC_BOOK_DEMO_TOKEN ?? '';
                   <option>JAGGAER</option>
                   <option>Oracle Procurement</option>
                   <option>Workday</option>
+                  <option>Ivalua</option>
+                  <option>GEP SMART</option>
                   <option>Other</option>
                 </select>
               </div>
@@ -75,40 +77,41 @@ const formToken = import.meta.env.PUBLIC_BOOK_DEMO_TOKEN ?? '';
                 <label for="storePlatform">Commerce platform</label>
                 <select id="storePlatform" name="storePlatform">
                   <option>Shopify</option>
-                  <option>BigCommerce</option>
-                  <option>Magento / Adobe Commerce</option>
+                  <option>Shopify Plus</option>
+                  <option value="BigCommerce">BigCommerce (not yet available)</option>
+                  <option value="Magento / Adobe Commerce">Magento / Adobe Commerce (not yet available)</option>
                   <option>Custom store</option>
                   <option>Not sure yet</option>
                 </select>
               </div>
               <div class="form-field form-field--full">
-                <label for="message">What did the buyer ask for?</label>
+                <label for="message">What did the buyer ask for? <span>optional</span></label>
                 <textarea id="message" name="message" placeholder="Example: Our customer uses Coupa and asked if our Shopify store supports PunchOut."></textarea>
               </div>
             </div>
 
             <p class="book-demo-error" data-error="1" role="alert"></p>
             <div class="book-demo-actions">
-              <span class="fine-print">Your meeting details are added in the next step.</span>
-              <button class="btn pri" type="button" data-next>Continue to times -></button>
+              <span class="fine-print">You’ll choose a preferred time next.</span>
+              <button class="btn pri" type="button" data-next>Continue to times &rarr;</button>
             </div>
           </section>
 
           <section class="book-demo-panel" data-step="2" aria-labelledby="demoStepTwoTitle">
             <div class="book-demo-panel__head">
-              <h2 id="demoStepTwoTitle">Choose a demo slot.</h2>
-              <p>Select a weekday and time. The endpoint can email the request and create the Zoom meeting when enabled.</p>
+              <h2 id="demoStepTwoTitle">Choose a preferred time.</h2>
+              <p>These times are preferences, not live availability. The result will say whether a Zoom meeting was created.</p>
             </div>
 
             <div class="book-demo-picker">
               <div class="book-demo-picker__box">
                 <h3>Date</h3>
-                <div class="book-demo-date-list" id="dateList" aria-label="Available demo dates"></div>
+                <div class="book-demo-date-list" id="dateList" aria-label="Preferred demo dates"></div>
               </div>
               <div class="book-demo-picker__box">
                 <h3>Time</h3>
                 <p class="book-demo-selected-date" id="selectedDatePill" hidden><span></span></p>
-                <div class="book-demo-time-list" id="timeList" aria-label="Available demo times"></div>
+                <div class="book-demo-time-list" id="timeList" aria-label="Preferred demo times"></div>
                 <p class="book-demo-timezone">Times are shown in <strong id="timezoneText">US Eastern Time</strong>.</p>
               </div>
             </div>
@@ -117,26 +120,36 @@ const formToken = import.meta.env.PUBLIC_BOOK_DEMO_TOKEN ?? '';
             <p class="book-demo-error" data-error="2" role="alert"></p>
             <div class="book-demo-actions">
               <button class="btn secbtn" type="button" data-back>Back</button>
-              <button class="btn pri" id="submitBtn" type="submit">Book my PunchOut demo -></button>
+              <button class="btn pri" id="submitBtn" type="submit">Send demo request &rarr;</button>
             </div>
           </section>
         </form>
 
         <section class="book-demo-success" id="successState" aria-live="polite">
           <span class="ey">Demo requested</span>
-          <h2>Your PunchOut conversation is scheduled.</h2>
-          <p>We sent the details to the PunchOut Central team. Keep an eye on <strong id="successEmail"></strong> for the confirmation.</p>
+          <h2 id="successTitle">Your demo request was received.</h2>
+          <p id="successMessage">We will follow up about the requested time.</p>
           <div class="book-demo-success__grid">
-            <div><small>Date</small><strong id="successDate"></strong></div>
-            <div><small>Time</small><strong id="successTime"></strong></div>
+            <div><small>Requested date</small><strong id="successDate"></strong></div>
+            <div><small>Requested time</small><strong id="successTime"></strong></div>
             <div><small>Company</small><strong id="successCompany"></strong></div>
             <div><small>Platform</small><strong id="successPlatform"></strong></div>
           </div>
           <p class="book-demo-zoom-link" id="successZoom" hidden><a href="#" target="_blank" rel="noreferrer">Join Zoom meeting</a></p>
-          <button class="btn secbtn" id="bookAnotherBtn" type="button">Book another time</button>
+          <button class="btn secbtn" id="bookAnotherBtn" type="button">Send another request</button>
         </section>
 
-        <p class="form-note">Form delivery is handled by <code>/api/book-demo.php</code>. Email and Zoom stay disabled until their env flags and credentials are configured.</p>
+        <p class="form-note">Your chosen date and time are a request unless a Zoom meeting is confirmed in the response.</p>
+      </div>
+    </div>
+  </section>
+  <section class="sec soft" aria-label="Plan your demo">
+    <div class="wrap">
+      <div class="section-head reveal"><span class="ey">Prepare for the conversation</span><h2>Know the store, buyers and connection count.</h2><p class="lead">One Shopify store can serve multiple enterprise buyers. Each new buyer or additional store counts as a connection.</p></div>
+      <div class="related-grid">
+        <a class="related-card reveal" href="/solutions/one-store-multiple-buyers/"><span>Connection model</span><h3>One store, multiple buyers</h3><p>See how buyer-specific catalog access works.</p><b>Explore &rarr;</b></a>
+        <a class="related-card reveal" href="/integrations/procurement-systems/"><span>Buyer side</span><h3>Procurement systems</h3><p>Review the buyer environment and protocol questions.</p><b>Explore &rarr;</b></a>
+        <a class="related-card reveal" href="/pricing/"><span>Plans</span><h3>PunchOut pricing</h3><p>Compare the Launch, Growth and Scale connection allowances.</p><b>Explore &rarr;</b></a>
       </div>
     </div>
   </section>
@@ -282,11 +295,13 @@ const formToken = import.meta.env.PUBLIC_BOOK_DEMO_TOKEN ?? '';
 
     if (step === 2) {
       if (!state.selectedDateISO) {
-        showError(2, 'Please choose a demo date.');
+        showError(2, 'Please choose a preferred demo date.');
+        dateList.querySelector('button')?.focus();
         return false;
       }
       if (!state.selectedTime) {
-        showError(2, 'Please choose a demo time.');
+        showError(2, 'Please choose a preferred demo time.');
+        timeList.querySelector('button')?.focus();
         return false;
       }
       clearError(2);
@@ -330,10 +345,10 @@ const formToken = import.meta.env.PUBLIC_BOOK_DEMO_TOKEN ?? '';
     updateHiddenFields();
     if (state.selectedDate && state.selectedTimeLabel) {
       bookingSummary.classList.add('show');
-      bookingSummary.innerHTML = `<strong>Selected slot</strong>${state.selectedDate} at ${state.selectedTimeLabel} - US Eastern Time`;
+      bookingSummary.innerHTML = `<strong>Preferred time</strong>${state.selectedDate} at ${state.selectedTimeLabel} - US Eastern Time`;
     } else if (state.selectedDate) {
       bookingSummary.classList.add('show');
-      bookingSummary.innerHTML = `<strong>Date selected</strong>${state.selectedDate}. Choose a time to finish booking.`;
+      bookingSummary.innerHTML = `<strong>Date selected</strong>${state.selectedDate}. Choose a time to complete your request.`;
     } else {
       bookingSummary.classList.remove('show');
       bookingSummary.textContent = '';
@@ -349,10 +364,15 @@ const formToken = import.meta.env.PUBLIC_BOOK_DEMO_TOKEN ?? '';
       const btn = document.createElement('button');
       btn.type = 'button';
       btn.className = 'book-demo-time-btn';
+      btn.setAttribute('aria-pressed', 'false');
       btn.textContent = formatTimeLabel(time);
       btn.addEventListener('click', () => {
-        [...timeList.children].forEach(item => item.classList.remove('active'));
+        [...timeList.children].forEach(item => {
+          item.classList.remove('active');
+          item.setAttribute('aria-pressed', 'false');
+        });
         btn.classList.add('active');
+        btn.setAttribute('aria-pressed', 'true');
         state.selectedTime = time;
         state.selectedTimeLabel = btn.textContent;
         updateSummary();
@@ -366,30 +386,41 @@ const formToken = import.meta.env.PUBLIC_BOOK_DEMO_TOKEN ?? '';
   function selectDate(date, btn) {
     state.selectedDate = formatDateLong(date);
     state.selectedDateISO = formatLocalDateISO(date);
-    [...dateList.children].forEach(item => item.classList.remove('active'));
+    [...dateList.children].forEach(item => {
+      item.classList.remove('active');
+      item.setAttribute('aria-pressed', 'false');
+    });
     btn.classList.add('active');
+    btn.setAttribute('aria-pressed', 'true');
     selectedDatePill.hidden = false;
     selectedDatePill.querySelector('span').textContent = state.selectedDate;
     renderTimes();
   }
 
   function renderDates() {
+    state.selectedDate = '';
+    state.selectedDateISO = '';
+    state.selectedTime = '';
+    state.selectedTimeLabel = '';
+    selectedDatePill.hidden = true;
     dateList.innerHTML = '';
-    dateOptions.forEach((date, index) => {
+    timeList.innerHTML = '';
+    updateSummary();
+    dateOptions.forEach(date => {
       const parts = formatDateParts(date);
       const btn = document.createElement('button');
       btn.type = 'button';
       btn.className = 'book-demo-date-btn';
+      btn.setAttribute('aria-pressed', 'false');
       btn.innerHTML = `<small>${parts.day}</small><strong>${parts.date}</strong>`;
       btn.addEventListener('click', () => selectDate(date, btn));
       dateList.appendChild(btn);
-      if (index === 0) selectDate(date, btn);
     });
   }
 
   function setSubmitting(isSubmitting) {
     submitBtn.disabled = isSubmitting;
-    submitBtn.textContent = isSubmitting ? 'Sending...' : 'Book my PunchOut demo ->';
+    submitBtn.textContent = isSubmitting ? 'Sending...' : 'Send demo request →';
   }
 
   async function submitPayload(payload) {
@@ -433,7 +464,19 @@ const formToken = import.meta.env.PUBLIC_BOOK_DEMO_TOKEN ?? '';
       setSubmitting(true);
       const result = await submitPayload(payload);
 
-      document.getElementById('successEmail').textContent = payload.email;
+      const meetingCreated = Boolean(result.zoom?.id);
+      const teamNotified = Boolean(result.email?.sent);
+      const requestRecorded = Boolean(result.recorded || result.submission_id);
+      if (!meetingCreated && !teamNotified && !requestRecorded) {
+        throw new Error('The request was not confirmed. Please try again.');
+      }
+      document.getElementById('successTitle').textContent = meetingCreated
+        ? 'A Zoom meeting was created.'
+        : teamNotified ? 'Your demo request was sent.' : 'Your demo request was recorded.';
+      document.getElementById('successMessage').textContent = meetingCreated
+        ? 'A Zoom meeting was created for the selected time. We will follow up with any additional details.'
+        : teamNotified ? 'The PunchOut Central team was notified by email. We will follow up to confirm availability.'
+        : 'Your request was saved for the PunchOut Central team. We will follow up to confirm availability.';
       document.getElementById('successDate').textContent = state.selectedDate;
       document.getElementById('successTime').textContent = `${state.selectedTimeLabel} - US Eastern Time`;
       document.getElementById('successCompany').textContent = payload.company;
@@ -441,7 +484,7 @@ const formToken = import.meta.env.PUBLIC_BOOK_DEMO_TOKEN ?? '';
 
       const zoomLink = result.zoom?.join_url || result.zoom?.joinUrl || '';
       const zoomWrap = document.getElementById('successZoom');
-      if (zoomLink) {
+      if (meetingCreated && zoomLink) {
         zoomWrap.hidden = false;
         zoomWrap.querySelector('a').href = zoomLink;
       } else {
@@ -469,3 +512,12 @@ const formToken = import.meta.env.PUBLIC_BOOK_DEMO_TOKEN ?? '';
   renderDates();
 })();
 </script>
+
+<style>
+  .book-demo-intro-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); margin-top: 30px; }
+  @media (max-width: 600px) {
+    .book-demo-intro-grid { grid-template-columns: 1fr; }
+    #bookingFlow .book-demo-date-list,
+    #bookingFlow .book-demo-time-list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
+</style>

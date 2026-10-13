@@ -6,8 +6,8 @@ return [
     'endpoint_token' => '',
 
     // Admin dashboard Basic Auth.
-    'admin_username' => 'admin',
-    'admin_password' => 'admin',
+    'admin_username' => 'your-admin-user',
+    'admin_password' => 'your-strong-admin-password-or-password-hash',
 
     // Booking and admin timestamps use US Eastern Time by default.
     'timezone' => 'America/New_York',
@@ -15,12 +15,12 @@ return [
     // MySQL storage. The endpoint creates this table if it does not exist.
     'db_enabled' => false,
     'db_table' => 'book_demo_submissions',
-    'db_host' => '2.24.3.7',
+    'db_host' => '127.0.0.1',
     'db_port' => '3306',
     'db_socket' => '',
-    'db_database' => 'u464662635_PunchoutDB',
-    'db_username' => 'u464662635_root',
-    'db_password' => 'PromoPlus@swishtag1',
+    'db_database' => 'your_database_name',
+    'db_username' => 'your_database_user',
+    'db_password' => 'your-database-password',
     'db_charset' => 'utf8mb4',
 
     // Email delivery.

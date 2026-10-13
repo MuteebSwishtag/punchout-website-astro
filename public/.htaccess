@@ -12,6 +12,18 @@
 
 AddDefaultCharset UTF-8
 
+# Reviewed legacy content routes. Route files remain in the static build.
+# Anchors and optional source slashes avoid matching assets or API requests.
+<IfModule mod_alias.c>
+  RedirectMatch 301 ^/product/punchout/?$ /platform/punchout/
+  RedirectMatch 301 ^/product/invoice-automation/?$ /platform/invoices/
+  RedirectMatch 301 ^/product/multi-store-management/?$ /platform/multi-store/
+  RedirectMatch 301 ^/product/purchase-order-automation/?$ /platform/purchase-orders/
+  RedirectMatch 301 ^/product/reporting-monitoring/?$ /platform/transactions/
+  RedirectMatch 301 ^/resources/what-is-punchout/?$ /resources/punchout-guide/
+  RedirectMatch 301 ^/industries/promotional-print-uniforms/?$ /industries/promotional-products/
+</IfModule>
+
 <IfModule mod_headers.c>
   Header always set Content-Type "text/html; charset=UTF-8" "expr=%{CONTENT_TYPE} =~ m#^text/html#"
   Header always set X-Content-Type-Options "nosniff"

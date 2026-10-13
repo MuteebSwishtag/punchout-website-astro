@@ -215,8 +215,59 @@ function clean_string($value, int $max = 1000): string
 {
     $value = is_scalar($value) ? (string) $value : '';
     $value = trim(strip_tags($value));
+    $value = preg_replace('/[\x00-\x08\x0B\x0C\x0E-\x1F\x7F]/', '', $value) ?? $value;
     $value = preg_replace('/[ \t]+/', ' ', $value) ?? $value;
     return substr($value, 0, $max);
+}
+
+function client_ip_address(): string
+{
+    $ip = trim((string) ($_SERVER['REMOTE_ADDR'] ?? ''));
+    return filter_var($ip, FILTER_VALIDATE_IP) ? $ip : 'unknown';
+}
+
+function submission_rate_limit_allowed(int $limit = 12, int $windowSeconds = 600): bool
+{
+    $path = rtrim(sys_get_temp_dir(), DIRECTORY_SEPARATOR) . DIRECTORY_SEPARATOR . 'punchout-central-submission-rate-limit.json';
+    $handle = @fopen($path, 'c+');
+    if ($handle === false || !@flock($handle, LOCK_EX)) {
+        if (is_resource($handle)) {
+            fclose($handle);
+        }
+        return true;
+    }
+
+    $raw = stream_get_contents($handle);
+    $state = json_decode($raw ?: '{}', true);
+    $state = is_array($state) ? $state : [];
+    $now = time();
+    foreach ($state as $key => $entry) {
+        if (!is_array($entry) || ($now - (int) ($entry['started'] ?? 0)) >= $windowSeconds) {
+            unset($state[$key]);
+        }
+    }
+
+    $key = hash('sha256', client_ip_address());
+    $entry = $state[$key] ?? ['started' => $now, 'count' => 0];
+    $entry['count'] = (int) ($entry['count'] ?? 0) + 1;
+    $state[$key] = $entry;
+
+    rewind($handle);
+    ftruncate($handle, 0);
+    fwrite($handle, json_encode($state, JSON_UNESCAPED_SLASHES));
+    fflush($handle);
+    flock($handle, LOCK_UN);
+    fclose($handle);
+
+    return $entry['count'] <= $limit;
+}
+
+function enforce_submission_rate_limit(): void
+{
+    if (!submission_rate_limit_allowed()) {
+        header('Retry-After: 600');
+        respond(429, ['ok' => false, 'message' => 'Too many requests. Please wait a few minutes and try again.']);
+    }
 }
 
 function split_emails(string $value): array
@@ -227,6 +278,10 @@ function split_emails(string $value): array
 
 function read_payload(): array
 {
+    if ((int) ($_SERVER['CONTENT_LENGTH'] ?? 0) > 65536) {
+        respond(413, ['ok' => false, 'message' => 'This submission is too large.']);
+    }
+
     $contentType = $_SERVER['CONTENT_TYPE'] ?? '';
     if (stripos($contentType, 'application/json') !== false) {
         $raw = file_get_contents('php://input') ?: '';
@@ -263,7 +318,15 @@ function get_meeting_start(array $data): ?DateTimeImmutable
     }
 
     try {
-        return new DateTimeImmutable($date . ' ' . $time . ':00', new DateTimeZone($timezone));
+        $meetingStart = DateTimeImmutable::createFromFormat('!Y-m-d H:i', $date . ' ' . $time, new DateTimeZone($timezone));
+        $errors = DateTimeImmutable::getLastErrors();
+        if ($meetingStart === false || ($errors !== false && ($errors['warning_count'] > 0 || $errors['error_count'] > 0))) {
+            return null;
+        }
+        if ($meetingStart->format('Y-m-d') !== $date || $meetingStart->format('H:i') !== $time) {
+            return null;
+        }
+        return $meetingStart;
     } catch (Throwable $error) {
         return null;
     }
@@ -395,6 +458,9 @@ function create_zoom_meeting(array $data, DateTimeImmutable $meetingStart): arra
         'Authorization: Bearer ' . $accessToken,
         'Content-Type: application/json',
     ], $payload);
+    if (empty($meeting['id'])) {
+        throw new RuntimeException('Zoom did not confirm a meeting id.');
+    }
 
     $registrant = null;
     if (env_flag('ZOOM_REGISTRATION_ENABLED', true) && $customerEmail !== '' && !empty($meeting['id'])) {
@@ -911,6 +977,8 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     respond(405, ['ok' => false, 'message' => 'This endpoint only accepts POST form submissions.']);
 }
 
+enforce_submission_rate_limit();
+
 $submissionId = null;
 $email = ['enabled' => false, 'sent' => false, 'recipients' => []];
 $zoom = ['enabled' => false];
@@ -947,12 +1015,25 @@ try {
         $submittedWebsite = clean_string($data['website'] ?? '', 250);
         $data['website'] = normalize_website($submittedWebsite);
 
+        if (strlen($data['name']) < 2 || strlen($data['contact']) > 80) {
+            respond(422, ['ok' => false, 'message' => 'Please enter a valid name and contact number.']);
+        }
+
         if (!in_array($data['platform'], ['WooCommerce', 'Magento', 'Other'], true)) {
             respond(422, ['ok' => false, 'message' => 'Please choose a valid ecommerce platform.']);
         }
-        if (!in_array($data['plan'], ['Launch', 'Growth'], true)) {
+        $planAliases = [
+            'Launch' => 'Launch',
+            'Growth' => 'Growth',
+            'Scale' => 'Scale',
+            // Older pricing forms used these names. Keep accepting their requests.
+            'Starter' => 'Launch',
+            'Enterprise' => 'Scale',
+        ];
+        if (!isset($planAliases[$data['plan']])) {
             respond(422, ['ok' => false, 'message' => 'Please choose a valid pricing plan.']);
         }
+        $data['plan'] = $planAliases[$data['plan']];
         if (!filter_var($data['email'], FILTER_VALIDATE_EMAIL)) {
             respond(422, ['ok' => false, 'message' => 'Please enter a valid email address.']);
         }
@@ -976,10 +1057,15 @@ try {
         $email = send_pricing_email($data);
         update_submission_delivery($submissionId, $email, $zoom, 'completed');
 
+        if ($submissionId === null && !$email['sent']) {
+            respond(503, ['ok' => false, 'message' => 'This form cannot record or deliver requests right now. Please contact the PunchOut Central team directly.']);
+        }
+
         respond(200, [
             'ok' => true,
-            'message' => 'Thank you. Your pricing request has been received.',
+            'message' => 'Thank you. Your pricing request has been recorded or delivered.',
             'submission_id' => $submissionId,
+            'recorded' => $submissionId !== null,
             'email' => [
                 'enabled' => $email['enabled'],
                 'sent' => $email['sent'],
@@ -1006,6 +1092,16 @@ try {
     $data['website'] = normalize_website($submittedWebsite);
     $data['timezone'] = configured_timezone();
 
+    if (!in_array($data['platform'], ['Not sure yet', 'Coupa', 'SAP Ariba', 'JAGGAER', 'Oracle Procurement', 'Workday', 'Ivalua', 'GEP SMART', 'Other'], true)) {
+        respond(422, ['ok' => false, 'message' => 'Please choose a valid buyer procurement system.']);
+    }
+    if (!in_array($data['storePlatform'], ['Shopify', 'Shopify Plus', 'BigCommerce', 'Magento / Adobe Commerce', 'Custom store', 'Not sure yet'], true)) {
+        respond(422, ['ok' => false, 'message' => 'Please choose a valid commerce platform.']);
+    }
+    if (strlen($data['name']) < 2 || strlen($data['company']) < 2) {
+        respond(422, ['ok' => false, 'message' => 'Please enter a valid name and company.']);
+    }
+
     if (!filter_var($data['email'], FILTER_VALIDATE_EMAIL)) {
         respond(422, ['ok' => false, 'message' => 'Please enter a valid work email address.']);
     }
@@ -1031,10 +1127,15 @@ try {
     $email = send_email($data, $zoom, $meetingStart);
     update_submission_delivery($submissionId, $email, $zoom, 'completed');
 
+    if ($submissionId === null && !$email['sent'] && empty($zoom['id'])) {
+        respond(503, ['ok' => false, 'message' => 'This form cannot record or deliver requests right now. Please contact the PunchOut Central team directly.']);
+    }
+
     respond(200, [
         'ok' => true,
-        'message' => 'Thanks. Your demo request has been received.',
+        'message' => 'Thanks. Your demo request has been processed.',
         'submission_id' => $submissionId,
+        'recorded' => $submissionId !== null,
         'email' => [
             'enabled' => $email['enabled'],
             'sent' => $email['sent'],

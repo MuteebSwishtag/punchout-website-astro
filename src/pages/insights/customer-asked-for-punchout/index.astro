@@ -1,0 +1,10 @@
+---
+import SiteLayout from '../../../layouts/SiteLayout.astro';
+import InsightArticle from '../../../components/page-content/InsightArticle.astro';
+import { insightPages } from '../../../content/phase6-pages.mjs';
+const path = '/insights/customer-asked-for-punchout/';
+const content = insightPages[path];
+---
+<SiteLayout title="A Customer Asked for PunchOut: What to Do Next | PunchOut Central" description="A practical checklist for suppliers whose enterprise customer requires PunchOut: buyer system, catalog access, testing, PO and invoice questions." ogType="article" includeSiteScript={true} bodyClass="inner-page">
+  <InsightArticle {...content} />
+</SiteLayout>

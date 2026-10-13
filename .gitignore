@@ -2,3 +2,8 @@
 /dist/
 /.tmp/
 .env
+.env.*
+!.env.example
+punchout-book-demo-config.php
+punchout-mail-config.php
+punchout-book-demo.env

@@ -1,0 +1,10 @@
+---
+import SiteLayout from '../../../layouts/SiteLayout.astro';
+import ResourceArticle from '../../../components/page-content/ResourceArticle.astro';
+import { resourcePages } from '../../../content/resources.mjs';
+const path = '/resources/cxml-guide/';
+const content = resourcePages[path];
+---
+<SiteLayout title="What Is cXML? PunchOut Protocol Guide | PunchOut Central" description="Understand cXML PunchOut messages, cart return, purchase-order boundaries and the buyer-specific questions to confirm before testing a connection." ogType="article" includeSiteScript={true} bodyClass="inner-page">
+  <ResourceArticle path={path} {...content} />
+</SiteLayout>

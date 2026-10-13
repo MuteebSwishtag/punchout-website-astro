@@ -1,23 +1,27 @@
 ---
 ---
 <main>
-
-<section class="page-hero" id="overview"><div class="wrap"><div class="page-hero__copy reveal"><span class="ey">Documentation</span><h1>PunchOut Central documentation.</h1><p class="lead">A starter documentation hub. We can expand each area as the product and onboarding process are finalized.</p></div></div></section>
-<section class="sec"><div class="wrap"><div class="resource-list">
-<a class="resource-card" href="/platform/punchout/"><span>Core concept</span><h3>PunchOut Sessions</h3><p>Buyer authentication, session launch and cart return.</p><b>Open →</b></a>
-<a class="resource-card" href="/platform/purchase-orders/"><span>Transactions</span><h3>Purchase Orders</h3><p>Approved PO receipt, validation and ecommerce order creation.</p><b>Open →</b></a>
-<a class="resource-card" href="/platform/transactions/"><span>Operations</span><h3>Transaction Monitoring</h3><p>Sessions, POs, orders, invoice status and issues.</p><b>Open →</b></a>
-<a class="resource-card" href="/integrations/"><span>Connections</span><h3>Integrations</h3><p>Procurement platforms, commerce connectors and protocols.</p><b>Open →</b></a>
-</div></div></section>
-<section class="page-cta">
-  <div class="wrap reveal">
-    <span class="ey">A bigger opportunity is waiting</span>
-    <h2>Need implementation help?</h2>
-    <p class="lead">Bring us the buyer requirement and we will help map the standard connection.</p>
-    <div class="page-hero__actions">
-      <a class="btn pri" href="https://app.punchoutcentral.com/platform/register" target="_blank">Connect my first buyer →</a>
-      <a class="btn secbtn" href="/pricing/">See pricing</a>
-    </div>
-  </div>
-</section>
+  <section class="page-hero page-hero--mint" id="overview"><div class="wrap page-hero__grid">
+    <div class="page-hero__copy reveal"><span class="ey">Setup documentation</span><h1>Prepare your first Shopify PunchOut buyer connection.</h1><p class="lead">This guide covers the verified setup sequence: connect a Shopify or Shopify Plus store, assign buyer catalog access, test the PunchOut flow and review the resulting transaction.</p><div class="page-hero__actions"><a class="btn pri" href="#prepare">Start with the checklist &darr;</a><a class="btn secbtn" href="/book-demo/">Ask about your buyer</a></div></div>
+    <div class="hero-visual reveal"><div class="hero-visual__label"><span>Setup path</span><b>Store to buyer</b></div><div class="visual-flow"><div class="visual-step is-accent"><i>01</i><span><strong>Connect store</strong><small>Shopify or Shopify Plus</small></span></div><div class="visual-step is-lavender"><i>02</i><span><strong>Add buyer</strong><small>Store and catalog access</small></span></div><div class="visual-step is-peach"><i>03</i><span><strong>Test flow</strong><small>Launch, cart and PO</small></span></div></div></div>
+  </div></section>
+  <section class="sec" id="prepare"><div class="wrap"><div class="section-head reveal"><span class="ey">Before configuration</span><h2>Collect the buyer details needed for a useful test.</h2><p class="lead">Exact technical fields depend on the buyer procurement environment. Confirm these inputs with the buyer before go-live.</p></div><div class="feature-grid">
+    <article class="feature-card reveal"><span class="feature-card__icon">01</span><h3>Supplier store</h3><p>Identify the Shopify or Shopify Plus store that holds the products the buyer should shop.</p></article>
+    <article class="feature-card reveal"><span class="feature-card__icon">02</span><h3>Buyer system</h3><p>Identify the procurement platform and whether the buyer needs a cXML or OCI PunchOut workflow.</p></article>
+    <article class="feature-card reveal"><span class="feature-card__icon">03</span><h3>Catalog scope</h3><p>Decide which store and collections or catalog access should be assigned to this buyer.</p></article>
+    <article class="feature-card reveal"><span class="feature-card__icon">04</span><h3>Order handoff</h3><p>Confirm the buyer cart review, approval and approved purchase order process.</p></article>
+  </div></div></section>
+  <section class="sec soft" id="test"><div class="wrap"><div class="section-head reveal"><span class="ey">Test sequence</span><h2>Check beyond the catalog launch.</h2><p class="lead">Run a PunchOut test and validate the full flow before launch. Use the transaction stages to inspect the result.</p></div><div class="simple-steps">
+    <article class="simple-step reveal"><span class="simple-step__num">01</span><h3>Launch</h3><p>Start a buyer session from procurement and confirm it opens the assigned Shopify catalog.</p></article>
+    <article class="simple-step reveal"><span class="simple-step__num">02</span><h3>Return cart</h3><p>Choose products and confirm the cart goes back to the buyer for approval.</p></article>
+    <article class="simple-step reveal"><span class="simple-step__num">03</span><h3>Receive PO</h3><p>Follow the approved purchase order back to the supplier connection.</p></article>
+    <article class="simple-step reveal"><span class="simple-step__num">04</span><h3>Review history</h3><p>Check the Shopify order and later invoice stage alongside timestamps and activity.</p></article>
+  </div></div></section>
+  <section class="sec" id="topics"><div class="wrap"><div class="section-head reveal"><span class="ey">Reference topics</span><h2>Open the relevant workflow detail.</h2></div><div class="resource-list">
+    <a class="resource-card" href="/platform/punchout/"><span>Catalog session</span><h3>PunchOut</h3><p>Understand buyer launch, catalog access and cart return.</p><b>Open &rarr;</b></a>
+    <a class="resource-card" href="/integrations/procurement-systems/"><span>Buyer environment</span><h3>Procurement systems</h3><p>Review the buyer-side platform and protocol questions.</p><b>Open &rarr;</b></a>
+    <a class="resource-card" href="/platform/purchase-orders/"><span>Approved order</span><h3>Purchase orders</h3><p>See when the returned cart becomes a Shopify order.</p><b>Open &rarr;</b></a>
+    <a class="resource-card" href="/platform/transactions/"><span>Troubleshooting</span><h3>Transaction tracking</h3><p>Find the stage that stopped and the reason shown.</p><b>Open &rarr;</b></a>
+  </div></div></section>
+  <section class="page-cta"><div class="wrap reveal"><span class="ey">Onboarding help</span><h2>Need help validating a buyer flow?</h2><p class="lead">Free onboarding assistance is included. Bring the buyer requirement and store details to the team.</p><div class="page-hero__actions"><a class="btn pri" href="/book-demo/">Request a demo &rarr;</a><a class="btn secbtn" href="/contact/">Contact support</a></div></div></section>
 </main>

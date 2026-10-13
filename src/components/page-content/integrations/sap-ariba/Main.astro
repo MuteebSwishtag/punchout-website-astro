@@ -1,66 +1,30 @@
 ---
+const tests = [
+  ['Catalog entry', 'Confirm how the PunchOut catalog is presented in SAP Ariba Buying and Invoicing and which buying organizations may see it.'],
+  ['Session messages', 'Check the cXML PunchOutSetupRequest and returned cart in the buyer’s test environment.'],
+  ['Order routing', 'Confirm the buyer’s SAP Business Network configuration and where its approved cXML OrderRequest is delivered.'],
+  ['Supplier records', 'Trace the approved PO into the Shopify order and later invoice activity in PunchOut Central.']
+];
 ---
 <main>
-
-<section class="page-hero page-hero--mint" id="overview">
-  <div class="wrap page-hero__grid">
-    <div class="page-hero__copy reveal">
-      <span class="ey">SAP Ariba Integration</span><h1>Connect SAP Ariba buyers to your ecommerce catalog.</h1><p class="lead">Support enterprise buyers that use SAP Ariba without rebuilding your commerce operation around procurement.</p>
-      <div class="page-hero__actions"><a class="btn pri" href="/book-demo/">Discuss this integration →</a><a class="btn secbtn" href="#flow">See the flow ↓</a></div>
-      <div class="page-proofline"><span><b>✓</b> Free Integration</span><span><b>✓</b> No transaction fees</span><span><b>✓</b> Cancel anytime</span></div>
-    </div>
-    <div class="hero-visual logo-hero reveal">
-      <div class="hero-visual__label"><span>Integration</span><b>cXML</b></div>
-      <div class="logo-hero__mark"><strong>SAP Ariba</strong></div>
-      <span class="logo-hero__status">PunchOut Central</span>
-      <h3>SAP Ariba</h3>
-      <p>Procurement connectivity managed through PunchOut Central.</p>
-    </div>
-  </div>
-</section>
-<!-- <section class="trust-strip" aria-label="PunchOut Central credibility">
-  <div class="wrap trust-strip__inner">
-    <div class="trust-strip__item"><span class="trust-strip__icon">★</span><div><strong>Trustpilot 4.7+</strong><span>Customer rating</span></div></div>
-    <span class="trust-strip__divider"></span>
-    <div class="trust-strip__item"><span class="trust-strip__icon">PPAI</span><div><strong>PPAI Member</strong><span>Promotional products industry</span></div></div>
-    <span class="trust-strip__divider"></span>
-    <div class="trust-strip__item"><span class="trust-strip__icon">S</span><div><strong>Shopify Partner</strong><span>Commerce experience</span></div></div>
-  </div>
-</section> -->
-
-<section class="sec" id="flow"><div class="wrap"><div class="section-head center reveal"><span class="ey">Connection flow</span><h2>Keep procurement and commerce in their own lanes.</h2></div>
-<div class="integration-flow reveal"><div class="integration-node"><strong>SAP Ariba</strong><span>Buyer / procurement side</span></div><div class="integration-arrow">→</div><div class="integration-node integration-node--accent"><strong>PunchOut Central</strong><span>Authentication, session + transactions</span></div><div class="integration-arrow">→</div><div class="integration-node"><strong>Shopify</strong><span>Supplier catalog + store order</span></div></div></div></section>
-<section class="sec soft" id="details">
-  <div class="wrap">
-    <div class="section-head reveal"><span class="ey">What PunchOut Central handles</span><h2>The integration layer between the buyer and your store.</h2><p class="lead">Your team keeps the business relationship. PunchOut Central handles the procurement connectivity.</p></div>
-    <div class="feature-grid"><article class="feature-card reveal"><span class="feature-card__icon">01</span><h3>Buyer connection</h3><p>Configure credentials and buyer-specific connection settings.</p></article><article class="feature-card reveal"><span class="feature-card__icon">02</span><h3>PunchOut session</h3><p>Authenticate the request and open the correct ecommerce session.</p></article><article class="feature-card reveal"><span class="feature-card__icon">03</span><h3>Cart return</h3><p>Send the selected cart back to procurement for approval.</p></article><article class="feature-card reveal"><span class="feature-card__icon">04</span><h3>Approved PO</h3><p>Receive the PO after the buyer finishes internal approval.</p></article><article class="feature-card reveal"><span class="feature-card__icon">05</span><h3>Store order</h3><p>Create the matching Shopify order from the approved PO.</p></article><article class="feature-card reveal"><span class="feature-card__icon">06</span><h3>Visibility</h3><p>Track the transaction and see where an issue occurred.</p></article></div>
-  </div>
-</section>
-<section class="sec soft" id="proof">
-  <div class="wrap">
-    <div class="section-head reveal"><span class="ey">Built for trust</span><h2>Proven enough for the customer you cannot afford to lose.</h2><p class="lead">Simple on the surface. Dependable underneath.</p></div>
-    <div class="metrics-row">
-      <article class="metric reveal"><strong>90+</strong><span>customers use PunchOut technology built by our team.</span></article>
-      <article class="metric reveal"><strong>$50M+</strong><span>in order value processed through our technology every year.</span></article>
-      <article class="metric metric--dark reveal"><strong>cXML + OCI</strong><span>Buyer sessions, carts, POs, store orders and invoices stay connected and visible.</span></article>
-    </div>
-  </div>
-</section>
-<section class="sec soft" id="faq">
-  <div class="wrap">
-    <div class="section-head center reveal"><span class="ey">FAQ</span><h2>Questions suppliers usually ask</h2></div>
-    <div class="faq reveal"><div class="fi"><button class="fq" type="button"><span>Does PunchOut Central support SAP Ariba?</span><span class="plus">+</span></button><div class="fa"><p>This page reflects the current integration direction of PunchOut Central. Exact buyer-specific requirements still need to be confirmed during setup.</p></div></div><div class="fi"><button class="fq" type="button"><span>Do we have to replace Shopify?</span><span class="plus">+</span></button><div class="fa"><p>No. Shopify is the current production commerce connector and remains your ecommerce system.</p></div></div><div class="fi"><button class="fq" type="button"><span>Is setup included?</span><span class="plus">+</span></button><div class="fa"><p>Standard supported integration is positioned as free. Buyer-specific custom development is separate.</p></div></div></div>
-  </div>
-</section>
-<section class="page-cta">
-  <div class="wrap reveal">
-    <span class="ey">A bigger opportunity is waiting</span>
-    <h2>When the buyer asks for PunchOut, say yes.</h2>
-    <p class="lead">Start with your first enterprise buyer and grow from there.</p>
-    <div class="page-hero__actions">
-      <a class="btn pri" href="https://app.punchoutcentral.com/platform/register" target="_blank">Connect my first buyer →</a>
-      <a class="btn secbtn" href="/pricing/">See pricing</a>
-    </div>
-  </div>
-</section>
+  <section class="page-hero page-hero--mint" id="overview"><div class="wrap page-hero__grid">
+    <div class="page-hero__copy reveal"><span class="ey">Shopify SAP Ariba PunchOut</span><h1>Connect SAP Ariba catalog buying to Shopify.</h1><p class="lead">Let an SAP Ariba buyer open a supplier-hosted Shopify catalog through PunchOut Central. The selected items return to procurement for requisition approval; an approved purchase order starts the supplier order.</p><div class="page-hero__actions"><a class="btn pri" href="/book-demo/">Discuss an Ariba connection &rarr;</a><a class="btn secbtn" href="#flow">Follow the buying path &darr;</a></div></div>
+    <div class="hero-visual logo-hero reveal"><div class="hero-visual__label"><span>Buyer system</span><b>cXML PunchOut</b></div><div class="logo-hero__mark"><img src="/assets/logos/sap-ariba.png" alt="SAP Ariba"></div><span class="logo-hero__status">PunchOut Central</span><h3>SAP Ariba to Shopify</h3><p>Supplier-hosted catalog for a buyer-side requisition.</p></div>
+  </div></section>
+  <section class="sec" id="flow"><div class="wrap"><div class="section-head center reveal"><span class="ey">SAP Ariba workflow</span><h2>Keep the supplier catalog live and the approval in procurement.</h2><p class="lead">SAP describes PunchOut catalog items as links to supplier-hosted sites. The selected items return to a requisition before a purchase order is transmitted.</p></div>
+    <div class="integration-flow reveal"><div class="integration-node"><strong>SAP Ariba</strong><span>Catalog entry and requisition</span></div><div class="integration-arrow">&rarr;</div><div class="integration-node integration-node--accent"><strong>PunchOut Central</strong><span>Buyer session and cart</span></div><div class="integration-arrow">&rarr;</div><div class="integration-node"><strong>Shopify</strong><span>Live supplier catalog</span></div></div>
+  </div></section>
+  <section class="sec soft" id="details"><div class="wrap"><div class="section-head reveal"><span class="ey">Buyer onboarding</span><h2>Agree on the PunchOut catalog configuration.</h2><p class="lead">SAP Business Network can route PunchOut requests through a supplier profile URL or a configured PunchOut URL. Confirm the buyer’s chosen setup, cXML credentials, catalog visibility and Shopify access before testing.</p></div>
+    <div class="feature-grid"><article class="feature-card reveal"><span class="feature-card__icon">01</span><h3>Catalog entry</h3><p>Confirm that the buyer can find the supplier’s PunchOut item in their SAP Ariba catalog.</p></article><article class="feature-card reveal"><span class="feature-card__icon">02</span><h3>Buyer-specific store</h3><p>Map the cXML connection to the Shopify store and collections intended for this buying organization.</p></article><article class="feature-card reveal"><span class="feature-card__icon">03</span><h3>Cart and PO</h3><p>Return the selected cart to SAP Ariba. After approval, receive the buyer’s PO before creating the Shopify order.</p></article><article class="feature-card reveal"><span class="feature-card__icon">04</span><h3>Invoice step</h3><p>Keep invoice activity tied to the PO and store order; confirm the buyer’s separate invoicing route.</p></article></div>
+  </div></section>
+  <section class="sec" id="proof"><div class="wrap"><div class="section-head reveal"><span class="ey">Test the catalog</span><h2>Check what SAP Ariba receives, not just what Shopify shows.</h2><p class="lead">SAP’s catalog tester can simulate PunchOut shopping and inspect the returned cart and cXML purchase order. Validate these messages against the buyer’s actual configuration before go-live.</p></div>
+    <div class="simple-steps">{tests.map(([title, description], index) => <article class="simple-step reveal"><span class="simple-step__num">{String(index + 1).padStart(2, '0')}</span><h3>{title}</h3><p>{description}</p></article>)}</div>
+    <p><small>Buyer-side references: <a href="https://help.sap.com/docs/buying-invoicing/catalog-format-reference/punchout-catalog-items-dd9dba78f0181014b52a898eb28ba247">SAP PunchOut catalog items</a> and <a href="https://help.sap.com/docs/business-network-for-procurement/using-test-accounts-business-network/topics-about-catalog-testing">catalog testing</a>.</small></p>
+  </div></section>
+  <section class="sec soft" id="faq"><div class="wrap"><div class="section-head center reveal"><span class="ey">FAQ</span><h2>SAP Ariba questions</h2></div><div class="faq reveal">
+    <div class="fi"><button class="fq" type="button"><span>Is this a static catalog upload?</span><span class="plus">+</span></button><div class="fa"><p>No. This page describes a PunchOut catalog that opens the supplier’s live Shopify storefront.</p></div></div>
+    <div class="fi"><button class="fq" type="button"><span>Does the cart return create a Shopify order?</span><span class="plus">+</span></button><div class="fa"><p>No. The returned selection is part of the buyer’s requisition. The approved PO starts the Shopify order.</p></div></div>
+    <div class="fi"><button class="fq" type="button"><span>Is every SAP Ariba catalog configured the same way?</span><span class="plus">+</span></button><div class="fa"><p>No. Catalog visibility, PunchOut URL/profile configuration and order routing depend on the buyer’s SAP Business Network setup.</p></div></div>
+  </div></div></section>
+  <section class="page-cta"><div class="wrap reveal"><span class="ey">Plan the Ariba setup</span><h2>Map the buyer catalog and approved PO to Shopify.</h2><p class="lead">Bring the buyer’s SAP Ariba configuration and the supplier storefront details.</p><div class="page-hero__actions"><a class="btn pri" href="/book-demo/">Book a demo &rarr;</a><a class="btn secbtn" href="/integrations/cxml/">Explore cXML</a></div></div></section>
 </main>

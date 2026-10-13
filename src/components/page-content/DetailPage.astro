@@ -1,0 +1,108 @@
+---
+import RelatedLinks from '../RelatedLinks.astro';
+
+interface Entry { title: string; text: string }
+interface Question { question: string; answer: string }
+interface Props {
+  path: string;
+  tone?: 'mint' | 'peach';
+  eyebrow: string;
+  title: string;
+  lead: string;
+  primaryLabel?: string;
+  primaryHref?: string;
+  visualLabel: string;
+  visualSteps: Entry[];
+  detailEyebrow: string;
+  detailTitle: string;
+  detailLead: string;
+  details: Entry[];
+  workflowTitle: string;
+  workflowLead: string;
+  workflow: Entry[];
+  operatingTitle: string;
+  operatingLead: string;
+  operating: Entry[];
+  questions: Question[];
+  relatedHeading: string;
+  ctaTitle: string;
+  ctaText: string;
+}
+
+const {
+  path, tone = 'mint', eyebrow, title, lead,
+  primaryLabel = 'Request a demo', primaryHref = '/book-demo/',
+  visualLabel, visualSteps, detailEyebrow, detailTitle, detailLead,
+  details, workflowTitle, workflowLead, workflow,
+  operatingTitle, operatingLead, operating, questions,
+  relatedHeading, ctaTitle, ctaText
+} = Astro.props;
+const isIndustry = path.startsWith('/industries/');
+---
+<main>
+  <section class={`page-hero page-hero--${tone}`} id="overview">
+    <div class="wrap page-hero__grid">
+      <div class="page-hero__copy reveal">
+        {isIndustry && <nav class="resource-breadcrumbs" aria-label="Breadcrumb"><a href="/">Home</a><span>/</span><a href="/industries/">Industries</a><span>/</span><span aria-current="page">{eyebrow}</span></nav>}
+        <span class="ey">{eyebrow}</span>
+        <h1>{title}</h1>
+        <p class="lead">{lead}</p>
+        <div class="page-hero__actions">
+          <a class="btn pri" href={primaryHref}>{primaryLabel} &rarr;</a>
+          <a class="btn secbtn" href="#details">Explore the details &darr;</a>
+        </div>
+      </div>
+      <div class="hero-visual reveal" aria-label={visualLabel}>
+        <div class="hero-visual__label"><span>{visualLabel}</span><b>PunchOut Central</b></div>
+        <div class="visual-flow">
+          {visualSteps.map((step, index) => <div class={`visual-step ${['is-accent', 'is-lavender', 'is-peach', 'is-lime'][index % 4]}`}><i>{String(index + 1).padStart(2, '0')}</i><span><strong>{step.title}</strong><small>{step.text}</small></span></div>)}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" id="details">
+    <div class="wrap">
+      <div class="section-head reveal"><span class="ey">{detailEyebrow}</span><h2>{detailTitle}</h2><p class="lead">{detailLead}</p></div>
+      <div class="feature-grid">
+        {details.map((item, index) => <article class="feature-card reveal"><span class="feature-card__icon">{String(index + 1).padStart(2, '0')}</span><h3>{item.title}</h3><p>{item.text}</p></article>)}
+      </div>
+    </div>
+  </section>
+
+  <section class="sec soft" id="workflow">
+    <div class="wrap">
+      <div class="section-head reveal"><span class="ey">In practice</span><h2>{workflowTitle}</h2><p class="lead">{workflowLead}</p></div>
+      <div class="simple-steps">
+        {workflow.map((item, index) => <article class="simple-step reveal"><span class="simple-step__num">{String(index + 1).padStart(2, '0')}</span><h3>{item.title}</h3><p>{item.text}</p></article>)}
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" id="proof">
+    <div class="wrap">
+      <div class="section-head reveal"><span class="ey">Operating view</span><h2>{operatingTitle}</h2><p class="lead">{operatingLead}</p></div>
+      <div class="metrics-row">
+        {operating.map((item, index) => <article class={`metric reveal ${index === operating.length - 1 ? 'metric--dark' : ''}`}><strong>{item.title}</strong><span>{item.text}</span></article>)}
+      </div>
+    </div>
+  </section>
+
+  <RelatedLinks source={path} heading={relatedHeading} />
+
+  <section class="sec soft" id="faq">
+    <div class="wrap">
+      <div class="section-head center reveal"><span class="ey">Questions</span><h2>What to clarify before connecting</h2></div>
+      <div class="faq reveal">
+        {questions.map((item) => <div class="fi"><button class="fq" type="button"><span>{item.question}</span><span class="plus">+</span></button><div class="fa"><p>{item.answer}</p></div></div>)}
+      </div>
+    </div>
+  </section>
+
+  <section class="page-cta">
+    <div class="wrap reveal">
+      <span class="ey">Plan the connection</span><h2>{ctaTitle}</h2><p class="lead">{ctaText}</p>
+      <div class="page-hero__actions"><a class="btn pri" href="/book-demo/">Request a demo &rarr;</a><a class="btn secbtn" href="/pricing/">Compare plans</a></div>
+    </div>
+  </section>
+</main>

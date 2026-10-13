@@ -1,66 +1,31 @@
 ---
+const checks = [
+  ['01', 'Buyer launch', 'Confirm how the buyer starts an OCI PunchOut session from their procurement system.'],
+  ['02', 'Catalog access', 'Map the buyer connection to the correct Shopify store and accessible catalog.'],
+  ['03', 'Cart return', 'Test that selected items return to procurement for the buyer’s approval process.'],
+  ['04', 'Downstream order', 'Confirm how the approved PO reaches PunchOut Central so the Shopify order can be created.']
+];
 ---
 <main>
-
-<section class="page-hero page-hero--mint" id="overview">
-  <div class="wrap page-hero__grid">
-    <div class="page-hero__copy reveal">
-      <span class="ey">OCI Integration</span><h1>Support OCI PunchOut without building from scratch.</h1><p class="lead">Use the OCI capability already implemented in PunchOut Central for supported procurement connections.</p>
-      <div class="page-hero__actions"><a class="btn pri" href="/book-demo/">Discuss this integration →</a><a class="btn secbtn" href="#flow">See the flow ↓</a></div>
-      <div class="page-proofline"><span><b>✓</b> Free Integration</span><span><b>✓</b> No transaction fees</span><span><b>✓</b> Cancel anytime</span></div>
-    </div>
-    <div class="hero-visual logo-hero reveal">
-      <div class="hero-visual__label"><span>Integration</span><b>Protocol</b></div>
-      <div class="logo-hero__mark"><strong>OCI</strong></div>
-      <span class="logo-hero__status">PunchOut Central</span>
-      <h3>OCI</h3>
-      <p>Procurement connectivity managed through PunchOut Central.</p>
-    </div>
-  </div>
-</section>
-<!-- <section class="trust-strip" aria-label="PunchOut Central credibility">
-  <div class="wrap trust-strip__inner">
-    <div class="trust-strip__item"><span class="trust-strip__icon">★</span><div><strong>Trustpilot 4.7+</strong><span>Customer rating</span></div></div>
-    <span class="trust-strip__divider"></span>
-    <div class="trust-strip__item"><span class="trust-strip__icon">PPAI</span><div><strong>PPAI Member</strong><span>Promotional products industry</span></div></div>
-    <span class="trust-strip__divider"></span>
-    <div class="trust-strip__item"><span class="trust-strip__icon">S</span><div><strong>Shopify Partner</strong><span>Commerce experience</span></div></div>
-  </div>
-</section> -->
-
-<section class="sec" id="flow"><div class="wrap"><div class="section-head center reveal"><span class="ey">Connection flow</span><h2>Keep procurement and commerce in their own lanes.</h2></div>
-<div class="integration-flow reveal"><div class="integration-node"><strong>OCI</strong><span>Buyer / procurement side</span></div><div class="integration-arrow">→</div><div class="integration-node integration-node--accent"><strong>PunchOut Central</strong><span>Authentication, session + transactions</span></div><div class="integration-arrow">→</div><div class="integration-node"><strong>Shopify</strong><span>Supplier catalog + store order</span></div></div></div></section>
-<section class="sec soft" id="details">
-  <div class="wrap">
-    <div class="section-head reveal"><span class="ey">What PunchOut Central handles</span><h2>The integration layer between the buyer and your store.</h2><p class="lead">Your team keeps the business relationship. PunchOut Central handles the procurement connectivity.</p></div>
-    <div class="feature-grid"><article class="feature-card reveal"><span class="feature-card__icon">01</span><h3>Buyer connection</h3><p>Configure credentials and buyer-specific connection settings.</p></article><article class="feature-card reveal"><span class="feature-card__icon">02</span><h3>PunchOut session</h3><p>Authenticate the request and open the correct ecommerce session.</p></article><article class="feature-card reveal"><span class="feature-card__icon">03</span><h3>Cart return</h3><p>Send the selected cart back to procurement for approval.</p></article><article class="feature-card reveal"><span class="feature-card__icon">04</span><h3>Approved PO</h3><p>Receive the PO after the buyer finishes internal approval.</p></article><article class="feature-card reveal"><span class="feature-card__icon">05</span><h3>Store order</h3><p>Create the matching Shopify order from the approved PO.</p></article><article class="feature-card reveal"><span class="feature-card__icon">06</span><h3>Visibility</h3><p>Track the transaction and see where an issue occurred.</p></article></div>
-  </div>
-</section>
-<section class="sec soft" id="proof">
-  <div class="wrap">
-    <div class="section-head reveal"><span class="ey">Built for trust</span><h2>Proven enough for the customer you cannot afford to lose.</h2><p class="lead">Simple on the surface. Dependable underneath.</p></div>
-    <div class="metrics-row">
-      <article class="metric reveal"><strong>90+</strong><span>customers use PunchOut technology built by our team.</span></article>
-      <article class="metric reveal"><strong>$50M+</strong><span>in order value processed through our technology every year.</span></article>
-      <article class="metric metric--dark reveal"><strong>cXML + OCI</strong><span>Buyer sessions, carts, POs, store orders and invoices stay connected and visible.</span></article>
-    </div>
-  </div>
-</section>
-<section class="sec soft" id="faq">
-  <div class="wrap">
-    <div class="section-head center reveal"><span class="ey">FAQ</span><h2>Questions suppliers usually ask</h2></div>
-    <div class="faq reveal"><div class="fi"><button class="fq" type="button"><span>Does PunchOut Central support OCI?</span><span class="plus">+</span></button><div class="fa"><p>This page reflects the current integration direction of PunchOut Central. Exact buyer-specific requirements still need to be confirmed during setup.</p></div></div><div class="fi"><button class="fq" type="button"><span>Do we have to replace Shopify?</span><span class="plus">+</span></button><div class="fa"><p>No. Shopify is the current production commerce connector and remains your ecommerce system.</p></div></div><div class="fi"><button class="fq" type="button"><span>Is setup included?</span><span class="plus">+</span></button><div class="fa"><p>Standard supported integration is positioned as free. Buyer-specific custom development is separate.</p></div></div></div>
-  </div>
-</section>
-<section class="page-cta">
-  <div class="wrap reveal">
-    <span class="ey">A bigger opportunity is waiting</span>
-    <h2>When the buyer asks for PunchOut, say yes.</h2>
-    <p class="lead">Start with your first enterprise buyer and grow from there.</p>
-    <div class="page-hero__actions">
-      <a class="btn pri" href="https://app.punchoutcentral.com/platform/register" target="_blank">Connect my first buyer →</a>
-      <a class="btn secbtn" href="/pricing/">See pricing</a>
-    </div>
-  </div>
-</section>
+  <section class="page-hero page-hero--mint" id="overview"><div class="wrap page-hero__grid">
+    <div class="page-hero__copy reveal"><span class="ey">Shopify OCI PunchOut</span><h1>Use OCI PunchOut with your existing Shopify catalog.</h1><p class="lead">PunchOut Central supports OCI-based catalog launch and cart return for configured buyer connections. Shopify remains the supplier storefront, while the buyer’s procurement system handles approval.</p><div class="page-hero__actions"><a class="btn pri" href="/book-demo/">Discuss OCI requirements &rarr;</a><a class="btn secbtn" href="#flow">See the connection &darr;</a></div></div>
+    <div class="hero-visual logo-hero reveal"><div class="hero-visual__label"><span>Procurement protocol</span><b>OCI</b></div><div class="logo-hero__mark"><strong>OCI</strong></div><span class="logo-hero__status">PunchOut Central</span><h3>Catalog launch and return</h3><p>Buyer-specific OCI connection to a supplier store.</p></div>
+  </div></section>
+  <section class="sec" id="flow"><div class="wrap">
+    <div class="section-head center reveal"><span class="ey">OCI flow</span><h2>Launch the catalog; return the selection.</h2><p class="lead">OCI connects the buyer’s procurement session to the supplier catalog and returns the selected cart. The approval and PO process follows the buyer’s configuration.</p></div>
+    <div class="integration-flow reveal"><div class="integration-node"><strong>Buyer procurement</strong><span>Starts OCI PunchOut</span></div><div class="integration-arrow">&rarr;</div><div class="integration-node integration-node--accent"><strong>PunchOut Central</strong><span>Buyer and session mapping</span></div><div class="integration-arrow">&rarr;</div><div class="integration-node"><strong>Shopify</strong><span>Supplier catalog</span></div></div>
+  </div></section>
+  <section class="sec soft" id="details"><div class="wrap">
+    <div class="section-head reveal"><span class="ey">Connection checklist</span><h2>Test the OCI path with the buyer.</h2><p class="lead">A working catalog launch alone is not the full transaction. Confirm cart return and the downstream purchase-order handoff as well.</p></div>
+    <div class="simple-steps">{checks.map(([number, title, description]) => <article class="simple-step reveal"><span class="simple-step__num">{number}</span><h3>{title}</h3><p>{description}</p></article>)}</div>
+  </div></section>
+  <section class="sec" id="proof"><div class="wrap">
+    <div class="section-head reveal"><span class="ey">Order boundary</span><h2>Returning a cart is not placing a Shopify order.</h2><p class="lead">The buyer approves the cart in procurement. When PunchOut Central receives the approved PO, it creates the matching store order and tracks subsequent invoice activity.</p></div>
+    <div class="related-grid"><a class="related-card reveal" href="/integrations/procurement-systems/"><span>Buyer side</span><h3>Procurement systems</h3><p>Review buyer-specific connection planning.</p><b>Explore &rarr;</b></a><a class="related-card reveal" href="/integrations/shopify/"><span>Supplier side</span><h3>Shopify integration</h3><p>See how the existing storefront is used.</p><b>Explore &rarr;</b></a><a class="related-card reveal" href="/integrations/cxml/"><span>Another protocol</span><h3>cXML PunchOut</h3><p>Learn about cXML procurement workflows.</p><b>Explore &rarr;</b></a></div>
+  </div></section>
+  <section class="sec soft" id="faq"><div class="wrap">
+    <div class="section-head center reveal"><span class="ey">FAQ</span><h2>OCI questions</h2></div>
+    <div class="faq reveal"><div class="fi"><button class="fq" type="button"><span>Is OCI the buyer’s procurement product?</span><span class="plus">+</span></button><div class="fa"><p>No. OCI is a PunchOut protocol used by a buyer procurement environment. The buyer system and its settings still need to be confirmed.</p></div></div><div class="fi"><button class="fq" type="button"><span>Does OCI cart return create a store order?</span><span class="plus">+</span></button><div class="fa"><p>No. It returns the cart for approval. The approved PO is the step that leads to the Shopify order.</p></div></div><div class="fi"><button class="fq" type="button"><span>Can we reuse our Shopify catalog?</span><span class="plus">+</span></button><div class="fa"><p>Yes. PunchOut Central connects the OCI buyer session to the supplier’s existing Shopify or Shopify Plus store.</p></div></div></div>
+  </div></section>
+  <section class="page-cta"><div class="wrap reveal"><span class="ey">Plan an OCI connection</span><h2>Review the buyer’s launch and cart-return requirements.</h2><p class="lead">We can map the procurement system, supplier catalog and PO handoff together.</p><div class="page-hero__actions"><a class="btn pri" href="/book-demo/">Discuss the connection &rarr;</a><a class="btn secbtn" href="/how-it-works/">See the full workflow</a></div></div></section>
 </main>
