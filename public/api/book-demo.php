@@ -1019,7 +1019,7 @@ try {
             respond(422, ['ok' => false, 'message' => 'Please enter a valid name and contact number.']);
         }
 
-        if (!in_array($data['platform'], ['WooCommerce', 'Magento', 'Other'], true)) {
+        if (!in_array($data['platform'], ['Magento', 'Magento / Adobe Commerce', 'Other'], true)) {
             respond(422, ['ok' => false, 'message' => 'Please choose a valid ecommerce platform.']);
         }
         $planAliases = [

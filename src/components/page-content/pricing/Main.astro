@@ -1,6 +1,6 @@
 ---
 import { icon } from '@fortawesome/fontawesome-svg-core';
-import { faMagento, faShopify, faWordpressSimple } from '@fortawesome/free-brands-svg-icons';
+import { faMagento, faShopify } from '@fortawesome/free-brands-svg-icons';
 import { faStore } from '@fortawesome/free-solid-svg-icons';
 
 const formEndpoint = import.meta.env.PUBLIC_PRICING_FORM_ENDPOINT || '/api/book-demo.php';
@@ -8,7 +8,6 @@ const formToken = import.meta.env.PUBLIC_PRICING_FORM_TOKEN || import.meta.env.P
 const shopifyConnectUrl = 'https://app.punchoutcentral.com';
 
 const shopifyIcon = icon(faShopify).html.join('');
-const wooCommerceIcon = icon(faWordpressSimple).html.join('');
 const magentoIcon = icon(faMagento).html.join('');
 const otherIcon = icon(faStore).html.join('');
 ---
@@ -61,7 +60,7 @@ const otherIcon = icon(faStore).html.join('');
       <div class="pricing-modal__head">
         <span class="ey">Get started</span>
         <h2 id="pricingModalTitle"><span data-plan-action>Explore the</span> <span data-selected-plan>Starter</span> plan</h2>
-        <p>Shopify and Shopify Plus are available now. Choose another platform to send an interest request.</p>
+        <p>Shopify and Shopify Plus are available now. Magento / Adobe Commerce and other platforms are coming soon&mdash;join the waitlist to tell us what you need.</p>
       </div>
 
       <div class="pricing-tabs" role="tablist" aria-label="Ecommerce platform">
@@ -69,17 +68,13 @@ const otherIcon = icon(faStore).html.join('');
           <span class="pricing-tab__icon" aria-hidden="true" set:html={shopifyIcon}></span>
           <span>Shopify</span>
         </button>
-        <button class="pricing-tab pricing-tab--woocommerce" id="pricing-tab-woocommerce" type="button" role="tab" aria-selected="false" aria-controls="pricing-panel-lead" data-platform="WooCommerce" tabindex="-1">
-          <span class="pricing-tab__icon" aria-hidden="true" set:html={wooCommerceIcon}></span>
-          <span>WooCommerce</span>
-        </button>
-        <button class="pricing-tab pricing-tab--magento" id="pricing-tab-magento" type="button" role="tab" aria-selected="false" aria-controls="pricing-panel-lead" data-platform="Magento" tabindex="-1">
+        <button class="pricing-tab pricing-tab--magento" id="pricing-tab-magento" type="button" role="tab" aria-selected="false" aria-controls="pricing-panel-lead" data-platform="Magento / Adobe Commerce" tabindex="-1">
           <span class="pricing-tab__icon" aria-hidden="true" set:html={magentoIcon}></span>
-          <span>Magento</span>
+          <span class="pricing-tab__label">Magento / Adobe Commerce<small>Coming soon</small></span>
         </button>
         <button class="pricing-tab pricing-tab--other" id="pricing-tab-other" type="button" role="tab" aria-selected="false" aria-controls="pricing-panel-lead" data-platform="Other" tabindex="-1">
           <span class="pricing-tab__icon" aria-hidden="true" set:html={otherIcon}></span>
-          <span>Other</span>
+          <span class="pricing-tab__label">Other platforms<small>Coming soon</small></span>
         </button>
       </div>
 
@@ -95,16 +90,16 @@ const otherIcon = icon(faStore).html.join('');
         </form>
       </section>
 
-      <section class="pricing-platform-panel" id="pricing-panel-lead" role="tabpanel" aria-labelledby="pricing-tab-woocommerce" hidden>
+      <section class="pricing-platform-panel" id="pricing-panel-lead" role="tabpanel" aria-labelledby="pricing-tab-magento" hidden>
         <form id="pricingLeadForm" action={formEndpoint} method="post" novalidate>
           <input type="hidden" name="form_source" value="pricing-interest">
           <input type="hidden" name="plan" value="Starter">
-          <input type="hidden" name="platform" value="WooCommerce">
+          <input type="hidden" name="platform" value="Magento / Adobe Commerce">
           <input type="hidden" name="page" value="">
           <input type="hidden" name="form_loaded_at" value="">
           <input class="book-demo-hp" type="text" name="nickname" tabindex="-1" autocomplete="off" aria-hidden="true">
 
-          <p class="pricing-platform-panel__intro">Tell us about your <strong data-platform-name>WooCommerce</strong> store. This sends an interest request; it does not activate a connection.</p>
+          <p class="pricing-platform-panel__intro">This platform is coming soon. Join the waitlist and tell us about your <strong data-platform-name>Magento / Adobe Commerce</strong> store.</p>
           <div class="form-grid">
             <div class="form-field">
               <label for="pricingName">Full Name</label>
@@ -128,7 +123,7 @@ const otherIcon = icon(faStore).html.join('');
             </div>
           </div>
           <p class="pricing-form-error" id="pricingLeadError" role="alert"></p>
-          <button class="btn pri pricing-modal__submit" id="pricingLeadSubmit" type="submit">Submit request</button>
+          <button class="btn pri pricing-modal__submit" id="pricingLeadSubmit" type="submit">Join waitlist</button>
         </form>
       </section>
     </div>
@@ -232,7 +227,7 @@ const otherIcon = icon(faStore).html.join('');
       leadPanel.hidden = isShopify;
       technologyField.hidden = platform !== 'Other';
       if (!isShopify) {
-        leadPanel.setAttribute('aria-labelledby', `pricing-tab-${platform.toLowerCase()}`);
+        leadPanel.setAttribute('aria-labelledby', tabs.find(tab => tab.dataset.platform === platform)?.id || 'pricing-tab-other');
         leadForm.elements.platform.value = platform;
         platformName.textContent = platform;
       }
@@ -339,13 +334,13 @@ const otherIcon = icon(faStore).html.join('');
         }
         leadForm.reset();
         showSuccess(result.email?.sent
-          ? `Your ${selectedPlatform} request was sent to our team. We will follow up.`
-          : `Your ${selectedPlatform} request was recorded. We will follow up.`);
+          ? `You joined the ${selectedPlatform} waitlist. We will follow up.`
+          : `Your ${selectedPlatform} waitlist request was recorded. We will follow up.`);
       } catch (error) {
         setError(leadError, error instanceof Error ? error.message : 'We could not send your request right now.');
       } finally {
         leadSubmit.disabled = false;
-        leadSubmit.textContent = 'Submit request';
+        leadSubmit.textContent = 'Join waitlist';
       }
     });
 
