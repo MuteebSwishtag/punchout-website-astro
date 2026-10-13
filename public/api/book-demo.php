@@ -1023,11 +1023,11 @@ try {
             respond(422, ['ok' => false, 'message' => 'Please choose a valid ecommerce platform.']);
         }
         $planAliases = [
-            'Launch' => 'Launch',
+            'Launch' => 'Starter',
             'Growth' => 'Growth',
             'Scale' => 'Scale',
             // Older pricing forms used these names. Keep accepting their requests.
-            'Starter' => 'Launch',
+            'Starter' => 'Starter',
             'Enterprise' => 'Scale',
         ];
         if (!isset($planAliases[$data['plan']])) {

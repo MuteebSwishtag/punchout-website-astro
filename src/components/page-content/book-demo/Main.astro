@@ -11,7 +11,7 @@ const formToken = import.meta.env.PUBLIC_BOOK_DEMO_TOKEN ?? '';
         <p class="lead">Tell us which procurement systems your buyers use and whether they will share one Shopify store. Request a preferred demo time so we can discuss catalog access, connections and the order flow.</p>
         <div class="metrics-row book-demo-intro-grid">
           <article class="metric"><strong>One Shopify store</strong><span>Serve multiple buyers with buyer-specific catalog access.</span></article>
-          <article class="metric"><strong>Clear next step</strong><span>See whether the form saved your request, notified our team or created a Zoom meeting.</span></article>
+          <article class="metric"><strong>Clear next step</strong><span>Share your buyer requirements and a preferred time to talk with our team.</span></article>
         </div>
       </div>
 
@@ -100,7 +100,7 @@ const formToken = import.meta.env.PUBLIC_BOOK_DEMO_TOKEN ?? '';
           <section class="book-demo-panel" data-step="2" aria-labelledby="demoStepTwoTitle">
             <div class="book-demo-panel__head">
               <h2 id="demoStepTwoTitle">Choose a preferred time.</h2>
-              <p>These times are preferences, not live availability. The result will say whether a Zoom meeting was created.</p>
+              <p>Choose a preferred date and time. Our team will follow up to confirm availability.</p>
             </div>
 
             <div class="book-demo-picker">
@@ -139,7 +139,6 @@ const formToken = import.meta.env.PUBLIC_BOOK_DEMO_TOKEN ?? '';
           <button class="btn secbtn" id="bookAnotherBtn" type="button">Send another request</button>
         </section>
 
-        <p class="form-note">Your chosen date and time are a request unless a Zoom meeting is confirmed in the response.</p>
       </div>
     </div>
   </section>
@@ -149,7 +148,7 @@ const formToken = import.meta.env.PUBLIC_BOOK_DEMO_TOKEN ?? '';
       <div class="related-grid">
         <a class="related-card reveal" href="/solutions/one-store-multiple-buyers/"><span>Connection model</span><h3>One store, multiple buyers</h3><p>See how buyer-specific catalog access works.</p><b>Explore &rarr;</b></a>
         <a class="related-card reveal" href="/integrations/procurement-systems/"><span>Buyer side</span><h3>Procurement systems</h3><p>Review the buyer environment and protocol questions.</p><b>Explore &rarr;</b></a>
-        <a class="related-card reveal" href="/pricing/"><span>Plans</span><h3>PunchOut pricing</h3><p>Compare the Launch, Growth and Scale connection allowances.</p><b>Explore &rarr;</b></a>
+        <a class="related-card reveal" href="/pricing/"><span>Plans</span><h3>PunchOut pricing</h3><p>Compare the Starter, Growth and Scale connection allowances.</p><b>Explore &rarr;</b></a>
       </div>
     </div>
   </section>
@@ -514,10 +513,57 @@ const formToken = import.meta.env.PUBLIC_BOOK_DEMO_TOKEN ?? '';
 </script>
 
 <style>
-  .book-demo-intro-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); margin-top: 30px; }
+  .book-demo-shell {
+    grid-template-columns: minmax(300px, .82fr) minmax(0, 1.18fr);
+    gap: clamp(32px, 5vw, 72px);
+  }
+  .book-demo-shell .page-hero__copy { max-width: 580px; }
+  .book-demo-shell .page-hero__copy h1 {
+    max-width: 600px;
+    font-size: clamp(3rem, 5vw, 5.2rem);
+    line-height: .95;
+  }
+  .book-demo-card,
+  .book-demo-card form,
+  .book-demo-picker__box { min-width: 0; }
+  .book-demo-intro-grid {
+    grid-template-columns: 1fr;
+    gap: 10px;
+    margin-top: 30px;
+  }
+  .book-demo-intro-grid .metric { padding: 18px 20px; }
+  .book-demo-intro-grid .metric strong {
+    font-size: clamp(1.35rem, 2.3vw, 2rem);
+    line-height: 1.05;
+  }
+  .book-demo-intro-grid .metric span { max-width: none; margin-top: 8px; }
+
+  @media (max-width: 1080px) {
+    .book-demo-shell {
+      grid-template-columns: minmax(0, 1fr);
+      gap: 36px;
+    }
+    .book-demo-shell .page-hero__copy { max-width: 760px; }
+  }
+
+  @media (max-width: 760px) {
+    .book-demo-shell { gap: 28px; }
+    .book-demo-shell .page-hero__copy h1 {
+      max-width: 520px;
+      font-size: clamp(2.75rem, 11vw, 4rem);
+      line-height: .98;
+    }
+    .book-demo-card { padding: 20px; border-radius: 22px; }
+  }
+
   @media (max-width: 600px) {
-    .book-demo-intro-grid { grid-template-columns: 1fr; }
     #bookingFlow .book-demo-date-list,
     #bookingFlow .book-demo-time-list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
+
+  @media (max-width: 380px) {
+    .book-demo-card { padding: 16px; }
+    #bookingFlow .book-demo-date-list,
+    #bookingFlow .book-demo-time-list { grid-template-columns: 1fr; }
   }
 </style>

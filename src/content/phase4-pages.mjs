@@ -205,7 +205,7 @@ export const phase4Pages = {
     operating: [
       { title: 'One store', text: 'Serve multiple enterprise buyers from one Shopify catalog.' },
       { title: 'More buyers', text: 'Each new buyer counts as another connection.' },
-      { title: 'Clear pricing', text: 'Launch includes one connection for $500/month, with no setup or transaction fees.' }
+      { title: 'Clear pricing', text: 'Starter includes one connection for $500/month, with no setup or transaction fees.' }
     ],
     questions: [
       { question: 'Do we need a second catalog for PunchOut?', answer: 'No. The current product uses the existing Shopify or Shopify Plus store.' },

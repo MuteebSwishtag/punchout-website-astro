@@ -328,7 +328,7 @@ export const insightPages = {
       { id: 'what-not-to-promise', title: 'What not to promise yet', bullets: ['Do not promise a protocol, document format or invoice route the buyer has not specified.', 'Do not describe the cart return as an approved order.', 'Do not claim buyer compatibility based only on the platform name; confirm the buyer configuration.'] }
     ],
     related: [['/solutions/enterprise-customer-onboarding/', 'Enterprise buyer onboarding', 'Turn discovery into a repeatable setup process.'], ['/documentation/', 'Documentation', 'Use the store-to-buyer setup path.'], ['/book-demo/', 'Discuss the requirement', 'Bring the buyer request to the team.']],
-    questions: [{ question: 'Can I start with one buyer?', answer: 'Yes. The Launch plan includes one connection, and additional buyers or stores can be added as connections.' }, ...sharedQuestions],
+    questions: [{ question: 'Can I start with one buyer?', answer: 'Yes. The Starter plan includes one connection, and additional buyers or stores can be added as connections.' }, ...sharedQuestions],
     ctaTitle: 'Bring the customer request to a real scoping conversation.', ctaText: 'The buyer system, store and expected PO path are enough to start a useful review.'
   }
 };
@@ -374,18 +374,18 @@ insightPages['/insights/punchout-integration-cost/'] = {
   title: 'How much does a PunchOut integration cost?',
   lead: 'The answer depends on the supplier store, buyer count, protocol and onboarding scope. PunchOut Central publishes a connection-based monthly model so suppliers can estimate the platform cost before discussing buyer-specific requirements.',
   visualLabel: 'Connection pricing', visualSteps: [
-    { title: 'One buyer', text: 'Launch connection' },
+    { title: 'One buyer', text: 'Starter connection' },
     { title: 'More buyers', text: 'Add connections' },
     { title: 'More stores', text: 'Count each store' },
     { title: 'One view', text: 'Manage centrally' }
   ],
   sections: [
-    { id: 'published-model', title: 'The published PunchOut Central model', paragraphs: ['PunchOut Central prices by connection rather than by order value. The current published plans are Launch at $500 per month for one connection, Growth at $1,000 per month for up to four connections, and Scale at $1,500 per month for up to seven connections. Each additional connection beyond the plan allowance is $200 per month.'] },
+    { id: 'published-model', title: 'The published PunchOut Central model', paragraphs: ['PunchOut Central prices by connection rather than by order value. The current published plans are Starter at $500 per month for one connection, Growth at $1,000 per month for up to four connections, and Scale at $1,500 per month for up to seven connections. Each additional connection beyond the plan allowance is $200 per month.'] },
     { id: 'included', title: 'What the model includes', bullets: ['Shopify or Shopify Plus supplier catalog connectivity.', 'Buyer-specific connection and catalog access settings.', 'cXML and OCI PunchOut support as described in the product playbook.', 'Transaction visibility across the buyer workflow.', 'Free onboarding assistance.', 'No setup fee and no transaction fee in the published pricing model.'] },
     { id: 'counting', title: 'How to count connections', paragraphs: ['A new buyer counts as a connection. An additional store also counts as a connection. One Shopify store serving several buyers therefore needs a count based on the buyer relationships; a multi-store program needs to include the additional stores as well.'], steps: [
       { title: 'List buyers', text: 'Count the enterprise procurement relationships that need separate connections.' },
       { title: 'List stores', text: 'Add any additional Shopify or Shopify Plus stores in the program.' },
-      { title: 'Compare allowances', text: 'Map the total to Launch, Growth or Scale, then add $200 per connection beyond the allowance.' }
+      { title: 'Compare allowances', text: 'Map the total to Starter, Growth or Scale, then add $200 per connection beyond the allowance.' }
     ] },
     { id: 'not-included', title: 'Costs that still need buyer confirmation', bullets: ['Buyer-side procurement configuration or consulting costs.', 'Custom buyer requirements not represented by the standard onboarding scope.', 'Accounting, tax, fulfillment or ERP work outside the described PunchOut connection.', 'Invoice format and delivery requirements that differ by buyer.'] },
     { id: 'questions', title: 'Questions to ask before comparing quotes', paragraphs: ['Ask whether the quote covers the actual buyer systems, how many connections are included, whether additional stores count separately, what onboarding assistance covers, and what happens after the approved PO reaches the supplier. A low headline price is not comparable if it omits the buyer workflow or the testing and support context.'] }

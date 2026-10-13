@@ -43,7 +43,7 @@ const linksBySource = {
     ['/resources/punchout-testing-checklist/', 'Testing checklist', 'Validate the full transaction.'],
     ['/resources/punchout-purchase-order-process/', 'Purchase order process', 'Understand when the order is created.'],
     ['/integrations/', 'Integration overview', 'Explore procurement and commerce connections.'],
-    ['/pricing/', 'Pricing', 'Compare Launch, Growth and Scale.']
+    ['/pricing/', 'Pricing', 'Compare Starter, Growth and Scale.']
   ],
   '/platform/': [
     ['/platform/punchout/', 'PunchOut catalogs', 'Open the right catalog for each enterprise buyer.'],
@@ -151,7 +151,7 @@ const linksBySource = {
     ['/integrations/procurement-systems/', 'Buyer systems', 'Review each buyer’s procurement requirements.'],
     ['/platform/purchase-orders/', 'Purchase orders', 'Follow approved POs into Shopify orders.'],
     ['/platform/invoices/', 'Invoices', 'Keep invoice activity tied to the transaction.'],
-    ['/pricing/', 'Connection pricing', 'Compare the Launch, Growth and Scale allowances.'],
+    ['/pricing/', 'Connection pricing', 'Compare the Starter, Growth and Scale allowances.'],
     ['/book-demo/', 'Discuss your setup', 'Show us the buyers and store you need to connect.']
   ]
 };

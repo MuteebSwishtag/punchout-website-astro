@@ -119,6 +119,7 @@ const extraRows = [
   ['/product/reporting-monitoring/', 'deprecated_redirect_candidate'],
   ['/resources/what-is-punchout/', 'deprecated_redirect_candidate'],
   ['/industries/promotional-print-uniforms/', 'deprecated_redirect_candidate'],
+  ['/about/', 'redirect_alias'],
   ['/integrations/bigcommerce/', 'needs_verification'],
   ['/integrations/magento/', 'needs_verification']
 ];

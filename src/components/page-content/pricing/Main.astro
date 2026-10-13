@@ -18,13 +18,13 @@ const otherIcon = icon(faStore).html.join('');
   <div class="wrap page-hero__grid">
     <div class="page-hero__copy reveal">
       <span class="ey">PunchOut pricing</span><h1>Pricing that grows with your buyer connections.</h1>
-      <p class="lead">Launch at $500/month for one connection, add buyers as you grow, and manage them from one platform. No setup fee or transaction fees. Free onboarding assistance.</p>
+      <p class="lead">Starter is $500/month for one connection. Add buyers as you grow and manage them from one platform. No setup fee or transaction fees. Free onboarding assistance.</p>
       <div class="page-hero__actions"><a class="btn pri" href="#plans">Compare plans &rarr;</a><a class="btn secbtn" href="/book-demo/">Discuss your setup</a></div>
     </div>
     
     <div class="hero-visual reveal">
       <div class="hero-visual__label"><span>Pricing</span><b>Simple</b></div>
-      <div class="visual-flow"><div class="visual-step is-accent"><i>01</i><span><strong>Launch</strong><small>1 connection</small></span><em>$500/mo</em></div><div class="visual-step is-lavender"><i>02</i><span><strong>Growth</strong><small>Up to 4 connections</small></span><em>$1,000/mo</em></div><div class="visual-step is-peach"><i>03</i><span><strong>Scale</strong><small>Up to 7 connections</small></span><em>$1,500/mo</em></div><div class="visual-step is-lime"><i>04</i><span><strong>Additional connection</strong><small>Buyer or store</small></span><em>+$200/mo</em></div></div>
+      <div class="visual-flow"><div class="visual-step is-accent"><i>01</i><span><strong>Starter</strong><small>1 connection</small></span><em>$500/mo</em></div><div class="visual-step is-lavender"><i>02</i><span><strong>Growth</strong><small>Up to 4 connections</small></span><em>$1,000/mo</em></div><div class="visual-step is-peach"><i>03</i><span><strong>Scale</strong><small>Up to 7 connections</small></span><em>$1,500/mo</em></div><div class="visual-step is-lime"><i>04</i><span><strong>Additional connection</strong><small>Buyer or store</small></span><em>+$200/mo</em></div></div>
     </div>
   </div>
 </section>
@@ -32,10 +32,18 @@ const otherIcon = icon(faStore).html.join('');
 
 <section class="sec" id="plans"><div class="wrap"><div class="section-head reveal"><span class="ey">Plans</span><h2>Choose the connection allowance you need.</h2><p class="lead">Each plan includes the same Shopify PunchOut capabilities. A new buyer or additional store counts as a connection.</p></div>
 <div class="pricing-grid">
-<article class="price-card price-card--featured reveal"><span class="price-card__name">Launch</span><div class="price-card__price">$500 <small>/ month</small></div><p>For your first buyer connection.</p><ul><li>1 connection included</li><li>Shopify or Shopify Plus supplier catalog</li><li>Buyer-specific catalog access</li><li>cXML and OCI PunchOut support</li><li>PO, invoice and transaction visibility</li><li>Free onboarding assistance</li></ul><button class="btn secbtn pricing-modal-trigger" type="button" data-pricing-plan="Launch">Choose Launch</button></article>
-<article class="price-card reveal"><span class="price-card__name">Growth</span><div class="price-card__price">$1,000 <small>/ month</small></div><p>For a store serving several enterprise buyers.</p><ul><li>Up to 4 connections included</li><li>All Launch capabilities</li><li>Manage buyer connections centrally</li><li>Buyer-specific store and collection access</li><li>Free onboarding assistance</li></ul><button class="btn secbtn pricing-modal-trigger" type="button" data-pricing-plan="Growth">Choose Growth</button></article>
-<article class="price-card reveal"><span class="price-card__name">Scale</span><div class="price-card__price">$1,500 <small>/ month</small></div><p>For more buyers or stores on one platform.</p><ul><li>Up to 7 connections included</li><li>All Growth capabilities</li><li>Central store, buyer and transaction view</li><li>Free onboarding assistance</li></ul><button class="btn secbtn pricing-modal-trigger" type="button" data-pricing-plan="Scale">Choose Scale</button></article>
-</div></div></section>
+<article class="price-card price-card--featured reveal"><span class="price-card__name">Starter</span><div class="price-card__price">$500 <small>/ month</small></div><p>For your first buyer connection.</p><ul><li>1 connection included</li><li>Shopify or Shopify Plus supplier catalog</li><li>Buyer-specific catalog access</li><li>cXML and OCI PunchOut support</li><li>PO, invoice and transaction visibility</li><li>Free onboarding assistance</li></ul><button class="btn secbtn pricing-modal-trigger" type="button" data-pricing-plan="Starter">Choose Starter</button></article>
+<article class="price-card reveal"><span class="price-card__name">Growth</span><div class="price-card__price">$1,000 <small>/ month</small></div><p>For a store serving several enterprise buyers.</p><ul><li>Up to 4 connections included</li><li>All Starter capabilities</li><li>Manage buyer connections centrally</li><li>Buyer-specific store and collection access</li><li>Free onboarding assistance</li></ul><button class="btn secbtn pricing-modal-trigger" type="button" data-pricing-plan="Growth" data-modal-action="Start your">Start Growing</button></article>
+<article class="price-card reveal"><span class="price-card__name">Scale</span><div class="price-card__price">$1,500 <small>/ month</small></div><p>For more buyers or stores on one platform.</p><ul><li>Up to 7 connections included</li><li>All Growth capabilities</li><li>Central store, buyer and transaction view</li><li>Free onboarding assistance</li></ul><button class="btn secbtn pricing-modal-trigger" type="button" data-pricing-plan="Scale" data-modal-action="Start your">Start Scale</button></article>
+  </div>
+  <section class="pricing-enterprise-tile reveal" aria-label="Enterprise pricing">
+  <div>
+    <span class="price-card__name">Enterprise</span>
+    <h3>9+ connections or complex requirements</h3>
+    <p>Talk with our team about multiple stores, advanced procurement workflows and a tailored rollout.</p>
+  </div>
+  <a class="btn secbtn" href="/book-demo/">Talk to sales &rarr;</a>
+</section></div></section>
 
 <div
   class="pricing-modal"
@@ -52,7 +60,7 @@ const otherIcon = icon(faStore).html.join('');
     <div class="pricing-modal__content" data-pricing-content>
       <div class="pricing-modal__head">
         <span class="ey">Get started</span>
-        <h2 id="pricingModalTitle">Explore the <span data-selected-plan>Launch</span> plan</h2>
+        <h2 id="pricingModalTitle"><span data-plan-action>Explore the</span> <span data-selected-plan>Starter</span> plan</h2>
         <p>Shopify and Shopify Plus are available now. Choose another platform to send an interest request.</p>
       </div>
 
@@ -90,7 +98,7 @@ const otherIcon = icon(faStore).html.join('');
       <section class="pricing-platform-panel" id="pricing-panel-lead" role="tabpanel" aria-labelledby="pricing-tab-woocommerce" hidden>
         <form id="pricingLeadForm" action={formEndpoint} method="post" novalidate>
           <input type="hidden" name="form_source" value="pricing-interest">
-          <input type="hidden" name="plan" value="Launch">
+          <input type="hidden" name="plan" value="Starter">
           <input type="hidden" name="platform" value="WooCommerce">
           <input type="hidden" name="page" value="">
           <input type="hidden" name="form_loaded_at" value="">
@@ -155,7 +163,7 @@ const otherIcon = icon(faStore).html.join('');
 <section class="sec soft" id="faq">
   <div class="wrap">
     <div class="section-head center reveal"><span class="ey">FAQ</span><h2>Questions suppliers usually ask</h2></div>
-    <div class="faq reveal"><div class="fi"><button class="fq" type="button"><span>Is there a setup fee?</span><span class="plus">+</span></button><div class="fa"><p>No. Onboarding assistance is free.</p></div></div><div class="fi"><button class="fq" type="button"><span>Do you charge transaction fees?</span><span class="plus">+</span></button><div class="fa"><p>No.</p></div></div><div class="fi"><button class="fq" type="button"><span>What counts as a connection?</span><span class="plus">+</span></button><div class="fa"><p>A new buyer or an additional store counts as a connection. Each additional connection beyond the plan allowance is $200/month.</p></div></div><div class="fi"><button class="fq" type="button"><span>Can buyers share one Shopify store?</span><span class="plus">+</span></button><div class="fa"><p>Yes. One store can serve multiple enterprise buyers, each with its own connection and catalog access settings.</p></div></div><div class="fi"><button class="fq" type="button"><span>How many connections are included?</span><span class="plus">+</span></button><div class="fa"><p>Launch includes 1 connection, Growth includes up to 4, and Scale includes up to 7.</p></div></div></div>
+    <div class="faq reveal"><div class="fi"><button class="fq" type="button"><span>Is there a setup fee?</span><span class="plus">+</span></button><div class="fa"><p>No. Onboarding assistance is free.</p></div></div><div class="fi"><button class="fq" type="button"><span>Do you charge transaction fees?</span><span class="plus">+</span></button><div class="fa"><p>No.</p></div></div><div class="fi"><button class="fq" type="button"><span>What counts as a connection?</span><span class="plus">+</span></button><div class="fa"><p>A new buyer or an additional store counts as a connection. Each additional connection beyond the plan allowance is $200/month.</p></div></div><div class="fi"><button class="fq" type="button"><span>Can buyers share one Shopify store?</span><span class="plus">+</span></button><div class="fa"><p>Yes. One store can serve multiple enterprise buyers, each with its own connection and catalog access settings.</p></div></div><div class="fi"><button class="fq" type="button"><span>How many connections are included?</span><span class="plus">+</span></button><div class="fa"><p>Starter includes 1 connection, Growth includes up to 4, and Scale includes up to 7.</p></div></div></div>
   </div>
 </section>
 <section class="page-cta">
@@ -164,7 +172,7 @@ const otherIcon = icon(faStore).html.join('');
     <h2>Map your stores and buyers to a plan.</h2>
     <p class="lead">Compare your connection count, then review the setup with our team.</p>
     <div class="page-hero__actions">
-      <a class="btn pri" href="/book-demo/">Request a demo &rarr;</a>
+      <a class="btn pri" href="/book-demo/">Talk to sales &rarr;</a>
       <a class="btn secbtn" href="/solutions/one-store-multiple-buyers/">One store, multiple buyers</a>
     </div>
   </div>
@@ -181,6 +189,7 @@ const otherIcon = icon(faStore).html.join('');
     const successMessage = pricingModal.querySelector('[data-success-message]');
     const registrationFollowup = pricingModal.querySelector('[data-registration-followup]');
     const selectedPlanText = pricingModal.querySelector('[data-selected-plan]');
+    const planActionText = pricingModal.querySelector('[data-plan-action]');
     const tabs = [...pricingModal.querySelectorAll('[role="tab"]')];
     const shopifyPanel = document.getElementById('pricing-panel-shopify');
     const leadPanel = document.getElementById('pricing-panel-lead');
@@ -192,7 +201,7 @@ const otherIcon = icon(faStore).html.join('');
     const leadError = document.getElementById('pricingLeadError');
     const technologyField = document.getElementById('technologyField');
     const platformName = pricingModal.querySelector('[data-platform-name]');
-    let selectedPlan = 'Launch';
+    let selectedPlan = 'Starter';
     let selectedPlatform = 'Shopify';
     let returnFocus = null;
 
@@ -232,8 +241,9 @@ const otherIcon = icon(faStore).html.join('');
     };
 
     const openModal = trigger => {
-      selectedPlan = trigger.dataset.pricingPlan || 'Launch';
+      selectedPlan = trigger.dataset.pricingPlan || 'Starter';
       returnFocus = trigger;
+      planActionText.textContent = trigger.dataset.modalAction || 'Explore the';
       selectedPlanText.textContent = selectedPlan;
       leadForm.elements.plan.value = selectedPlan;
       leadForm.elements.page.value = window.location.href;

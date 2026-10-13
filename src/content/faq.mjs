@@ -11,7 +11,7 @@ export const faqItems = Object.freeze([
   ['How do we add a buyer?', 'Connect the store, choose the buyer store and catalog access, run a PunchOut test, validate the flow and then launch.'],
   ['Can we see where a transaction failed?', 'Yes. Transaction tracking shows the stage where it stopped and why, with line items, timestamps and activity.'],
   ['What invoice behavior is confirmed?', 'Invoice generation is the final tracked transaction stage. Confirm buyer-specific invoice formats and delivery requirements during onboarding.'],
-  ['What do Launch, Growth and Scale cost?', 'Launch is $500/month for 1 connection, Growth is $1,000/month for up to 4, and Scale is $1,500/month for up to 7.'],
+  ['What do Starter, Growth and Scale cost?', 'Starter is $500/month for 1 connection, Growth is $1,000/month for up to 4, and Scale is $1,500/month for up to 7.'],
   ['What counts as a connection?', 'A new buyer or an additional store counts as a connection. Each connection beyond a plan allowance is $200/month.'],
   ['Are there setup or transaction fees?', 'No. There is no setup fee or transaction fee, and onboarding assistance is free.'],
   ['How can we get product support?', 'Use in-product tickets, help or chat, FAQs and phone support. You can also use the support email on the contact page.']

@@ -13,7 +13,7 @@ import { industryPages, insightPages } from '../src/content/phase6-pages.mjs';
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const dist = path.join(root, 'dist');
 const failures = [];
-const expectedHomeHash = '7a6cff481d55a48328aeb344f602d136b2d5edc9e6c14d44f3110ba8718d4d4b';
+const expectedHomeHash = '54cd29265d08320a61fb57636467a48203005758449bbe49d1ced756dd8cfe29';
 
 function builtFile(route) {
   return path.join(dist, route === '/' ? 'index.html' : route === '/404.html' ? '404.html' : `${route.slice(1)}index.html`);
@@ -57,6 +57,7 @@ for (const file of htmlFiles) {
   const ogDescriptions = values(head, /<meta property="og:description" content="([^"]+)"/g);
   const ogUrls = values(head, /<meta property="og:url" content="([^"]+)"/g);
   const twitterCards = values(head, /<meta name="twitter:card" content="([^"]+)"/g);
+  const redirectDestination = redirects.find((entry) => entry.source === route && entry.status === 'active')?.destination;
   if (titles.length !== 1 || descriptions.length > 1 || robots.length > 1 || canonicals.length > 1 || ogTypes.length > 1 || ogTitles.length > 1 || ogDescriptions.length > 1 || ogUrls.length > 1 || twitterCards.length > 1) {
     failures.push(`${route}: duplicate or missing core head metadata`);
   }
@@ -68,6 +69,11 @@ for (const file of htmlFiles) {
     }
     if (route !== '/' && (canonicals[0] !== registered.canonicalUrl || ogUrls[0] !== registered.canonicalUrl || ogTypes.length !== 1 || ogTitles.length !== 1 || ogDescriptions.length !== 1 || twitterCards.length !== 1)) {
       failures.push(`${route}: canonical/Open Graph/Twitter metadata mismatch`);
+    }
+  } else if (registered?.implementationStatus === 'redirect_alias' && redirectDestination) {
+    const refresh = values(head, /<meta http-equiv="refresh" content="([^"]+)"/gi);
+    if (!/\bnoindex\b/i.test(robots[0] ?? '') || !refresh.some((content) => content.includes(`url=${redirectDestination}`))) {
+      failures.push(`${route}: redirect alias is missing its noindex refresh to ${redirectDestination}`);
     }
   } else if (!/\bnoindex\b/i.test(robots[0] ?? '') || canonicals.length || ogUrls.length) {
     failures.push(`${route}: unpublished route is indexable or has a canonical/Open Graph URL`);
@@ -176,7 +182,11 @@ for (const { source, destination } of active) {
   const directive = `RedirectMatch 301 ^${source.slice(0, -1)}/?$ ${destination}`;
   if (!htaccess.includes(directive)) failures.push(`Missing Apache redirect: ${source}`);
   if (!existsSync(builtFile(source))) failures.push(`Redirect source route was deleted: ${source}`);
-  if (!existsSync(builtFile(destination)) || !getRoute(destination)?.publicationEligible) failures.push(`Redirect destination is not published: ${destination}`);
+  const sourceRoute = getRoute(source);
+  const destinationRoute = getRoute(destination);
+  if (!existsSync(builtFile(destination)) || (!destinationRoute?.publicationEligible && sourceRoute?.implementationStatus !== 'redirect_alias')) {
+    failures.push(`Redirect destination is not published or is not an approved alias target: ${destination}`);
+  }
   if (active.some((redirect) => redirect.source === destination)) failures.push(`Redirect chain or loop at ${source}`);
   if (sitemapUrls.includes(new URL(source, CANONICAL_ORIGIN).href)) failures.push(`Redirect source in sitemap: ${source}`);
   if (/^\/(admin|api|login|thank-you|assets|_astro)\//.test(source)) failures.push(`Protected route redirected: ${source}`);
