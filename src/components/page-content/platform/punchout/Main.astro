@@ -21,7 +21,7 @@
     --pc-mint: #a8feef;
     --pc-line: #e4e9e9;
     --pc-max: 1350px;
-    overflow: hidden;
+    overflow: visible;
     padding: 74px 0 86px;
     background:
       radial-gradient(ellipse 540px 400px at 93% 30%, #f2f0ff 0, transparent 80%),
@@ -45,14 +45,20 @@
 
   .pc-standalone__wrap {
     width: min(calc(100% - 64px), var(--pc-max));
+    max-width: var(--pc-max);
+    min-width: 0;
     margin: auto;
   }
 
   .pc-standalone__grid {
     display: grid;
-    grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr);
-    gap: clamp(30px, 3vw, 48px);
+    grid-template-columns: minmax(0, .96fr) minmax(0, 1.04fr);
+    gap: clamp(38px, 4vw, 72px);
     align-items: center;
+  }
+
+  .pc-standalone__copy {
+    min-width: 0;
   }
 
   .pc-standalone__eyebrow {
@@ -135,15 +141,17 @@
   .pc-standalone__integration {
     container-type: inline-size;
     width: 100%;
+    max-width: 700px;
     min-width: 0;
+    justify-self: end;
     isolation: isolate;
   }
 
   .pc-open-labels,
   .pc-open-system-flow {
     display: grid;
-    grid-template-columns: minmax(0, 1fr) 216px minmax(0, 1fr);
-    column-gap: clamp(24px, 5cqw, 40px);
+    grid-template-columns: minmax(0, 1fr) minmax(180px, 216px) minmax(0, 1fr);
+    column-gap: clamp(20px, 5cqw, 40px);
     align-items: center;
   }
 
@@ -205,6 +213,35 @@
     background: #fff;
     box-shadow: 0 7px 20px #223c3909;
     transition: transform .22s, border-color .22s, box-shadow .22s;
+  }
+
+  .pc-open-system.is-coming-soon {
+    position: relative;
+    border-style: dashed;
+    border-color: rgba(118, 126, 124, .3);
+    background: repeating-linear-gradient(135deg, rgba(255, 255, 255, .78) 0 10px, rgba(244, 246, 245, .88) 10px 20px);
+    box-shadow: none;
+  }
+
+  .pc-open-system.is-coming-soon::after {
+    content: "Coming soon";
+    position: absolute;
+    right: 8px;
+    bottom: 5px;
+    padding: 2px 5px;
+    border: 1px solid rgba(118, 126, 124, .16);
+    border-radius: 999px;
+    background: rgba(255, 255, 255, .82);
+    color: rgba(86, 96, 93, .72);
+    font-size: 7px;
+    font-weight: 850;
+    line-height: 1;
+  }
+
+  .pc-open-system.is-coming-soon img {
+    filter: grayscale(1) saturate(0) contrast(1.08);
+    opacity: .42;
+    transform: scale(.9);
   }
 
   .pc-open-system:hover {
@@ -328,6 +365,7 @@
     .pc-standalone__integration {
       max-width: 720px;
       margin-inline: auto;
+      justify-self: center;
     }
   }
 
@@ -520,9 +558,9 @@
         </div>
 
         <div class="pc-open-commerce">
-          <div class="pc-open-system"><img src="/assets/logos/shopify.svg" alt="Shopify supplier store"></div>
-          <div class="pc-open-system"><img src="/assets/logos/shopify.svg" alt="Another Shopify supplier store"></div>
-          <div class="pc-open-system"><img src="/assets/logos/shopify.svg" alt="Shopify Plus supplier store"></div>
+          <div class="pc-open-system is-ready"><img src="/assets/logos/shopify.svg" alt="Shopify supplier store"></div>
+          <div class="pc-open-system is-coming-soon"><img src="/assets/logos/bigcommerce.svg" alt="BigCommerce supplier store"></div>
+          <div class="pc-open-system is-coming-soon"><img src="/assets/logos/magento.svg" alt="Magento supplier store"></div>
         </div>
       </div>
 
@@ -557,65 +595,60 @@
         const r = h.width / 2;
         const routes = [];
 
-        stage.querySelectorAll(".pc-open-procurement .pc-open-system").forEach(function (card) {
+        function addRoute(card, side) {
           const b = card.getBoundingClientRect();
-          const index = routes.length;
-          const dy = (index - 1) * r * .48;
-          const y2 = cy + dy;
-          const x1 = b.right - box.left;
-          const y1 = b.top - box.top + b.height / 2;
-          const x2 = cx - Math.sqrt(Math.max(0, r * r - dy * dy));
+          const disabled = card.classList.contains("is-coming-soon");
+          const gap = disabled ? Math.max(26, r * .26) : 4;
 
           if (vertical) {
-            const dx = (index - 1) * r * .48;
-            routes.push([
-              b.left - box.left + b.width / 2,
-              b.bottom - box.top,
-              cx + dx,
-              cy - Math.sqrt(Math.max(0, r * r - dx * dx))
-            ]);
-          } else {
-            routes.push([x1, y1, x2, y2]);
+            const cardX = b.left - box.left + b.width / 2;
+            const cardY = side === "left" ? b.bottom - box.top : b.top - box.top;
+            const offsetX = Math.max(-r * .84, Math.min(r * .84, cardX - cx));
+            const hubY = cy + (side === "left" ? -1 : 1) * Math.sqrt(Math.max(0, r * r - offsetX * offsetX));
+            routes.push({
+              points: [cardX, cardY, cx + offsetX, hubY],
+              disabled
+            });
+            return;
           }
+
+          const cardY = b.top - box.top + b.height / 2;
+          const offsetY = Math.max(-r * .86, Math.min(r * .86, cardY - cy));
+          const hubX = Math.sqrt(Math.max(0, r * r - offsetY * offsetY));
+          const cardX = side === "left" ? b.right - box.left : b.left - box.left;
+          const hubPointX = side === "left" ? cx - hubX - gap : cx + hubX + gap;
+
+          routes.push({
+            points: side === "left"
+              ? [cardX, cardY, hubPointX, cy + offsetY]
+              : [hubPointX, cy + offsetY, cardX, cardY],
+            disabled
+          });
+        }
+
+        stage.querySelectorAll(".pc-open-procurement .pc-open-system").forEach(function (card) {
+          addRoute(card, "left");
         });
 
-        stage.querySelectorAll(".pc-open-commerce .pc-open-system").forEach(function (card, index) {
-          const b = card.getBoundingClientRect();
-          const dy = (index - 1) * r * .48;
-          const x1 = cx + Math.sqrt(Math.max(0, r * r - dy * dy));
-          const y1 = cy + dy;
-
-          if (vertical) {
-            const dx = (index - 1) * r * .48;
-            routes.push([
-              cx + dx,
-              cy + Math.sqrt(Math.max(0, r * r - dx * dx)),
-              b.left - box.left + b.width / 2,
-              b.top - box.top
-            ]);
-          } else {
-            routes.push([x1, y1, b.left - box.left, b.top - box.top + b.height / 2]);
-          }
+        stage.querySelectorAll(".pc-open-commerce .pc-open-system").forEach(function (card) {
+          addRoute(card, "right");
         });
 
         svg.replaceChildren();
 
         routes.forEach(function (route) {
-          const x1 = route[0];
-          const y1 = route[1];
-          const x2 = route[2];
-          const y2 = route[3];
+          const [x1, y1, x2, y2] = route.points;
           const path = document.createElementNS(ns, "path");
-          const bend = Math.max(14, (x2 - x1) * .52);
+          const bend = Math.max(18, Math.abs(x2 - x1) * .46);
           const vbend = Math.max(14, (y2 - y1) * .5);
 
           path.setAttribute("d", vertical
             ? "M " + x1 + " " + y1 + " C " + x1 + " " + (y1 + vbend) + ", " + x2 + " " + (y2 - vbend) + ", " + x2 + " " + y2
-            : "M " + x1 + " " + y1 + " C " + (x1 + bend) + " " + y1 + ", " + (x2 - bend) + " " + y2 + ", " + x2 + " " + y2);
+            : "M " + x1 + " " + y1 + " C " + (x1 + (x2 >= x1 ? bend : -bend)) + " " + y1 + ", " + (x2 - (x2 >= x1 ? bend : -bend)) + " " + y2 + ", " + x2 + " " + y2);
           path.setAttribute("fill", "none");
-          path.setAttribute("stroke", "#45cdbb");
+          path.setAttribute("stroke", route.disabled ? "rgba(117, 128, 125, .34)" : "#45cdbb");
           path.setAttribute("stroke-width", "1.7");
-          path.setAttribute("stroke-dasharray", "5 7");
+          path.setAttribute("stroke-dasharray", route.disabled ? "3 8" : "5 7");
           svg.append(path);
 
           [[x1, y1], [x2, y2]].forEach(function (point) {
@@ -624,7 +657,7 @@
             dot.setAttribute("cy", point[1]);
             dot.setAttribute("r", "4.5");
             dot.setAttribute("fill", "#fff");
-            dot.setAttribute("stroke", "#43cdbb");
+            dot.setAttribute("stroke", route.disabled ? "rgba(117, 128, 125, .34)" : "#43cdbb");
             dot.setAttribute("stroke-width", "2");
             svg.append(dot);
           });

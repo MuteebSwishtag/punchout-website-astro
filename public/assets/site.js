@@ -1,10 +1,21 @@
 
 (() => {
   const body = document.body;
+  const header = document.getElementById('hdr');
   const menuButton = document.getElementById('hamb');
   const mobileMenu = document.getElementById('mob');
   const desktopNav = window.matchMedia('(min-width: 1081px)');
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+  let headerFrame = 0;
+  const updateHeader = () => {
+    headerFrame = 0;
+    header?.classList.toggle('sc', window.scrollY > 12);
+  };
+  window.addEventListener('scroll', () => {
+    if (!headerFrame) headerFrame = requestAnimationFrame(updateHeader);
+  }, { passive: true });
+  updateHeader();
 
   if (menuButton && mobileMenu) {
     menuButton.addEventListener('click', () => {

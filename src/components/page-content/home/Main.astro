@@ -70,8 +70,8 @@
                Endpoints are aligned to the optical center of Shopify,
                BigCommerce and Magento, then tucked beneath each logo. -->
           <path class="pc-connector pc-connector--6" pathLength="100" d="M 61.8 43 C 67.5 37.5, 74.5 34.4, 83.5 34.4"></path>
-          <path class="pc-connector pc-connector--7" pathLength="100" d="M 61.8 50 C 68.5 50, 76 50, 83.5 50"></path>
-          <path class="pc-connector pc-connector--8" pathLength="100" d="M 61.8 57 C 67.5 62.5, 74.5 65.6, 83.5 65.6"></path>
+          <path class="pc-connector pc-connector--7 pc-connector--disabled" pathLength="100" d="M 61.8 50 C 68.5 50, 76 50, 83.5 50"></path>
+          <path class="pc-connector pc-connector--8 pc-connector--disabled" pathLength="100" d="M 61.8 57 C 67.5 62.5, 74.5 65.6, 83.5 65.6"></path>
         </svg>
 
         <div class="pc-gateway-map__center">
@@ -770,6 +770,8 @@
       const node = document.createElement('div');
       node.className = 'pc-logo-node';
       node.style.setProperty('--logo-scale', system.visualScale || 1);
+      node.dataset.status = system.status || 'Available now';
+      node.title = `${system.name} — ${node.dataset.status}`;
 
       if (system.statusClass === 'soon') node.classList.add('is-coming-soon');
       if (system.statusClass === 'ready') node.classList.add('is-ready');
@@ -789,8 +791,71 @@
     container.replaceChildren(fragment);
   };
 
+  // Keep the hero routes attached to the real card and hub edges at every
+  // width, matching the measured connector treatment used on /platform/punchout/.
+  const drawHeroConnectors = () => {
+    const map = document.querySelector('.pc-gateway-map');
+    const svg = map?.querySelector('.pc-gateway-map__connectors');
+    const hub = map?.querySelector('.pc-hub');
+    const procurement = map ? [...map.querySelectorAll('#pcProcurementLogos .pc-logo-node')] : [];
+    const commerce = map ? [...map.querySelectorAll('#pcCommerceLogos .pc-logo-node')] : [];
+    if (!map || !svg || !hub || !procurement.length || !commerce.length) return;
+
+    const box = map.getBoundingClientRect();
+    const hubBox = hub.getBoundingClientRect();
+    if (box.width < 1 || box.height < 1 || hubBox.width < 1) return;
+
+    const cx = hubBox.left - box.left + hubBox.width / 2;
+    const cy = hubBox.top - box.top + hubBox.height / 2;
+    const radius = hubBox.width / 2;
+    const namespace = 'http://www.w3.org/2000/svg';
+    svg.setAttribute('viewBox', `0 0 ${box.width} ${box.height}`);
+    svg.replaceChildren();
+
+    const addRoute = (card, side, index, total) => {
+      const cardBox = card.getBoundingClientRect();
+      const disabled = card.classList.contains('is-coming-soon');
+      const connectorGap = disabled
+        ? (window.innerWidth <= 840 ? Math.max(14, radius * .18) : Math.max(28, radius * .3))
+        : 4;
+      const cardY = cardBox.top - box.top + cardBox.height / 2;
+      const hubOffset = Math.max(-radius * .86, Math.min(radius * .86, cardY - cy));
+      const hubY = cy + hubOffset;
+      const hubX = Math.sqrt(Math.max(0, radius * radius - hubOffset * hubOffset));
+      const y1 = side === 'left' ? cardY : hubY;
+      const y2 = side === 'left' ? hubY : cardY;
+      const x1 = side === 'left' ? cardBox.right - box.left : cx + hubX + connectorGap;
+      const x2 = side === 'left' ? cx - hubX - connectorGap : cardBox.left - box.left;
+      const bend = Math.max(18, Math.abs(x2 - x1) * .48);
+
+      const path = document.createElementNS(namespace, 'path');
+      path.setAttribute('d', `M ${x1} ${y1} C ${side === 'left' ? x1 + bend : x1 - bend} ${y1}, ${side === 'left' ? x2 - bend : x2 + bend} ${y2}, ${x2} ${y2}`);
+      path.classList.add('pc-connector-route');
+      if (disabled) path.classList.add('pc-connector-route--disabled');
+      svg.append(path);
+
+      [[x1, y1], [x2, y2]].forEach(([x, y]) => {
+        const dot = document.createElementNS(namespace, 'circle');
+        dot.setAttribute('cx', x);
+        dot.setAttribute('cy', y);
+        dot.setAttribute('r', disabled ? '3' : '3.5');
+        dot.classList.add('pc-connector-endpoint');
+        if (disabled) dot.classList.add('pc-connector-endpoint--disabled');
+        svg.append(dot);
+      });
+    };
+
+    procurement.forEach((card, index) => addRoute(card, 'left', index, procurement.length));
+    commerce.forEach((card, index) => addRoute(card, 'right', index, commerce.length));
+  };
+
   renderHeroLogos('pcProcurementLogos', procurementSystems);
   renderHeroLogos('pcCommerceLogos', commerceSystems);
+  drawHeroConnectors();
+  window.addEventListener('resize', drawHeroConnectors, { passive: true });
+  document.querySelectorAll('.pc-gateway-map img').forEach((image) => {
+    if (!image.complete) image.addEventListener('load', drawHeroConnectors, { once: true });
+  });
 
   // Secondary navigation / current-section indicator.
   const subnavLinks = [...document.querySelectorAll('[data-scrollspy]')];

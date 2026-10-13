@@ -1,0 +1,870 @@
+/*
+ * PunchOut Central UI refinement layer.
+ * Loaded last so the established page styles remain the source of truth for
+ * content and behaviour while this file provides a consistent visual system.
+ */
+
+:root {
+  --pc-nav-bottom: 72px;
+  --pc-nav-width: min(1240px, calc(100% - 40px));
+  --pc-hero-width: min(1600px, calc(100% - clamp(40px, 6vw, 112px)));
+  --pc-hero-gap: clamp(36px, 4.2vw, 72px);
+  --pc-section-space: 92px;
+  --pc-card-radius: 24px;
+  --pc-soft-shadow: 0 18px 52px rgba(32, 33, 36, .07);
+}
+
+html {
+  scroll-padding-top: 138px;
+}
+
+body {
+  color: #292d31;
+}
+
+button,
+a,
+input,
+select,
+textarea {
+  -webkit-tap-highlight-color: transparent;
+}
+
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: 3px solid rgba(33, 110, 101, .34);
+  outline-offset: 3px;
+}
+
+/* Connected primary and secondary navigation. */
+header#hdr {
+  padding: 12px 0 !important;
+}
+
+header#hdr .nav {
+  width: var(--pc-hero-width) !important;
+  min-height: 60px !important;
+  padding: 0 !important;
+  border-color: transparent !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+  transition: width .24s ease, padding .24s ease, border-radius .24s ease, box-shadow .24s ease, background .24s ease !important;
+}
+
+header#hdr.sc .nav {
+  width: var(--pc-nav-width) !important;
+  padding: 0 12px 0 18px !important;
+  border-color: rgba(255, 255, 255, .9) !important;
+  border-radius: 24px !important;
+  background: rgba(255, 255, 255, .94) !important;
+  box-shadow: 0 12px 34px rgba(32, 33, 36, .075) !important;
+  backdrop-filter: blur(16px) !important;
+}
+
+body.subnav-on header#hdr.sc .nav,
+body.pc-subnav-connected header#hdr.sc .nav {
+  border-radius: 24px 24px 0 0 !important;
+  border-bottom-color: transparent !important;
+  box-shadow: 0 8px 26px rgba(32, 33, 36, .06) !important;
+}
+
+.pc-subnav {
+  top: var(--pc-nav-bottom) !important;
+  z-index: 80 !important;
+}
+
+.pc-subnav__inner {
+  width: var(--pc-nav-width) !important;
+  min-height: 48px !important;
+  padding: 0 16px !important;
+  gap: 20px !important;
+  border-top: 0 !important;
+  border-radius: 0 0 24px 24px !important;
+  background: rgba(255, 255, 255, .94) !important;
+  box-shadow: 0 16px 34px rgba(32, 33, 36, .075) !important;
+}
+
+.pc-subnav__label {
+  color: #737a76 !important;
+  font-size: 9px !important;
+}
+
+.pc-subnav__scroll {
+  gap: 6px !important;
+}
+
+.pc-subnav__link {
+  min-height: 32px !important;
+  padding: 7px 12px !important;
+  color: #5f6763 !important;
+  font-size: 10px !important;
+  font-weight: 800 !important;
+}
+
+.pc-subnav__link:hover {
+  color: var(--graphite) !important;
+  background: #f2f4f1 !important;
+}
+
+.pc-subnav__link.is-active {
+  color: var(--graphite) !important;
+  background: var(--punchout) !important;
+  box-shadow: inset 0 0 0 1px rgba(33, 110, 101, .08) !important;
+}
+
+/* One outer alignment for the header and all public hero families. */
+.pc-hero > .wrap,
+.po-hero > .wrap,
+.pc-standalone__wrap,
+body.inner-page .page-hero > .wrap {
+  width: var(--pc-hero-width) !important;
+  max-width: none !important;
+}
+
+.pc-hero__grid,
+.po-hero__grid,
+.pc-standalone__grid,
+body.inner-page .page-hero__grid {
+  min-width: 0;
+  gap: var(--pc-hero-gap) !important;
+  align-items: center !important;
+}
+
+.pc-hero__copy,
+.po-hero__copy,
+.pc-standalone__copy,
+body.inner-page .page-hero__copy,
+.pc-hero__visual,
+.po-platform-map,
+.pc-standalone__integration,
+body.inner-page .page-hero__grid > :last-child {
+  min-width: 0;
+}
+
+/* Homepage hero: calmer scale, balanced columns, and intentional wrapping. */
+.pc-hero {
+  padding: 132px 0 76px !important;
+}
+
+.pc-hero__grid {
+  grid-template-columns: minmax(0, 1.04fr) minmax(0, .96fr) !important;
+}
+
+.pc-hero__copy {
+  max-width: 760px !important;
+}
+
+.pc-hero h1 {
+  max-width: 760px !important;
+  font-size: clamp(3.15rem, 4.1vw, 4.8rem) !important;
+  line-height: .99 !important;
+  letter-spacing: -.078em !important;
+  text-wrap: balance;
+}
+
+.pc-hero__highlight {
+  display: inline !important;
+  padding-bottom: .04em;
+  background: linear-gradient(transparent 69%, rgba(153, 254, 236, .72) 69% 88%, transparent 88%);
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+}
+
+.pc-hero__highlight::after {
+  display: none;
+}
+
+.pc-hero__belief {
+  max-width: 570px;
+  margin-top: 24px !important;
+  font-size: clamp(18px, 1.75vw, 23px) !important;
+  line-height: 1.35 !important;
+}
+
+.pc-hero .lead {
+  max-width: 560px !important;
+  margin-top: 16px !important;
+  font-size: clamp(16px, 1.35vw, 18px) !important;
+  line-height: 1.62 !important;
+}
+
+.pc-hero .acts {
+  margin-top: 25px !important;
+  gap: 12px !important;
+}
+
+.pc-hero .acts .btn {
+  min-height: 52px;
+  padding-inline: 22px;
+}
+
+.pc-hero__proof--inline {
+  margin-top: 17px !important;
+  gap: 8px 12px !important;
+  font-size: 10px !important;
+}
+
+.pc-hero__visual {
+  min-height: 500px !important;
+  transform: translate3d(0, 16px, 0) !important;
+  width: min(100%, 690px) !important;
+  max-width: 690px !important;
+  min-width: 0 !important;
+  justify-self: center;
+}
+
+.pc-gateway-map {
+  width: 100% !important;
+  max-width: 690px !important;
+  min-width: 0 !important;
+  grid-template-columns: minmax(130px, 1fr) minmax(190px, 1.25fr) minmax(130px, 1fr) !important;
+  gap: clamp(14px, 2vw, 24px) !important;
+}
+
+.pc-gateway-map {
+  min-height: 500px !important;
+}
+
+.pc-hub {
+  width: 182px !important;
+  height: 182px !important;
+}
+
+/* Homepage gateway cards and routes mirror the measured platform connector
+   visual. Available systems stay crisp; unavailable commerce platforms are
+   visibly deferred instead of looking like broken connections. */
+.pc-hero .pc-logo-node {
+  position: relative !important;
+  z-index: 2 !important;
+  height: 58px !important;
+  padding: 9px 12px !important;
+  border: 1px solid rgba(32, 33, 36, .09) !important;
+  border-radius: 15px !important;
+  background: rgba(255, 255, 255, .9) !important;
+  box-shadow: 0 7px 20px rgba(32, 33, 36, .055) !important;
+}
+
+.pc-hero .pc-logo-node.is-ready {
+  border-color: rgba(33, 110, 101, .12) !important;
+}
+
+.pc-hero .pc-logo-node.is-coming-soon {
+  border-style: dashed !important;
+  border-color: rgba(118, 126, 124, .28) !important;
+  background: repeating-linear-gradient(135deg, rgba(255, 255, 255, .76) 0 10px, rgba(244, 246, 245, .86) 10px 20px) !important;
+  box-shadow: none !important;
+}
+
+.pc-hero .pc-logo-node.is-coming-soon::after {
+  content: 'Coming soon';
+  position: absolute;
+  right: 7px;
+  bottom: 4px;
+  padding: 2px 5px;
+  border: 1px solid rgba(118, 126, 124, .16);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, .82);
+  color: rgba(86, 96, 93, .72);
+  font-size: 7px;
+  font-weight: 850;
+  letter-spacing: .02em;
+  line-height: 1;
+}
+
+.pc-hero .pc-logo-node.is-coming-soon .pc-logo-node__logo {
+  filter: grayscale(1) saturate(0) contrast(1.08) !important;
+  opacity: .42 !important;
+  transform: scale(.9) !important;
+}
+
+.pc-hero .pc-gateway-map__connectors {
+  z-index: 1 !important;
+  overflow: visible !important;
+}
+
+.pc-hero .pc-connector,
+.pc-hero .pc-connector-route {
+  fill: none;
+  stroke: #45cdbb;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-dasharray: 5 7;
+  vector-effect: non-scaling-stroke;
+  animation: pcHeroConnectorTravel 2.8s linear infinite;
+}
+
+@keyframes pcHeroConnectorTravel {
+  to { stroke-dashoffset: -24; }
+}
+
+.pc-hero .pc-connector--disabled,
+.pc-hero .pc-connector-route--disabled {
+  stroke: rgba(117, 128, 125, .34);
+  stroke-dasharray: 3 8;
+  animation: none;
+}
+
+.pc-hero .pc-connector-endpoint {
+  fill: #fff;
+  stroke: #45cdbb;
+  stroke-width: 1.7;
+}
+
+.pc-hero .pc-connector-endpoint--disabled {
+  stroke: rgba(117, 128, 125, .34);
+}
+
+/* Platform overview and PunchOut detail hero variants use their own markup,
+   but should share the same type scale and composition as the common heroes. */
+.po-hero {
+  padding: 132px 0 76px !important;
+}
+
+.po-hero__grid {
+  grid-template-columns: minmax(0, 1.04fr) minmax(0, .96fr) !important;
+}
+
+.po-hero__copy {
+  max-width: 780px !important;
+}
+
+.po-hero__copy h1 {
+  max-width: 780px !important;
+  font-size: clamp(3.1rem, 3.9vw, 4.8rem) !important;
+  line-height: .99 !important;
+  letter-spacing: -.075em !important;
+  text-wrap: balance;
+}
+
+.po-hero__copy .lead {
+  max-width: 590px !important;
+  margin-top: 20px !important;
+  font-size: clamp(16px, 1.35vw, 18px) !important;
+  line-height: 1.62 !important;
+}
+
+.pc-standalone {
+  padding: 132px 0 76px !important;
+}
+
+.pc-standalone__grid {
+  grid-template-columns: minmax(0, 1.04fr) minmax(0, .96fr) !important;
+}
+
+.pc-standalone__copy {
+  max-width: 780px !important;
+}
+
+.pc-standalone h1 {
+  max-width: 780px !important;
+  margin: 21px 0 !important;
+  font-size: clamp(3.1rem, 3.9vw, 4.8rem) !important;
+  line-height: .99 !important;
+  letter-spacing: -.075em !important;
+  text-wrap: balance;
+}
+
+.pc-standalone p {
+  max-width: 590px !important;
+  font-size: clamp(16px, 1.35vw, 18px) !important;
+  line-height: 1.62 !important;
+}
+
+/* Inner-page rhythm and hierarchy. */
+body.inner-page .page-hero {
+  padding: 132px 0 76px !important;
+}
+
+body.inner-page .page-hero__grid {
+  grid-template-columns: minmax(0, 1.04fr) minmax(0, .96fr) !important;
+}
+
+body.inner-page .page-hero__grid:has(.punchout-architecture) {
+  grid-template-columns: minmax(0, .91fr) minmax(0, 1.09fr) !important;
+}
+
+body.inner-page .page-hero__grid:has(.purchase-order-flow) {
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr) !important;
+}
+
+body.inner-page .page-hero__copy {
+  max-width: 780px !important;
+}
+
+body.inner-page .page-hero__copy h1 {
+  max-width: 780px !important;
+  font-size: clamp(3rem, 3.85vw, 4.7rem) !important;
+  line-height: 1 !important;
+  letter-spacing: -.07em !important;
+  text-wrap: balance;
+}
+
+body.inner-page .page-hero__copy .lead {
+  max-width: 600px !important;
+  margin-top: 20px !important;
+  font-size: clamp(16px, 1.35vw, 18px) !important;
+  line-height: 1.62 !important;
+}
+
+body.inner-page .page-hero__actions {
+  margin-top: 24px !important;
+}
+
+body.inner-page .hero-visual {
+  min-height: 360px !important;
+  width: min(100%, 690px) !important;
+  justify-self: end;
+  padding: 20px !important;
+  border-radius: 26px !important;
+  box-shadow: var(--pc-soft-shadow) !important;
+}
+
+body.inner-page .hero-visual:has(> picture),
+body.inner-page .page-hero--transactions .hero-visual {
+  top: 0 !important;
+  transform: none !important;
+}
+
+body.inner-page .visual-flow {
+  gap: 10px !important;
+  margin-top: 16px !important;
+}
+
+body.inner-page .visual-step {
+  min-height: 58px;
+  padding: 12px 14px !important;
+  border-radius: 15px !important;
+}
+
+body.inner-page .sec {
+  padding: var(--pc-section-space) 0 !important;
+}
+
+body.inner-page .section-head {
+  max-width: 760px;
+  margin-bottom: 32px !important;
+}
+
+body.inner-page .section-head h2,
+body.inner-page .page-cta h2 {
+  font-size: clamp(2.25rem, 4vw, 3.65rem) !important;
+  line-height: 1.02 !important;
+  letter-spacing: -.06em !important;
+  text-wrap: balance;
+}
+
+body.inner-page .feature-grid,
+body.inner-page .simple-steps,
+body.inner-page .related-grid,
+body.inner-page .metrics-row,
+body.inner-page .resource-list {
+  gap: 16px !important;
+}
+
+body.inner-page .feature-card,
+body.inner-page .simple-step,
+body.inner-page .related-card,
+body.inner-page .metric,
+body.inner-page .resource-card {
+  border-color: rgba(32, 33, 36, .09) !important;
+  border-radius: var(--pc-card-radius) !important;
+  box-shadow: 0 7px 24px rgba(32, 33, 36, .025);
+  transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+}
+
+body.inner-page .feature-card,
+body.inner-page .simple-step {
+  padding: 26px !important;
+}
+
+body.inner-page .feature-card:hover,
+body.inner-page .simple-step:hover,
+body.inner-page .related-card:hover,
+body.inner-page .resource-card:hover {
+  border-color: rgba(33, 110, 101, .2) !important;
+  box-shadow: 0 16px 38px rgba(32, 33, 36, .08);
+  transform: translateY(-2px);
+}
+
+body.inner-page .feature-card h3,
+body.inner-page .simple-step h3 {
+  font-size: 19px !important;
+  line-height: 1.25 !important;
+}
+
+body.inner-page .feature-card p,
+body.inner-page .simple-step p,
+body.inner-page .related-card p,
+body.inner-page .resource-card p {
+  font-size: 12px !important;
+  line-height: 1.68 !important;
+}
+
+body.inner-page .content-shell {
+  grid-template-columns: minmax(0, 1fr) 248px;
+  gap: 52px;
+}
+
+body.inner-page .prose {
+  max-width: 790px;
+}
+
+body.inner-page .prose h2 {
+  margin-top: 38px;
+  font-size: clamp(1.85rem, 3vw, 2.55rem);
+  line-height: 1.08;
+}
+
+body.inner-page .prose h3 {
+  margin-top: 26px;
+  font-size: 1.3rem;
+}
+
+body.inner-page .prose p,
+body.inner-page .prose li {
+  font-size: 15px;
+  line-height: 1.78;
+}
+
+body.inner-page .side-nav {
+  top: 132px;
+  padding: 16px;
+  border-radius: 18px;
+  box-shadow: 0 8px 24px rgba(32, 33, 36, .035);
+}
+
+body.inner-page .page-cta {
+  padding: 88px 0 !important;
+}
+
+body.inner-page .page-cta .lead {
+  max-width: 660px;
+  margin-top: 16px;
+}
+
+/* Shared form and footer polish. */
+.form-card,
+.book-demo-card {
+  border-color: rgba(32, 33, 36, .09) !important;
+  border-radius: 24px !important;
+  box-shadow: var(--pc-soft-shadow) !important;
+}
+
+.form-field input:focus,
+.form-field select:focus,
+.form-field textarea:focus {
+  border-color: rgba(33, 110, 101, .48) !important;
+  box-shadow: 0 0 0 4px rgba(153, 254, 236, .22);
+  outline: 0;
+}
+
+footer.site-footer {
+  padding: 108px 0 42px !important;
+}
+
+/* Keep the interaction calm and intentional. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    transition-duration: .01ms !important;
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+}
+
+@media (max-width: 1120px) {
+  :root {
+    --pc-nav-width: min(calc(100% - 32px), 920px);
+    --pc-hero-gap: 34px;
+  }
+
+  .pc-hero__grid,
+  body.inner-page .page-hero__grid,
+  body.inner-page .page-hero__grid:has(.punchout-architecture),
+  body.inner-page .page-hero__grid:has(.purchase-order-flow) {
+    grid-template-columns: minmax(0, 1fr) !important;
+  }
+
+  .pc-hero__copy,
+  body.inner-page .page-hero__copy {
+    max-width: 760px !important;
+  }
+
+  .pc-hero__visual,
+  .pc-gateway-map {
+    min-height: 430px !important;
+  }
+
+  .pc-hero__visual {
+    transform: none !important;
+    width: min(100%, 690px) !important;
+    max-width: 690px !important;
+    margin-inline: auto !important;
+  }
+
+  .po-hero__grid,
+  .pc-standalone__grid {
+    grid-template-columns: minmax(0, 1fr) !important;
+  }
+
+  .po-hero__copy,
+  .pc-standalone__copy {
+    max-width: 760px !important;
+  }
+
+  .po-hero__copy h1,
+  .pc-standalone h1 {
+    max-width: 760px !important;
+    font-size: clamp(3.05rem, 8.2vw, 4.25rem) !important;
+  }
+
+  body.inner-page .hero-visual {
+    max-width: 720px !important;
+    width: min(100%, 720px) !important;
+    justify-self: center;
+  }
+
+  .pc-standalone__integration {
+    max-width: 720px !important;
+    margin-inline: auto !important;
+    justify-self: center !important;
+  }
+}
+
+@media (max-width: 760px) {
+  :root {
+    --pc-nav-bottom: 72px;
+    --pc-nav-width: calc(100% - 28px);
+    --pc-hero-width: calc(100% - 28px);
+    --pc-hero-gap: 28px;
+    --pc-section-space: 72px;
+  }
+
+  html {
+    scroll-padding-top: 128px;
+  }
+
+  header#hdr .nav {
+    min-height: 60px !important;
+    padding-left: 14px !important;
+  }
+
+  .pc-brand-logo {
+    width: 136px !important;
+    height: 48px !important;
+  }
+
+  .pc-subnav__inner {
+    min-height: 46px !important;
+    padding-inline: 8px !important;
+    border-radius: 0 0 18px 18px !important;
+  }
+
+  .pc-subnav__scroll {
+    padding: 4px 0 !important;
+  }
+
+  .pc-subnav__link {
+    min-height: 32px !important;
+    padding-inline: 10px !important;
+    font-size: 9.5px !important;
+  }
+
+  .mob {
+    top: 82px !important;
+    max-height: calc(100vh - 98px) !important;
+    border-radius: 20px !important;
+  }
+
+  body.subnav-on .mob {
+    top: 126px !important;
+    max-height: calc(100vh - 142px) !important;
+  }
+
+  .pc-hero {
+    padding: 108px 0 58px !important;
+  }
+
+  .pc-hero h1 {
+    max-width: 700px !important;
+    font-size: clamp(3.05rem, 10.3vw, 4.15rem) !important;
+    line-height: 1 !important;
+    letter-spacing: -.08em !important;
+  }
+
+  .pc-hero__belief {
+    max-width: 520px;
+    margin-top: 20px !important;
+    font-size: 18px !important;
+  }
+
+  .pc-hero .lead {
+    font-size: 16px !important;
+    line-height: 1.62 !important;
+  }
+
+  .po-hero {
+    padding: 108px 0 58px !important;
+  }
+
+  .po-hero__copy h1,
+  .pc-standalone h1 {
+    max-width: 700px !important;
+    font-size: clamp(2.7rem, 9.8vw, 3.85rem) !important;
+    line-height: 1.02 !important;
+    letter-spacing: -.075em !important;
+  }
+
+  .po-hero__copy .lead,
+  .pc-standalone p {
+    font-size: 16px !important;
+    line-height: 1.62 !important;
+  }
+
+  .pc-standalone {
+    padding: 108px 0 58px !important;
+  }
+
+  .pc-standalone__wrap {
+    width: var(--pc-hero-width) !important;
+  }
+
+  .pc-hero .acts {
+    margin-top: 22px !important;
+  }
+
+  .pc-hero__visual,
+  .pc-gateway-map {
+    min-height: 320px !important;
+  }
+
+  header#hdr .nav {
+    width: var(--pc-hero-width) !important;
+  }
+
+  header#hdr.sc .nav {
+    width: var(--pc-nav-width) !important;
+  }
+
+  .pc-gateway-map {
+    grid-template-columns: 76px 1fr 76px !important;
+    gap: 7px !important;
+  }
+
+  .pc-hub {
+    width: 122px !important;
+    height: 122px !important;
+  }
+
+  .pc-hero .pc-logo-node {
+    height: 52px !important;
+    padding: 7px 9px !important;
+  }
+
+  body.inner-page .page-hero {
+    padding: 112px 0 56px !important;
+  }
+
+  body.inner-page .page-hero__copy h1 {
+    max-width: 700px !important;
+    font-size: clamp(2.7rem, 9.8vw, 3.85rem) !important;
+    line-height: 1.02 !important;
+    letter-spacing: -.075em !important;
+  }
+
+  body.inner-page .page-hero__copy .lead {
+    margin-top: 18px !important;
+    font-size: 16px !important;
+  }
+
+  body.inner-page .page-hero__actions {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  body.inner-page .page-hero__actions .btn {
+    width: 100%;
+  }
+
+  body.inner-page .hero-visual {
+    min-height: 0 !important;
+    padding: 16px !important;
+  }
+
+  body.inner-page .content-shell {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+
+  body.inner-page .side-nav {
+    position: static;
+    order: -1;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    overflow-x: auto;
+    padding: 8px;
+    white-space: nowrap;
+  }
+
+  body.inner-page .side-nav span {
+    margin: 0 4px 0 2px;
+  }
+
+  body.inner-page .side-nav a {
+    flex: 0 0 auto;
+  }
+
+  body.inner-page .section-head h2,
+  body.inner-page .page-cta h2 {
+    font-size: clamp(2.15rem, 9vw, 3.1rem) !important;
+  }
+
+  body.inner-page .feature-card,
+  body.inner-page .simple-step {
+    padding: 22px !important;
+  }
+
+  footer.site-footer {
+    padding: 78px 0 34px !important;
+  }
+}
+
+@media (max-width: 420px) {
+  :root {
+    --pc-hero-width: calc(100% - 24px);
+    --pc-nav-width: calc(100% - 24px);
+  }
+
+  .pc-hero h1,
+  .po-hero__copy h1,
+  .pc-standalone h1 {
+    font-size: clamp(2.65rem, 10.5vw, 3.15rem) !important;
+  }
+
+  .pc-gateway-map {
+    grid-template-columns: 64px 1fr 64px !important;
+  }
+
+  .pc-logo-node {
+    height: 32px !important;
+  }
+
+  .pc-hero .pc-logo-node.is-coming-soon::after {
+    right: 3px;
+    bottom: 2px;
+    padding: 1px 3px;
+    font-size: 5.5px;
+  }
+
+  .pc-logo-node__logo {
+    max-width: 60px !important;
+  }
+}
