@@ -19,6 +19,10 @@ function builtFile(route) {
   return path.join(dist, route === '/' ? 'index.html' : route === '/404.html' ? '404.html' : `${route.slice(1)}index.html`);
 }
 
+function isExternalUrl(value) {
+  return /^https?:\/\//i.test(value ?? '');
+}
+
 function allHtml(dir) {
   return readdirSync(dir, { withFileTypes: true }).flatMap((entry) => {
     const full = path.join(dir, entry.name);
@@ -183,8 +187,8 @@ for (const { source, destination } of active) {
   if (!htaccess.includes(directive)) failures.push(`Missing Apache redirect: ${source}`);
   if (!existsSync(builtFile(source))) failures.push(`Redirect source route was deleted: ${source}`);
   const sourceRoute = getRoute(source);
-  const destinationRoute = getRoute(destination);
-  if (!existsSync(builtFile(destination)) || (!destinationRoute?.publicationEligible && sourceRoute?.implementationStatus !== 'redirect_alias')) {
+  const destinationRoute = isExternalUrl(destination) ? null : getRoute(destination);
+  if ((!isExternalUrl(destination) && !existsSync(builtFile(destination))) || (!isExternalUrl(destination) && !destinationRoute?.publicationEligible && sourceRoute?.implementationStatus !== 'redirect_alias')) {
     failures.push(`Redirect destination is not published or is not an approved alias target: ${destination}`);
   }
   if (active.some((redirect) => redirect.source === destination)) failures.push(`Redirect chain or loop at ${source}`);

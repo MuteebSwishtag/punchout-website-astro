@@ -1,5 +1,5 @@
-// Apache activation is deliberately separate from the existence of an Astro
-// route: source files remain in place for review and rollback.
+// Redirect inventory used by the Astro build and SEO checks. Apache rules are
+// copied as an optional fallback, but the built Astro redirect is authoritative.
 export const redirects = Object.freeze([
   { source: '/product/punchout/', destination: '/platform/punchout/', status: 'active' },
   { source: '/product/invoice-automation/', destination: '/platform/invoices/', status: 'active' },

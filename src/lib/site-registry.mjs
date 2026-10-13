@@ -4,7 +4,7 @@ import { canonicalUrl, normalizePublicPath } from './site-config.mjs';
 // editorial decision; a route appearing here does not make it indexable.
 // Row: URL, cluster, priority, primary intent, status.
 // P = published; V = existing, needs verification/content; M = missing;
-// G = unpublished until genuine proof is available.
+// G = unpublished until genuine proof is available; R = redirect alias.
 const coreRows = [
   ['/', 'core', 'P0', 'Shopify PunchOut platform', 'P'],
   ['/platform/', 'platform', 'P1', 'PunchOut platform', 'P'],
@@ -78,7 +78,7 @@ const coreRows = [
   ['/documentation/', 'conversion', 'P1', 'PunchOut Central documentation', 'P'],
   ['/contact/', 'conversion', 'P1', 'Contact PunchOut Central', 'P'],
   ['/book-demo/', 'conversion', 'P0', 'Book PunchOut demo', 'P'],
-  ['/privacy/', 'legal', 'P3', 'Privacy policy', 'V'],
+  ['/privacy/', 'legal', 'P3', 'Privacy policy', 'R'],
   ['/terms/', 'legal', 'P3', 'Terms of service', 'V']
 ];
 
@@ -86,7 +86,8 @@ const statusNames = {
   P: 'published',
   V: 'needs_verification',
   M: 'missing',
-  G: 'proof_gated'
+  G: 'proof_gated',
+  R: 'redirect_alias'
 };
 
 export const corePages = Object.freeze(coreRows.map(([url, cluster, priority, intent, code]) => Object.freeze({

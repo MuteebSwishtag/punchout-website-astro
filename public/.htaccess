@@ -23,6 +23,7 @@ AddDefaultCharset UTF-8
   RedirectMatch 301 ^/resources/what-is-punchout/?$ /resources/punchout-guide/
   RedirectMatch 301 ^/industries/promotional-print-uniforms/?$ /industries/promotional-products/
   RedirectMatch 301 ^/about/?$ /company/
+  RedirectMatch 301 ^/privacy/?$ https://app.punchoutcentral.com/privacy
 </IfModule>
 
 <IfModule mod_headers.c>

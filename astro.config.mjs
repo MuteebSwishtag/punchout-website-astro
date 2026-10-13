@@ -4,12 +4,15 @@ export default defineConfig({
   devToolbar: {
     enabled: false
   },
-  // Serve the About alias in Astro dev/preview too; Apache keeps the true
-  // production 301 in public/.htaccess.
+  // Generate redirects in the built Astro output so they work on static hosts.
   redirects: {
     '/about': {
       status: 301,
       destination: '/company/'
+    },
+    '/privacy': {
+      status: 301,
+      destination: 'https://app.punchoutcentral.com/privacy'
     }
   },
   output: 'static',
