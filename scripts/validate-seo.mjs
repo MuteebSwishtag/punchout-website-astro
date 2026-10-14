@@ -13,7 +13,7 @@ import { industryPages, insightPages } from '../src/content/phase6-pages.mjs';
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const dist = path.join(root, 'dist');
 const failures = [];
-const expectedHomeHash = 'd79754e3eb83a8eed07a5a2926fe7a6e64df26129fa731296fdcec526df8a645';
+const expectedHomeHash = '74ef36d1a64e9c19d07d04a6f6fee345f63e41d9143822c56af3ccad92cc908f';
 
 function builtFile(route) {
   return path.join(dist, route === '/' ? 'index.html' : route === '/404.html' ? '404.html' : `${route.slice(1)}index.html`);

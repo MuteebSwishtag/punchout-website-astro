@@ -5631,3 +5631,13 @@ body.subnav-on .pc-subnav{
     transform:rotate(90deg);
   }
 }
+
+@media(max-width:480px){
+  .home-page .pc-hero__journey-step strong,
+  .home-page .pc-hero__journey-step small,
+  .home-page .pc-hero__proof,
+  .home-page .pc-hero__proof-price,
+  .home-page .pc-hero__proof-item{font-size:14px!important}
+  .home-page .pc-hub__kicker,
+  .home-page .pc-hub__core small{font-size:14px!important}
+}

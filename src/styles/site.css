@@ -1441,3 +1441,36 @@ body.pricing-modal-open{overflow:hidden}
   .punchout-architecture__connectors path{animation:none}
   .punchout-architecture__logo-card{transition:none}
 }
+
+/* Keep primary mobile copy readable and prevent iOS form zoom on the
+   pricing and demo flows without changing the compact site-wide UI. */
+@media(max-width:480px){
+  .pricing-page .price-card__name,
+  .pricing-page .price-card__price,
+  .pricing-page .price-card__price small,
+  .pricing-page .price-card p,
+  .pricing-page .price-card li{font-size:14px}
+  .pricing-page .price-card__price{font-size:clamp(30px,10vw,42px)}
+  .pricing-page .form-field input,
+  .pricing-page .form-field select,
+  .pricing-page .form-field textarea{font-size:16px}
+
+  .book-demo-page .book-demo-shell,
+  .book-demo-page .book-demo-shell p,
+  .book-demo-page .book-demo-shell label,
+  .book-demo-page .book-demo-shell small,
+  .book-demo-page .book-demo-shell strong{font-size:14px}
+  .book-demo-page .form-field input,
+  .book-demo-page .form-field select,
+  .book-demo-page .form-field textarea{font-size:16px}
+  .book-demo-page .book-demo-step strong,
+  .book-demo-page .book-demo-panel__head p,
+  .book-demo-page .book-demo-date-btn small,
+  .book-demo-page .book-demo-date-btn strong,
+  .book-demo-page .book-demo-time-btn,
+  .book-demo-page .book-demo-selected-date,
+  .book-demo-page .book-demo-timezone,
+  .book-demo-page .book-demo-summary,
+  .book-demo-page .fine-print,
+  .book-demo-page .book-demo-error{font-size:14px}
+}
