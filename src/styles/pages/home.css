@@ -5546,3 +5546,88 @@ body.subnav-on .pc-subnav{
     width:calc(100% - 24px)!important;
   }
 }
+
+/* Hero buyer journey shown between the actions and commercial proof. */
+.pc-hero__journey{
+  display:grid;
+  grid-template-columns:minmax(0,1fr) auto minmax(0,1fr) auto minmax(0,1fr);
+  align-items:center;
+  gap:12px;
+  max-width:720px;
+  margin-top:30px;
+}
+
+.pc-hero__journey-step{
+  display:flex;
+  min-width:0;
+  align-items:center;
+  gap:10px;
+  color:#59615f;
+}
+
+.pc-hero__journey-icon{
+  display:grid;
+  width:36px;
+  height:36px;
+  flex:0 0 36px;
+  place-items:center;
+  border:1px solid rgba(32,33,36,.08);
+  border-radius:50%;
+  background:rgba(255,255,255,.72);
+  color:#238f83;
+  box-shadow:0 8px 18px rgba(32,33,36,.04);
+}
+
+.pc-hero__journey-icon svg{
+  width:19px;
+  height:19px;
+  fill:none;
+  stroke:currentColor;
+  stroke-linecap:round;
+  stroke-linejoin:round;
+  stroke-width:1.6;
+}
+
+.pc-hero__journey-step strong,
+.pc-hero__journey-step small{
+  display:block;
+}
+
+.pc-hero__journey-step strong{
+  color:#59615f;
+  font-size:11px;
+  font-weight:800;
+  line-height:1.35;
+}
+
+.pc-hero__journey-step small{
+  color:#69716f;
+  font-size:12px;
+  line-height:1.35;
+}
+
+.pc-hero__journey-arrow{
+  color:#8b9491;
+  font-size:21px;
+  line-height:1;
+}
+
+@media(max-width:900px){
+  .pc-hero__journey{
+    max-width:100%;
+    gap:9px;
+  }
+}
+
+@media(max-width:640px){
+  .pc-hero__journey{
+    grid-template-columns:1fr;
+    gap:8px;
+    margin-top:25px;
+  }
+
+  .pc-hero__journey-arrow{
+    justify-self:center;
+    transform:rotate(90deg);
+  }
+}

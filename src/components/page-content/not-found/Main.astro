@@ -1,3 +1,35 @@
 ---
 ---
-<main><section class="page-hero"><div class="wrap"><div class="page-hero__copy"><span class="ey">404</span><h1>That page is not connected yet.</h1><p class="lead">Go back to PunchOut Central and keep exploring.</p><div class="page-hero__actions"><a class="btn pri" href="/">Back home →</a></div></div></div></section></main>
+
+<main>
+  <section class="page-hero page-hero--mint not-found-hero">
+    <div class="wrap">
+      <div class="page-hero__copy">
+        <span class="ey">Error 404</span>
+        <h1>That page is not connected.</h1>
+        <p class="lead">The link may be outdated or the address may be incomplete. Use one of these paths to keep exploring PunchOut Central.</p>
+
+        <nav class="not-found-nav" aria-label="Helpful links">
+          <a class="btn pri" href="/">Home <span aria-hidden="true">&rarr;</span></a>
+          <a class="btn secbtn" href="/pricing/">Pricing <span aria-hidden="true">&rarr;</span></a>
+          <a class="btn secbtn" href="/book-demo/">Book a demo <span aria-hidden="true">&rarr;</span></a>
+          <a class="btn secbtn" href="/integrations/">Integrations <span aria-hidden="true">&rarr;</span></a>
+        </nav>
+      </div>
+    </div>
+  </section>
+</main>
+
+<style>
+  .not-found-hero{min-height:520px;display:grid;align-items:center}
+  .not-found-hero .page-hero__copy{max-width:780px}
+  .not-found-hero h1{max-width:760px}
+  .not-found-nav{display:flex;flex-wrap:wrap;gap:10px;margin-top:32px}
+  .not-found-nav .btn{min-width:145px}
+  @media(max-width:760px){
+    .not-found-hero{min-height:0}
+    .not-found-nav{display:grid;grid-template-columns:1fr 1fr}
+    .not-found-nav .btn{min-width:0;width:100%}
+  }
+  @media(max-width:420px){.not-found-nav{grid-template-columns:1fr}}
+</style>

@@ -24,6 +24,7 @@ a{color:inherit;text-decoration:none}
   border-top:1px solid var(--line);
   overflow: hidden;
 }
+.site-footer--minimal{background-image:none !important}
 .plane {
   position: absolute;
   z-index: 2;
@@ -231,6 +232,10 @@ body.subnav-on header#hdr .nav{border-radius:28px 28px 12px 12px}
 .pc-protocol-block{padding:10px 9px 0}.pc-protocol-row{display:flex;gap:7px}
 .pc-protocol-row a{padding:5px 9px;border:1px solid var(--line);border-radius:999px;font-size:8px;font-weight:850}
 .navact{display:flex;align-items:center;gap:9px}
+.pc-shopify-app-link{display:inline-flex;align-items:center;gap:5px;padding:8px 11px;border:1px solid rgba(32,33,36,.14);border-radius:999px;background:#fff;color:var(--graphite);font-size:10px;font-weight:850;white-space:nowrap}
+.pc-shopify-app-link:hover{border-color:rgba(32,33,36,.28);background:#f7fffd}
+.shopify-app-badge{border-color:rgba(32,33,36,.14)!important;background:#fff!important;color:var(--graphite)!important;white-space:nowrap}
+.shopify-app-badge:hover{border-color:rgba(32,33,36,.28)!important;background:#f7fffd!important}
 .signin{font-size:11px;font-weight:750}
 .hamb{display:none;width:42px;height:42px;border:1px solid var(--line);border-radius:50%;background:#fff}
 .hamb i,.hamb i:before,.hamb i:after{content:"";display:block;width:16px;height:1.5px;margin:auto;background:var(--graphite);transition:.18s}
@@ -404,7 +409,7 @@ footer{padding:45px 0;background:var(--gray);border-top:1px solid var(--line)}
 
 /* ---------- Responsive ---------- */
 @media(max-width:1080px){
-  .dnav,.signin{display:none}
+  .dnav,.signin,.pc-shopify-app-link{display:none}
   .hamb{display:block}
   header#hdr .nav{padding-right:9px}
   .panel{display:none}

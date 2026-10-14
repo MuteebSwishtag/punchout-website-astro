@@ -208,7 +208,7 @@ export const phase4Pages = {
       { title: 'Clear pricing', text: 'Starter includes one connection for $500/month, with no setup or transaction fees.' }
     ],
     questions: [
-      { question: 'Do we need a second catalog for PunchOut?', answer: 'No. The current product uses the existing Shopify or Shopify Plus store.' },
+      { question: 'Do we need a second catalog for PunchOut?', answer: 'No. PunchOut Central uses the existing Shopify or Shopify Plus store.' },
       { question: 'Can different buyers use the same store?', answer: 'Yes. Each buyer can have its own connection and assigned catalog access.' },
       { question: 'Is onboarding help included?', answer: 'Yes. Onboarding assistance is free.' }
     ],
@@ -257,7 +257,7 @@ export const phase4Pages = {
     ],
     relatedHeading: 'Prepare the buyer connection',
     ctaTitle: 'Review the buyer’s onboarding requirements.',
-    ctaText: 'Share the procurement environment and Shopify catalog so the first test can be planned.'
+    ctaText: 'Share the procurement environment and Shopify catalog for the first test.'
   },
   '/solutions/multi-store-commerce/': {
     path: '/solutions/multi-store-commerce/', tone: 'peach', eyebrow: 'Multi-store commerce',
@@ -337,7 +337,7 @@ export const phase4Pages = {
       { title: 'Onboarding', text: 'Free assistance is included for connecting and testing a buyer.' }
     ],
     questions: [
-      { question: 'Must the agency build a separate PunchOut catalog?', answer: 'No. The current product uses the supplier’s existing Shopify or Shopify Plus store.' },
+      { question: 'Must the agency build a separate PunchOut catalog?', answer: 'No. PunchOut Central uses the supplier’s existing Shopify or Shopify Plus store.' },
       { question: 'How should the agency scope its part of the project?', answer: 'Start with the Shopify storefront and catalog access. Discuss procurement connectivity and project responsibilities with PunchOut Central for the buyer requirement.' },
       { question: 'What should the agency bring to a demo?', answer: 'Bring the client store, target buyer procurement system, catalog scope and expected cart and PO flow.' }
     ],
@@ -382,7 +382,7 @@ export const phase4Pages = {
     questions: [
       { question: 'Can several buyers use the same Shopify store?', answer: 'Yes. Assign each buyer its own connection and relevant catalog access.' },
       { question: 'Can a program include multiple stores?', answer: 'Yes. Several Shopify stores and buyer connections can be managed centrally.' },
-      { question: 'How should we review security or service requirements?', answer: 'Share the buyer’s requirements with the team and request current documentation or contract terms for review.' }
+      { question: 'How should we review security or service requirements?', answer: 'Share the buyer’s requirements with the team and request documentation or contract terms for review.' }
     ],
     relatedHeading: 'Plan an enterprise rollout',
     ctaTitle: 'Bring the full buyer and store map.',

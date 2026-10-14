@@ -1,6 +1,6 @@
-// Confirm the production host and configure a host redirect before treating this
-// proposed canonical origin as a deployment-level routing decision.
-export const CANONICAL_ORIGIN = 'https://www.punchoutcentral.com';
+// The production site uses the non-www host as its canonical origin. The
+// Apache host redirect keeps alternate www requests on the same URL paths.
+export const CANONICAL_ORIGIN = 'https://punchoutcentral.com';
 
 export function normalizePublicPath(pathname) {
   if (pathname === '/') return '/';

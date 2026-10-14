@@ -41,7 +41,7 @@ export const industryPages = {
     ],
     relatedHeading: 'Connect the MRO workflow',
     ctaTitle: 'Review your next enterprise MRO buyer.',
-    ctaText: 'Share the buyer system, catalog scope and PO requirement so the first connection can be planned.'
+    ctaText: 'Share the buyer system, catalog scope and PO requirement for the first connection.'
   },
   '/industries/lab-scientific/': {
     path: '/industries/lab-scientific/', tone: 'peach', eyebrow: 'Lab / Scientific',
@@ -119,7 +119,7 @@ export const industryPages = {
       { title: 'Pricing model', text: 'A new buyer or additional store counts as a connection.' }
     ],
     questions: [
-      { question: 'Do promotional suppliers need a separate PunchOut storefront?', answer: 'No. The current product uses the existing Shopify or Shopify Plus store.' },
+      { question: 'Do promotional suppliers need a separate PunchOut storefront?', answer: 'No. PunchOut Central uses the existing Shopify or Shopify Plus store.' },
       { question: 'Can buyers have different branded-product assortments?', answer: 'Yes. Buyer-specific store and collection or catalog access can be assigned during setup.' },
       { question: 'What should be tested?', answer: 'Test catalog access, a representative cart, cart return, buyer approval, PO receipt and Shopify order creation.' }
     ],

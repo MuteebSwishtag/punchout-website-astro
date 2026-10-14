@@ -1,7 +1,12 @@
 ---
+interface Props {
+  showDecoration?: boolean;
+}
+
+const { showDecoration = true } = Astro.props;
 ---
-<footer class="site-footer">
-<div class="plane" aria-hidden="true"><span class="smoke"></span><img src="../../../assets/airplane.webp" alt="" width="170" height="85" decoding="async"></div>
+<footer class:list={['site-footer', { 'site-footer--minimal': !showDecoration }]}>
+{showDecoration && <div class="plane" aria-hidden="true"><span class="smoke"></span><img src="../../../assets/airplane.webp" alt="" width="170" height="85" decoding="async"></div>}
   <div class="wrap">
     <div class="footer-main">
       <div>

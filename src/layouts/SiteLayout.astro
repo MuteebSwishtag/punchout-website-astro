@@ -29,6 +29,8 @@ interface Props {
   structuredData?: Record<string, unknown>[];
   bodyClass?: string;
   includeSiteScript?: boolean;
+  tracking?: 'all' | 'ga4' | 'none';
+  showFooterDecoration?: boolean;
   deferSiteStylesheet?: boolean;
   eagerStylesheets?: string[];
   deferredStylesheets?: string[];
@@ -45,6 +47,8 @@ const {
   structuredData,
   bodyClass = 'inner-page',
   includeSiteScript = true,
+  tracking = 'all',
+  showFooterDecoration = true,
   deferSiteStylesheet = false,
   eagerStylesheets = [],
   deferredStylesheets = []
@@ -54,7 +58,8 @@ const pathname = Astro.url.pathname;
 const isHomepage = pathname === '/';
 const requiredRobots = pageRobots(pathname);
 const resolvedRobots = requiredRobots || robots;
-const showSeoMeta = !isHomepage && getRoute(pathname)?.publicationEligible && !/\bnoindex\b/i.test(resolvedRobots);
+const showSeoMeta = getRoute(pathname)?.publicationEligible && !/\bnoindex\b/i.test(resolvedRobots);
+const resolvedOgImage = ogImage ?? '/assets/punchout-central-share.png';
 
 const siteScriptSrc = '/assets/site.js?v=20261002';
 const eagerStylesheetSet = new Set([
@@ -73,18 +78,17 @@ const noscriptStylesheets = [...renderEagerStylesheets, ...lazyStylesheets];
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <GoogleTagManagerHead />
-    <MetaPixelHead />
-    <LinkedInInsightHead />
-    <PinterestTagHead />
-    <XConversionTrackingHead />
+    {(tracking === 'all' || tracking === 'ga4') && <GoogleTagManagerHead />}
+    {tracking === 'all' && <MetaPixelHead />}
+    {tracking === 'all' && <LinkedInInsightHead />}
+    {tracking === 'all' && <PinterestTagHead />}
+    {tracking === 'all' && <XConversionTrackingHead />}
     {description && <meta name="description" content={description}>}
     {resolvedRobots && <meta name="robots" content={resolvedRobots}>}
     <meta name="theme-color" content="#99FEEC">
     <Favicons />
     <title>{title}</title>
-    {isHomepage && <link rel="canonical" href={canonicalUrl('/')} />}
-    {showSeoMeta && <SeoMeta pathname={pathname} title={title} description={description} canonicalPath={canonicalPath} ogType={ogType} ogImage={ogImage} twitterCard={twitterCard} structuredData={structuredData} />}
+    {showSeoMeta && <SeoMeta pathname={pathname} title={title} description={description} canonicalPath={canonicalPath} ogType={ogType} ogImage={resolvedOgImage} twitterCard={twitterCard} structuredData={structuredData} />}
     <link rel="preload" as="font" type="font/woff2" href={jakartaSansLatin} crossorigin>
     {renderEagerStylesheets.map((href) => <link rel="stylesheet" href={href}> )}
     <noscript>
@@ -92,12 +96,12 @@ const noscriptStylesheets = [...renderEagerStylesheets, ...lazyStylesheets];
     </noscript>
   </head>
   <body class={bodyClass || undefined}>
-    <MetaPixelNoScript />
-    <LinkedInInsightNoScript />
-    <PinterestTagNoScript />
+    {tracking === 'all' && <MetaPixelNoScript />}
+    {tracking === 'all' && <LinkedInInsightNoScript />}
+    {tracking === 'all' && <PinterestTagNoScript />}
     <Header />
     <slot />
-    <Footer />
+    <Footer showDecoration={showFooterDecoration} />
     {lazyStylesheets.length > 0 && (
       <script is:inline define:vars={{ lazyStylesheets }}>
         (() => {

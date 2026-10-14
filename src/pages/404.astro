@@ -2,6 +2,13 @@
 import SiteLayout from '../layouts/SiteLayout.astro';
 import Content from '../components/page-content/not-found/Main.astro';
 ---
-<SiteLayout title="Page not found | PunchOut Central" description="The requested PunchOut Central page could not be found." includeSiteScript={true} bodyClass="inner-page">
+<SiteLayout
+  title="Page not found | PunchOut Central"
+  description="The requested PunchOut Central page could not be found."
+  tracking="ga4"
+  includeSiteScript={false}
+  showFooterDecoration={false}
+  bodyClass="inner-page not-found-page"
+>
   <Content />
 </SiteLayout>

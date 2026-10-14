@@ -13,7 +13,7 @@ import { industryPages, insightPages } from '../src/content/phase6-pages.mjs';
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const dist = path.join(root, 'dist');
 const failures = [];
-const expectedHomeHash = '54cd29265d08320a61fb57636467a48203005758449bbe49d1ced756dd8cfe29';
+const expectedHomeHash = 'd79754e3eb83a8eed07a5a2926fe7a6e64df26129fa731296fdcec526df8a645';
 
 function builtFile(route) {
   return path.join(dist, route === '/' ? 'index.html' : route === '/404.html' ? '404.html' : `${route.slice(1)}index.html`);
@@ -60,9 +60,11 @@ for (const file of htmlFiles) {
   const ogTitles = values(head, /<meta property="og:title" content="([^"]+)"/g);
   const ogDescriptions = values(head, /<meta property="og:description" content="([^"]+)"/g);
   const ogUrls = values(head, /<meta property="og:url" content="([^"]+)"/g);
+  const ogImages = values(head, /<meta property="og:image" content="([^"]+)"/g);
   const twitterCards = values(head, /<meta name="twitter:card" content="([^"]+)"/g);
+  const twitterImages = values(head, /<meta name="twitter:image" content="([^"]+)"/g);
   const redirectDestination = redirects.find((entry) => entry.source === route && entry.status === 'active')?.destination;
-  if (titles.length !== 1 || descriptions.length > 1 || robots.length > 1 || canonicals.length > 1 || ogTypes.length > 1 || ogTitles.length > 1 || ogDescriptions.length > 1 || ogUrls.length > 1 || twitterCards.length > 1) {
+  if (titles.length !== 1 || descriptions.length > 1 || robots.length > 1 || canonicals.length > 1 || ogTypes.length > 1 || ogTitles.length > 1 || ogDescriptions.length > 1 || ogUrls.length > 1 || ogImages.length > 1 || twitterCards.length > 1 || twitterImages.length > 1) {
     failures.push(`${route}: duplicate or missing core head metadata`);
   }
   if (published) {
@@ -71,7 +73,7 @@ for (const file of htmlFiles) {
     if (route === '/' && (canonicals.length !== 1 || canonicals[0] !== registered.canonicalUrl)) {
       failures.push(`${route}: homepage canonical mismatch`);
     }
-    if (route !== '/' && (canonicals[0] !== registered.canonicalUrl || ogUrls[0] !== registered.canonicalUrl || ogTypes.length !== 1 || ogTitles.length !== 1 || ogDescriptions.length !== 1 || twitterCards.length !== 1)) {
+    if (canonicals.length !== 1 || canonicals[0] !== registered.canonicalUrl || ogUrls[0] !== registered.canonicalUrl || ogTypes.length !== 1 || ogTitles.length !== 1 || ogDescriptions.length !== 1 || ogImages.length !== 1 || twitterCards.length !== 1 || twitterImages.length !== 1) {
       failures.push(`${route}: canonical/Open Graph/Twitter metadata mismatch`);
     }
   } else if (registered?.implementationStatus === 'redirect_alias' && redirectDestination) {
@@ -181,6 +183,10 @@ if (!guideSchemas.some((entry) => entry['@type'] === 'Article') || !guideSchemas
 
 const htaccess = readFileSync(path.join(dist, '.htaccess'), 'utf8');
 const active = redirects.filter((redirect) => redirect.status === 'active');
+if (!htaccess.includes('RewriteCond %{HTTP_HOST} ^www\\.punchoutcentral\\.com$ [NC]') || !htaccess.includes('RewriteRule ^ https://punchoutcentral.com%{REQUEST_URI} [R=301,L,NE]')) {
+  failures.push('Missing www to non-www canonical host redirect');
+}
+if (!htaccess.includes('Strict-Transport-Security "max-age=31536000"')) failures.push('Missing HSTS header');
 if (values(htaccess, /^\s*(RedirectMatch 301 .+)$/gm).length !== active.length) failures.push('Apache redirect count differs from reviewed map');
 for (const { source, destination } of active) {
   const directive = `RedirectMatch 301 ^${source.slice(0, -1)}/?$ ${destination}`;

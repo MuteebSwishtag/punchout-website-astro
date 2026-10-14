@@ -44,7 +44,7 @@ export const resourcePages = Object.freeze({
         id: 'scope', title: 'What to confirm before calling it live',
         paragraphs: [
           'A successful catalog launch is only the first test. Confirm the cart return, buyer approval, approved PO and Shopify order creation for the actual buyer connection. Invoice format and delivery requirements are buyer-specific and should be agreed before launch.',
-          'PunchOut Central supports Shopify and Shopify Plus now. BigCommerce and Magento are planned in the current product playbook, so they should not be presented as live Shopify PunchOut alternatives.'
+  'PunchOut Central supports Shopify and Shopify Plus. BigCommerce and Magento are coming soon.'
         ]
       }
     ],

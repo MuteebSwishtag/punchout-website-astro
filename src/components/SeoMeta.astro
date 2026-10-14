@@ -25,6 +25,7 @@ const {
 } = Astro.props;
 
 const canonical = canonicalUrl(canonicalPath ?? pathname);
+const resolvedOgImage = ogImage?.startsWith('/') ? new URL(ogImage, canonical).href : ogImage;
 const schemas = structuredData ?? defaultSchemaForPath(normalizePublicPath(pathname), description);
 const encodedSchemas = schemas.map((schema) => JSON.stringify(schema).replace(/</g, '\\u003c'));
 ---
@@ -34,8 +35,11 @@ const encodedSchemas = schemas.map((schema) => JSON.stringify(schema).replace(/<
 <meta property="og:title" content={title}>
 {description && <meta property="og:description" content={description}>}
 <meta property="og:url" content={canonical}>
-{ogImage && <meta property="og:image" content={ogImage.startsWith('/') ? new URL(ogImage, canonical).href : ogImage}>}
-<meta name="twitter:card" content={twitterCard ?? (ogImage ? 'summary_large_image' : 'summary')}>
+{resolvedOgImage && <meta property="og:image" content={resolvedOgImage}>}
+{resolvedOgImage && <meta property="og:image:width" content="1200">}
+{resolvedOgImage && <meta property="og:image:height" content="630">}
+<meta name="twitter:card" content={twitterCard ?? (resolvedOgImage ? 'summary_large_image' : 'summary')}>
 <meta name="twitter:title" content={title}>
 {description && <meta name="twitter:description" content={description}>}
+{resolvedOgImage && <meta name="twitter:image" content={resolvedOgImage}>}
 {encodedSchemas.map((json) => <script type="application/ld+json" set:html={json} />)}
