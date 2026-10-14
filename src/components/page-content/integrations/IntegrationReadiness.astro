@@ -1,0 +1,304 @@
+---
+type IntegrationKey = 'coupa' | 'sap-ariba' | 'jaggaer' | 'oracle' | 'workday' | 'shopify' | 'cxml' | 'oci';
+
+interface Flow {
+  name: string;
+  status: string;
+  detail: string;
+}
+
+interface ReadinessConfig {
+  name: string;
+  protocol: string;
+  intro: string;
+  checklist: string[];
+  buyerInputs: string[];
+  timeline: string;
+  flows: Flow[];
+}
+
+const readiness: Record<IntegrationKey, ReadinessConfig> = {
+  coupa: {
+    name: 'Coupa',
+    protocol: 'cXML PunchOut',
+    intro: 'Use this checklist to align the Coupa buyer, Shopify catalog and approved purchase-order handoff before testing.',
+    checklist: [
+      'Confirm the Coupa buyer organization, supplier record and test environment.',
+      'Exchange the PunchOut URL, cXML credentials, buyer ID and supplier ID.',
+      'Map the Shopify store, collections, pricing and buyer-specific catalog access.',
+      'Test setup request, cart return, requisition approval, approved PO and invoice requirements.'
+    ],
+    buyerInputs: [
+      'Coupa administrator and buyer test contact',
+      'Buyer and supplier identifiers plus cXML shared secret',
+      'PunchOut catalog URL, access rules and pricing requirements',
+      'Approved PO delivery and invoice-submission requirements'
+    ],
+    timeline: 'Plan a few business days for a standard single-buyer connection once the Coupa test access and catalog details are ready. Multiple buyer rules or custom PO and invoice requirements can extend the schedule.',
+    flows: [
+      { name: 'Catalog launch', status: 'Supported', detail: 'Coupa starts a cXML PunchOut session.' },
+      { name: 'Cart return', status: 'Supported', detail: 'The cart returns to a Coupa requisition.' },
+      { name: 'Buyer approval', status: 'Coupa-managed', detail: 'Approval remains in the buyer requisition flow.' },
+      { name: 'Approved PO to Shopify', status: 'Supported', detail: 'The approved PO triggers the Shopify order.' },
+      { name: 'Invoice delivery', status: 'Buyer-configured', detail: 'Confirm the buyer’s required invoice channel.' }
+    ]
+  },
+  'sap-ariba': {
+    name: 'SAP Ariba',
+    protocol: 'cXML PunchOut',
+    intro: 'Align the SAP Ariba catalog entry, supplier-hosted Shopify store and approved PO route before go-live.',
+    checklist: [
+      'Confirm the SAP Ariba buying organization, supplier profile and test account.',
+      'Provide the PunchOut URL, cXML credentials and catalog visibility rules.',
+      'Map the Shopify store, collections, pricing and buyer-specific access.',
+      'Test catalog launch, cart return, requisition approval, PO routing and invoice requirements.'
+    ],
+    buyerInputs: [
+      'SAP Ariba administrator and catalog owner',
+      'Supplier profile, buyer organization and cXML credentials',
+      'PunchOut URL, catalog visibility and pricing rules',
+      'Approved PO destination and invoice-delivery requirements'
+    ],
+    timeline: 'Plan a few business days for a standard single-buyer connection after SAP Ariba test access and supplier details are available. Catalog approval, multiple buying organizations or custom document routing can extend the schedule.',
+    flows: [
+      { name: 'Catalog launch', status: 'Supported', detail: 'SAP Ariba opens the supplier-hosted catalog.' },
+      { name: 'Cart return', status: 'Supported', detail: 'Selected items return to the buyer requisition.' },
+      { name: 'Buyer approval', status: 'SAP Ariba-managed', detail: 'Approval remains in the buyer purchasing flow.' },
+      { name: 'Approved PO to Shopify', status: 'Supported', detail: 'The approved PO starts the Shopify order.' },
+      { name: 'Invoice delivery', status: 'Buyer-configured', detail: 'Confirm the buyer’s selected invoice route.' }
+    ]
+  },
+  jaggaer: {
+    name: 'JAGGAER',
+    protocol: 'cXML PunchOut',
+    intro: 'JAGGAER connections need the catalog session, order-delivery method and invoice channel agreed separately.',
+    checklist: [
+      'Confirm the JAGGAER buyer, supplier enablement contact and test purchasing environment.',
+      'Exchange cXML PunchOut credentials, catalog URL and supplier identifiers.',
+      'Map the Shopify catalog, buyer access, pricing and required collections.',
+      'Test catalog launch, cart return, requisition approval, PO delivery and invoice handling.'
+    ],
+    buyerInputs: [
+      'JAGGAER buyer administrator and supplier enablement contact',
+      'cXML credentials, buyer and supplier identifiers',
+      'Catalog URL, access rules and pricing requirements',
+      'Chosen PO delivery method and separate invoice-submission method'
+    ],
+    timeline: 'Plan a few business days for a standard single-buyer connection after JAGGAER enablement details are complete. The selected PO and invoice methods, buyer testing and custom requirements determine any additional time.',
+    flows: [
+      { name: 'Catalog launch', status: 'Supported', detail: 'JAGGAER opens the configured supplier catalog.' },
+      { name: 'Cart return', status: 'Supported', detail: 'The cart returns for requisition review.' },
+      { name: 'Buyer approval', status: 'JAGGAER-managed', detail: 'Approval remains in the purchasing flow.' },
+      { name: 'Approved PO to Shopify', status: 'Buyer-configured', detail: 'Confirm the agreed order-delivery method.' },
+      { name: 'Invoice delivery', status: 'Buyer-configured', detail: 'Invoice handling is a separate setup decision.' }
+    ]
+  },
+  oracle: {
+    name: 'Oracle Procurement',
+    protocol: 'Direct cXML supplier PunchOut',
+    intro: 'This page covers Oracle’s direct cXML supplier PunchOut model. Confirm the buying unit and catalog administrator before testing.',
+    checklist: [
+      'Confirm the Oracle procurement business unit, buyer and catalog administrator.',
+      'Verify that the buyer is using the direct cXML supplier PunchOut model.',
+      'Provide the PunchOut URL, cXML credentials, supplier identity and Shopify catalog rules.',
+      'Test catalog launch, requisition lines, approval, approved PO delivery and invoice requirements.'
+    ],
+    buyerInputs: [
+      'Oracle catalog administrator and procurement business unit',
+      'Direct cXML supplier PunchOut settings and credentials',
+      'Supplier identity, PunchOut URL and catalog access rules',
+      'Approved PO destination and invoice-delivery requirements'
+    ],
+    timeline: 'Plan a few business days for a standard direct cXML connection after the Oracle business unit and test access are ready. Catalog approval, buyer-specific routing or custom document requirements can extend the schedule.',
+    flows: [
+      { name: 'Catalog launch', status: 'Supported', detail: 'Oracle opens the direct cXML supplier catalog.' },
+      { name: 'Cart return', status: 'Supported', detail: 'Selected items return as requisition lines.' },
+      { name: 'Buyer approval', status: 'Oracle-managed', detail: 'Approval remains in the Purchase Requisitions flow.' },
+      { name: 'Approved PO to Shopify', status: 'Supported', detail: 'The approved PO starts the Shopify order.' },
+      { name: 'Invoice delivery', status: 'Buyer-configured', detail: 'Confirm the buyer’s invoice model separately.' }
+    ]
+  },
+  workday: {
+    name: 'Workday',
+    protocol: 'cXML PunchOut',
+    intro: 'Workday requires separate checks for supplier PunchOut catalog access and the approved purchase-order integration.',
+    checklist: [
+      'Confirm the Workday integration owner, supplier record and test tenant.',
+      'Exchange the cXML credential values and supplier PunchOut connection settings.',
+      'Map the Shopify store, catalog access, pricing and buyer-specific rules.',
+      'Test catalog launch, cart return, requisition, separate PO integration and invoice requirements.'
+    ],
+    buyerInputs: [
+      'Workday integration administrator and test tenant access',
+      'cXML credential values and supplier connection details',
+      'Shopify catalog URL, access rules and pricing requirements',
+      'Separate PO integration route and optional invoice-delivery requirements'
+    ],
+    timeline: 'Plan a few business days for a standard single-buyer connection after Workday test access and cXML details are ready. The separate PO integration, optional invoicing and buyer testing can extend the schedule.',
+    flows: [
+      { name: 'Catalog launch', status: 'Supported', detail: 'Workday opens the supplier PunchOut catalog.' },
+      { name: 'Cart return', status: 'Supported', detail: 'Selected items return to the Workday cart.' },
+      { name: 'Buyer approval', status: 'Workday-managed', detail: 'Approval remains in the buyer requisition process.' },
+      { name: 'Approved PO to Shopify', status: 'Separate setup', detail: 'Confirm Workday’s separate PO integration.' },
+      { name: 'Invoice delivery', status: 'Optional', detail: 'Confirm whether the buyer requires this channel.' }
+    ]
+  },
+  shopify: {
+    name: 'Shopify',
+    protocol: 'cXML or OCI buyer connection',
+    intro: 'Prepare the existing Shopify or Shopify Plus store to serve multiple buyer-specific PunchOut connections.',
+    checklist: [
+      'Confirm the Shopify store, Shopify Plus status and internal implementation owner.',
+      'Identify each buyer’s procurement platform, protocol and connection credentials.',
+      'Map buyer access to stores, collections, pricing and product availability.',
+      'Test catalog launch, cart return, approval, approved PO, Shopify order and invoice tracking.'
+    ],
+    buyerInputs: [
+      'Shopify store owner or administrator and implementation contact',
+      'Buyer platform, cXML or OCI protocol and connection credentials',
+      'Catalog, collection, pricing and buyer-specific access rules',
+      'Approved PO and invoice requirements for each buyer'
+    ],
+    timeline: 'Plan a few business days for a standard single-buyer connection after the Shopify catalog and buyer details are ready. Multiple buyers, stores or custom PO and invoice rules can extend the schedule.',
+    flows: [
+      { name: 'Buyer catalog launch', status: 'Supported', detail: 'The buyer opens the existing Shopify catalog.' },
+      { name: 'Cart return', status: 'Supported', detail: 'The selected cart returns to procurement.' },
+      { name: 'Buyer approval', status: 'Buyer-managed', detail: 'Approval happens in the buyer’s procurement system.' },
+      { name: 'Approved PO to Shopify', status: 'Supported', detail: 'The approved PO creates the Shopify order.' },
+      { name: 'Invoice tracking', status: 'Supported', detail: 'Invoice activity remains linked to the transaction.' }
+    ]
+  },
+  cxml: {
+    name: 'cXML',
+    protocol: 'cXML PunchOut',
+    intro: 'Use this protocol checklist to align the buyer platform, cXML messages and Shopify order handoff.',
+    checklist: [
+      'Identify the buyer procurement platform and its cXML version or message requirements.',
+      'Exchange PunchOut URL, sender identity, shared secret and buyer/supplier identifiers.',
+      'Map the Shopify catalog, buyer access, pricing and required return fields.',
+      'Test setup request, catalog session, cart return, approved PO and invoice requirements.'
+    ],
+    buyerInputs: [
+      'Buyer procurement administrator and test environment',
+      'cXML sender identity, shared secret and endpoint values',
+      'Buyer and supplier IDs plus catalog and pricing rules',
+      'OrderRequest, PO and invoice requirements for the buyer platform'
+    ],
+    timeline: 'Plan a few business days for a standard single-buyer cXML connection after the buyer test environment and credentials are ready. Buyer-specific messages, validation rules or custom document handling can extend the schedule.',
+    flows: [
+      { name: 'PunchOutSetupRequest', status: 'Supported', detail: 'The buyer starts the cXML session.' },
+      { name: 'Cart return', status: 'Supported', detail: 'PunchOutOrderMessage returns the selected cart.' },
+      { name: 'Buyer approval', status: 'Buyer-managed', detail: 'The procurement platform manages requisition approval.' },
+      { name: 'OrderRequest to Shopify', status: 'Supported', detail: 'The approved PO creates the Shopify order.' },
+      { name: 'Invoice messages', status: 'Buyer-configured', detail: 'Confirm invoice message and delivery requirements.' }
+    ]
+  },
+  oci: {
+    name: 'OCI',
+    protocol: 'OCI PunchOut',
+    intro: 'Use this checklist to confirm the buyer’s OCI launch, cart return and downstream purchase-order handoff.',
+    checklist: [
+      'Identify the buyer procurement system, OCI version and integration owner.',
+      'Exchange the OCI launch URL, field mapping, credentials and buyer/supplier identifiers.',
+      'Map the Shopify store, catalog, collections, pricing and buyer access.',
+      'Test catalog launch, cart return, buyer approval, approved PO and invoice requirements.'
+    ],
+    buyerInputs: [
+      'Buyer procurement administrator and OCI test environment',
+      'OCI launch parameters, field mapping and authentication details',
+      'Buyer and supplier identifiers plus catalog and pricing rules',
+      'Approved PO destination and invoice-delivery requirements'
+    ],
+    timeline: 'Plan a few business days for a standard single-buyer OCI connection after the buyer test access and field mapping are ready. Version differences, custom mappings or downstream PO requirements can extend the schedule.',
+    flows: [
+      { name: 'Catalog launch', status: 'Supported', detail: 'The buyer starts an OCI PunchOut session.' },
+      { name: 'Cart return', status: 'Supported', detail: 'Selected items return to procurement.' },
+      { name: 'Buyer approval', status: 'Buyer-managed', detail: 'Approval remains in the buyer procurement system.' },
+      { name: 'Approved PO to Shopify', status: 'Supported', detail: 'The approved PO creates the Shopify order.' },
+      { name: 'Invoice delivery', status: 'Buyer-configured', detail: 'Confirm the buyer’s invoice channel separately.' }
+    ]
+  }
+};
+
+interface Props {
+  platform: IntegrationKey;
+}
+
+const { platform } = Astro.props;
+const config = readiness[platform];
+---
+<section class="sec soft integration-readiness" id="readiness">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="ey">Implementation readiness</span>
+      <h2>Prepare the {config.name} connection.</h2>
+      <p class="lead">{config.intro}</p>
+    </div>
+
+    <div class="simple-steps integration-readiness__checklist">
+      {config.checklist.map((item, index) => (
+        <article class="simple-step reveal">
+          <span class="simple-step__num">{String(index + 1).padStart(2, '0')}</span>
+          <h3>{item}</h3>
+        </article>
+      ))}
+    </div>
+
+    <div class="integration-readiness__grid">
+      <article class="integration-readiness__panel reveal">
+        <span class="integration-readiness__ey">Buyer and admin inputs</span>
+        <h3>Bring these details before setup.</h3>
+        <ul>
+          {config.buyerInputs.map((item) => <li>{item}</li>)}
+        </ul>
+      </article>
+      <article class="integration-readiness__panel integration-readiness__panel--mint reveal">
+        <span class="integration-readiness__ey">Expected timeline</span>
+        <h3>Plan the go-live around testing.</h3>
+        <p>{config.timeline}</p>
+        <p class="integration-readiness__note">The connection is ready when the buyer can launch the catalog, return a cart and complete the agreed PO test.</p>
+      </article>
+    </div>
+
+    <div class="integration-readiness__flows reveal">
+      <div class="section-head">
+        <span class="ey">Supported flows</span>
+        <h3>What the {config.protocol} connection covers.</h3>
+      </div>
+      <div class="integration-readiness__table-wrap">
+        <table class="integration-readiness__table">
+          <thead><tr><th scope="col">Flow</th><th scope="col">Status</th><th scope="col">What to confirm</th></tr></thead>
+          <tbody>
+            {config.flows.map((flow) => <tr><th scope="row">{flow.name}</th><td><span class="integration-readiness__status">{flow.status}</span></td><td>{flow.detail}</td></tr>)}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .integration-readiness__checklist .simple-step{min-height:190px}
+  .integration-readiness__checklist .simple-step h3{margin-top:26px;font-size:16px;line-height:1.35}
+  .integration-readiness__grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px}
+  .integration-readiness__panel{padding:28px;border:1px solid rgba(32,33,36,.075);border-radius:24px;background:#fff}
+  .integration-readiness__panel--mint{background:linear-gradient(145deg,#DFFFF9,var(--punchout))}
+  .integration-readiness__ey{display:block;color:#929793;font-size:8px;font-weight:900;letter-spacing:.08em;text-transform:uppercase}
+  .integration-readiness__panel h3{margin-top:18px;font-size:24px}
+  .integration-readiness__panel p{color:#666b68;font-size:12px;line-height:1.65}
+  .integration-readiness__panel ul{display:grid;gap:12px;margin:22px 0 0;padding:0;list-style:none}
+  .integration-readiness__panel li{position:relative;padding-left:22px;color:#666b68;font-size:12px;line-height:1.5}
+  .integration-readiness__panel li:before{content:'✓';position:absolute;left:0;top:0;color:var(--graphite);font-weight:900}
+  .integration-readiness__note{margin-bottom:0;color:#526069!important;font-size:11px!important}
+  .integration-readiness__flows{margin-top:55px}
+  .integration-readiness__flows .section-head{margin-bottom:24px}
+  .integration-readiness__flows .section-head h3{margin-top:10px;font-size:28px}
+  .integration-readiness__table-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:18px;background:#fff}
+  .integration-readiness__table{width:100%;min-width:680px;border-collapse:collapse}
+  .integration-readiness__table th,.integration-readiness__table td{padding:15px 16px;border-bottom:1px solid var(--line);color:#666b68;font-size:11px;line-height:1.5;text-align:left;vertical-align:top}
+  .integration-readiness__table thead th{background:var(--gray);color:var(--graphite);font-size:10px;font-weight:900;text-transform:uppercase}
+  .integration-readiness__table tbody th{color:var(--graphite);font-weight:800}
+  .integration-readiness__table tr:last-child th,.integration-readiness__table tr:last-child td{border-bottom:0}
+  .integration-readiness__status{display:inline-flex;padding:5px 8px;border-radius:999px;background:rgba(153,254,237,.42);color:var(--graphite);font-size:9px;font-weight:900;white-space:nowrap}
+  @media(max-width:720px){.integration-readiness__grid{grid-template-columns:1fr}.integration-readiness__checklist .simple-step{min-height:0}}
+</style>

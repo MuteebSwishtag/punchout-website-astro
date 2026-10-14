@@ -1,4 +1,5 @@
 ---
+import IntegrationReadiness from '../IntegrationReadiness.astro';
 const tests = [
   ['Catalog entry', 'Confirm how the PunchOut catalog is presented in SAP Ariba Buying and Invoicing and which buying organizations may see it.'],
   ['Session messages', 'Check the cXML PunchOutSetupRequest and returned cart in the buyer’s test environment.'],
@@ -21,6 +22,7 @@ const tests = [
     <div class="simple-steps">{tests.map(([title, description], index) => <article class="simple-step reveal"><span class="simple-step__num">{String(index + 1).padStart(2, '0')}</span><h3>{title}</h3><p>{description}</p></article>)}</div>
     <p><small>Buyer-side references: <a href="https://help.sap.com/docs/buying-invoicing/catalog-format-reference/punchout-catalog-items-dd9dba78f0181014b52a898eb28ba247">SAP PunchOut catalog items</a> and <a href="https://help.sap.com/docs/business-network-for-procurement/using-test-accounts-business-network/topics-about-catalog-testing">catalog testing</a>.</small></p>
   </div></section>
+  <IntegrationReadiness platform="sap-ariba" />
   <section class="sec soft" id="faq"><div class="wrap"><div class="section-head center reveal"><span class="ey">FAQ</span><h2>SAP Ariba questions</h2></div><div class="faq reveal">
     <div class="fi"><button class="fq" type="button"><span>Does PunchOut Central support SAP Ariba?</span><span class="plus">+</span></button><div class="fa"><p>Yes. SAP Ariba cXML PunchOut is live: supplier catalog launch, cart return, approved PO to Shopify order, and invoice activity. Buyer-specific catalog visibility and PO routing are confirmed during onboarding.</p></div></div>
     <div class="fi"><button class="fq" type="button"><span>Is setup included?</span><span class="plus">+</span></button><div class="fa"><p>Yes. Standard supported integration setup and onboarding are included at no extra charge. Buyer-specific custom development is separate.</p></div></div>

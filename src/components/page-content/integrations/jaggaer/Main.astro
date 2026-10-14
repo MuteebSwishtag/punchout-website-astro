@@ -1,4 +1,5 @@
 ---
+import IntegrationReadiness from '../IntegrationReadiness.astro';
 const stages = [
   ['Find the PunchOut catalog', 'A JAGGAER buyer selects the supplier PunchOut source from the procurement shopping experience.'],
   ['Shop in Shopify', 'PunchOut Central opens the supplier’s configured Shopify catalog, with buyer-specific access.'],
@@ -22,6 +23,7 @@ const stages = [
     <div class="related-grid"><a class="related-card reveal" href="/integrations/cxml/"><span>Protocol</span><h3>cXML</h3><p>Review the catalog-session protocol.</p><b>Explore &rarr;</b></a><a class="related-card reveal" href="/platform/purchase-orders/"><span>Order stage</span><h3>Purchase orders</h3><p>See the PO-to-store-order handoff.</p><b>Explore &rarr;</b></a><a class="related-card reveal" href="/platform/invoices/"><span>After ordering</span><h3>Invoices</h3><p>See invoice activity in the transaction.</p><b>Explore &rarr;</b></a></div>
     <p><small>Buyer-side references: <a href="https://www.jaggaer.com/wp-content/uploads/JAGGAER-eProcurement-Product-Brief.pdf">JAGGAER eProcurement product brief</a> and <a href="https://www.jaggaer.com/wp-content/uploads/2024/06/JAGGAER-Supplier-Enablement-terms.pdf">supplier enablement terms</a>.</small></p>
   </div></section>
+  <IntegrationReadiness platform="jaggaer" />
   <section class="sec soft" id="faq"><div class="wrap"><div class="section-head center reveal"><span class="ey">FAQ</span><h2>JAGGAER questions</h2></div><div class="faq reveal">
     <div class="fi"><button class="fq" type="button"><span>Does PunchOut Central support JAGGAER?</span><span class="plus">+</span></button><div class="fa"><p>Yes. JAGGAER cXML PunchOut is live: catalog launch, cart return, approved PO to Shopify order, and invoice activity. The buyer’s selected PO and invoice delivery methods are confirmed during onboarding.</p></div></div>
     <div class="fi"><button class="fq" type="button"><span>Is setup included?</span><span class="plus">+</span></button><div class="fa"><p>Yes. Standard supported integration setup and onboarding are included at no extra charge. Buyer-specific custom development is separate.</p></div></div>

@@ -1,4 +1,5 @@
 ---
+import IntegrationReadiness from '../IntegrationReadiness.astro';
 const checks = [
   ['Supplier PunchOut connection', 'Workday configures a connection to a supplier catalog. Identify the buyer’s integration owner and the Shopify store that should open.'],
   ['cXML credentials', 'Workday’s setup guide requests cXML credential values from the supplier. Exchange and test the values required by this buyer.'],
@@ -22,6 +23,7 @@ const checks = [
     <div class="related-grid"><a class="related-card reveal" href="/integrations/cxml/"><span>Protocol</span><h3>cXML</h3><p>Understand the PunchOut session protocol.</p><b>Explore &rarr;</b></a><a class="related-card reveal" href="/platform/purchase-orders/"><span>Order stage</span><h3>Purchase orders</h3><p>See the approved PO handoff.</p><b>Explore &rarr;</b></a><a class="related-card reveal" href="/platform/invoices/"><span>Later stage</span><h3>Invoices</h3><p>Review invoice activity after ordering.</p><b>Explore &rarr;</b></a></div>
     <p><small>Buyer-side reference: <a href="https://doc.workday.com/admin-guide/en-us/spend-management/procurement/supplier-punchout/dan1370797005165.html">Workday’s supplier PunchOut setup guide</a>.</small></p>
   </div></section>
+  <IntegrationReadiness platform="workday" />
   <section class="sec soft" id="faq"><div class="wrap"><div class="section-head center reveal"><span class="ey">FAQ</span><h2>Workday questions</h2></div><div class="faq reveal">
     <div class="fi"><button class="fq" type="button"><span>Does PunchOut Central support Workday?</span><span class="plus">+</span></button><div class="fa"><p>Yes. Workday PunchOut is live: catalog launch, cart return, approved PO to Shopify order, and invoice tracking. Workday’s separate PO integration and optional invoice delivery still need buyer configuration.</p></div></div>
     <div class="fi"><button class="fq" type="button"><span>Is setup included?</span><span class="plus">+</span></button><div class="fa"><p>Yes. Standard supported integration setup and onboarding are included at no extra charge. Buyer-specific custom development is separate.</p></div></div>

@@ -1,4 +1,5 @@
 ---
+import IntegrationReadiness from '../IntegrationReadiness.astro';
 const plan = [
   ['Choose the catalog model', 'Oracle Fusion Cloud Procurement offers a direct cXML supplier PunchOut source as well as Oracle-native XML models. Confirm the buyer uses the cXML path supported by PunchOut Central.'],
   ['Identify the buying unit', 'The Oracle catalog administrator sets up a PunchOut catalog for a procurement business unit. Confirm which buyer entity and supplier catalog should be linked.'],
@@ -21,6 +22,7 @@ const plan = [
     <div class="related-grid"><a class="related-card reveal" href="/integrations/cxml/"><span>Protocol</span><h3>cXML PunchOut</h3><p>Review the supported procurement protocol.</p><b>Explore &rarr;</b></a><a class="related-card reveal" href="/integrations/shopify/"><span>Supplier side</span><h3>Shopify integration</h3><p>See how the store supplies the catalog.</p><b>Explore &rarr;</b></a><a class="related-card reveal" href="/how-it-works/"><span>Transaction</span><h3>How it works</h3><p>Follow approval, PO, order and invoice.</p><b>Explore &rarr;</b></a></div>
     <p><small>Buyer-side references: <a href="https://docs.oracle.com/en/cloud/saas/procurement/26d/oapro/punchout-catalogs.html">Oracle Punchout Catalogs</a> and <a href="https://docs.oracle.com/en/cloud/saas/procurement/26d/oapro/create-a-punchout-catalog-with-a-direct-cxml-supplier-punchout-source.html">direct cXML supplier source</a>.</small></p>
   </div></section>
+  <IntegrationReadiness platform="oracle" />
   <section class="sec soft" id="faq"><div class="wrap"><div class="section-head center reveal"><span class="ey">FAQ</span><h2>Oracle Procurement questions</h2></div><div class="faq reveal">
     <div class="fi"><button class="fq" type="button"><span>Does PunchOut Central support Oracle Procurement?</span><span class="plus">+</span></button><div class="fa"><p>Yes. Oracle direct cXML PunchOut is live: catalog launch, cart return, approved PO to Shopify order, and invoice activity. This covers direct cXML supplier PunchOut, not Oracle-native XML.</p></div></div>
     <div class="fi"><button class="fq" type="button"><span>Is setup included?</span><span class="plus">+</span></button><div class="fa"><p>Yes. Standard supported integration setup and onboarding are included at no extra charge. Buyer-specific custom development is separate.</p></div></div>

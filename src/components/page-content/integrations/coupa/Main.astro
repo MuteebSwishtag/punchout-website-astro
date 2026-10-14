@@ -1,4 +1,5 @@
 ---
+import IntegrationReadiness from '../IntegrationReadiness.astro';
 const checkpoints = [
   ['Setup request', 'Coupa sends a cXML PunchoutSetupRequest when a buyer opens the supplier link. Match its buyer identity to the right Shopify catalog.'],
   ['Shopping and return', 'The buyer shops in the supplier store. PunchOut Central returns the cart as a cXML PunchoutOrderMessage to Coupa.'],
@@ -21,6 +22,7 @@ const checkpoints = [
     <div class="related-grid"><a class="related-card reveal" href="/integrations/cxml/"><span>Protocol</span><h3>cXML PunchOut</h3><p>Review the session and cart messages used in the connection.</p><b>Explore &rarr;</b></a><a class="related-card reveal" href="/integrations/shopify/"><span>Supplier side</span><h3>Shopify catalog</h3><p>See how the existing store serves buyer-specific access.</p><b>Explore &rarr;</b></a><a class="related-card reveal" href="/how-it-works/"><span>Process</span><h3>Six transaction stages</h3><p>Follow cart, approval, PO, store order and invoice.</p><b>Explore &rarr;</b></a></div>
     <p><small>Buyer-side reference: <a href="https://docs.coupa.com/en/supplier-documentation/coupa-for-suppliers/supplier-integration-resources/cxml-examples/purchase-orders-and-punchouts/punchout-ordering">Coupa’s Punchout Ordering documentation</a>.</small></p>
   </div></section>
+  <IntegrationReadiness platform="coupa" />
   <section class="sec soft" id="faq"><div class="wrap"><div class="section-head center reveal"><span class="ey">FAQ</span><h2>Coupa integration questions</h2></div><div class="faq reveal">
     <div class="fi"><button class="fq" type="button"><span>Does PunchOut Central support Coupa?</span><span class="plus">+</span></button><div class="fa"><p>Yes. Coupa cXML PunchOut is live: setup request, cart return, approved PO to Shopify order, and cXML invoice support. Confirm the buyer’s invoice-delivery route during onboarding.</p></div></div>
     <div class="fi"><button class="fq" type="button"><span>Is setup included?</span><span class="plus">+</span></button><div class="fa"><p>Yes. Standard supported integration setup and onboarding are included at no extra charge. Buyer-specific custom development is separate.</p></div></div>
