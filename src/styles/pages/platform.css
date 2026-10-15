@@ -42,7 +42,7 @@ h3{margin-bottom:8px;color:var(--graphite);font-size:20px;line-height:1.2;letter
 .pri:hover{transform:translateY(-1px);background:#7CEEDD}
 .secbtn{background:#fff;color:var(--graphite);border-color:rgba(32,33,36,.17)}
 .secbtn:hover{border-color:var(--graphite)}
-.reveal{opacity:0;transform:translateY(15px);transition:.5s ease}
+.reveal{opacity:1;transform:none;transition:.5s ease}
 .reveal.on{opacity:1;transform:none}
 
 /* ---------- Primary nav ---------- */
@@ -224,8 +224,9 @@ section[id]{scroll-margin-top:150px}
 .po-core-row b{color:#8A8F8C;font-size:8px;font-weight:850}
 .po-platform-route{position:absolute;inset:0;z-index:1;pointer-events:none}
 .po-platform-route svg{width:100%;height:100%}
-.po-platform-route path{fill:none;stroke:rgba(49,107,99,.55);stroke-width:1;stroke-dasharray:7 7;vector-effect:non-scaling-stroke;animation:route 2.6s linear infinite}
-@keyframes route{to{stroke-dashoffset:-56}}
+.po-platform-route .diagram-connector{fill:none;stroke:#45cdbb;stroke-width:1.7;stroke-linecap:round;stroke-dasharray:5 7;vector-effect:non-scaling-stroke;animation:route 2.8s linear infinite}
+.po-platform-route .diagram-connector-dot{fill:#fff;stroke:#43cdbb;stroke-width:2;vector-effect:non-scaling-stroke}
+@keyframes route{to{stroke-dashoffset:-24}}
 
 .po-hero--overview .po-overview-architecture{
   position:relative;
@@ -600,7 +601,7 @@ section[id]{scroll-margin-top:150px}
   height:16px;
   overflow:visible;
 }
-.pc-order-flow--synced .pc-order-step__check path{
+.pc-order-flow--synced .pc-order-step__check use{
   fill:none;
   stroke:var(--graphite);
   stroke-width:2.6;
@@ -698,7 +699,7 @@ section[id]{scroll-margin-top:150px}
   box-shadow:none;
   animation:pcV21CheckPop .40s cubic-bezier(.2,.85,.25,1.25) both;
 }
-.pc-order-step.is-complete .pc-order-step__check path{
+.pc-order-step.is-complete .pc-order-step__check use{
   stroke:#fff;
   animation:pcV21CheckDraw .34s ease .06s forwards;
 }
@@ -1200,7 +1201,7 @@ footer{padding:45px 0;background:var(--gray);border-top:1px solid var(--line)}
   }
   .po-platform-map{max-width:540px;width:100%;min-height:auto;grid-template-columns:1fr;gap:12px}
   .po-platform-map:before{width:280px;height:280px}
-  .po-platform-route{display:none}
+  .po-platform-map .po-platform-route{display:block}
   .po-map-side{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
   .po-platform-core+.po-map-side{grid-template-columns:1fr}
   .po-map-side__label{grid-column:1/-1;text-align:center}
@@ -1267,7 +1268,7 @@ footer{padding:45px 0;background:var(--gray);border-top:1px solid var(--line)}
   .pc-order-step:before,
   .pc-order-step__check,
   .pc-order-step__check:before,
-  .pc-order-step__check path,
+  .pc-order-step__check use,
   .pc-order-step__state-dot,
   .pc-order-step__icon,
   .pc-order-confetti__piece,

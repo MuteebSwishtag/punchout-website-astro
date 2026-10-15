@@ -24,16 +24,10 @@
 
     <div class="po-platform-map reveal" aria-label="PunchOut Central connects procurement systems to ecommerce and manages the complete transaction">
       <div class="po-platform-route" aria-hidden="true">
-        <svg viewBox="0 0 100 100" preserveAspectRatio="none">
-          <path d="M20 19 C30 19 31 35 38 39"></path>
-          <path d="M20 38 C30 38 32 43 38 45"></path>
-          <path d="M20 57 C30 57 32 53 38 51"></path>
-          <path d="M20 76 C30 76 31 59 38 56"></path>
-          <path d="M62 48 C72 48 76 48 82 48"></path>
-        </svg>
+        <svg focusable="false"></svg>
       </div>
 
-      <div class="po-map-side">
+      <div class="po-map-side po-map-side--procurement">
         <span class="po-map-side__label">Procurement</span>
         <span class="po-logo-pill" style="--brand-scale:1.0"><img src="/assets/logos/coupa.svg" alt="Coupa" loading="lazy" decoding="async"></span>
 <span class="po-logo-pill" style="--brand-scale:0.95"><img src="/assets/logos/sap-ariba.png" alt="SAP Ariba" loading="lazy" decoding="async"></span>
@@ -56,7 +50,7 @@
         </div>
       </div>
 
-      <div class="po-map-side">
+      <div class="po-map-side po-map-side--commerce">
         <span class="po-map-side__label">Commerce</span>
         <span class="po-logo-pill" style="--brand-scale:1.12"><img src="/assets/logos/shopify.svg" alt="Shopify" loading="lazy" decoding="async"></span>
       </div>
@@ -76,7 +70,7 @@
 
     <div class="po-modules">
       <a class="po-module reveal" href="/platform/punchout/">
-        <span class="po-module__icon"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="7" height="6" rx="2"/><rect x="14" y="13" width="7" height="6" rx="2"/><path d="M9 8h5a3 3 0 0 1 3 3v2"/><path d="m14.5 10.5 2.5 2.5 2.5-2.5"/></svg></span>
+        <span class="po-module__icon"><svg viewBox="0 0 24 24"><use href="/assets/ui-icons.svg#platform-module-punchout" width="100%" height="100%"></use></svg></span>
         <span class="po-module__kicker">01 · Connect</span>
         <h3>PunchOut</h3>
         <p>Authenticate the buyer, launch the catalog session and return the cart to procurement.</p>
@@ -84,7 +78,7 @@
       </a>
 
       <a class="po-module reveal" href="/platform/purchase-orders/">
-        <span class="po-module__icon"><svg viewBox="0 0 24 24"><path d="M6 3h9l4 4v14H6z"/><path d="M15 3v5h4"/><path d="M9 12h6M9 16h6"/></svg></span>
+        <span class="po-module__icon"><svg viewBox="0 0 24 24"><use href="/assets/ui-icons.svg#platform-module-po" width="100%" height="100%"></use></svg></span>
         <span class="po-module__kicker">02 · Automate</span>
         <h3>Purchase Orders</h3>
         <p>Receive approved POs and create the related Shopify orders.</p>
@@ -92,7 +86,7 @@
       </a>
 
       <a class="po-module reveal" href="/platform/invoices/">
-        <span class="po-module__icon"><svg viewBox="0 0 24 24"><path d="M6 3h12v18l-3-2-3 2-3-2-3 2z"/><path d="M9 8h6M9 12h6M9 16h4"/></svg></span>
+        <span class="po-module__icon"><svg viewBox="0 0 24 24"><use href="/assets/ui-icons.svg#platform-module-invoice" width="100%" height="100%"></use></svg></span>
         <span class="po-module__kicker">03 · Complete</span>
         <h3>Invoices</h3>
         <p>Keep invoice activity connected to the original buyer, PO and store order.</p>
@@ -100,7 +94,7 @@
       </a>
 
       <a class="po-module reveal" href="/platform/multi-store/">
-        <span class="po-module__icon"><svg viewBox="0 0 24 24"><path d="M4 9h16l-2-5H6z"/><path d="M5 9v11h14V9"/><path d="M9 20v-6h6v6"/></svg></span>
+        <span class="po-module__icon"><svg viewBox="0 0 24 24"><use href="/assets/ui-icons.svg#platform-module-store" width="100%" height="100%"></use></svg></span>
         <span class="po-module__kicker">04 · Centralize</span>
         <h3>Multi-Store Control</h3>
         <p>Manage multiple enterprise buyers, gateway connections and storefronts from one account.</p>
@@ -108,7 +102,7 @@
       </a>
 
       <a class="po-module reveal" href="/platform/transactions/">
-        <span class="po-module__icon"><svg viewBox="0 0 24 24"><path d="M4 7h12"/><path d="m13 4 3 3-3 3"/><path d="M20 17H8"/><path d="m11 14-3 3 3 3"/></svg></span>
+        <span class="po-module__icon"><svg viewBox="0 0 24 24"><use href="/assets/ui-icons.svg#platform-module-transactions" width="100%" height="100%"></use></svg></span>
         <span class="po-module__kicker">05 · See</span>
         <h3>Transactions</h3>
         <p>See what happened across sessions, carts, POs, orders, invoices and failed transactions.</p>
@@ -116,7 +110,7 @@
       </a>
 
       <a class="po-module reveal" href="/how-it-works/">
-        <span class="po-module__icon"><svg viewBox="0 0 24 24"><circle cx="5" cy="12" r="2"/><circle cx="12" cy="5" r="2"/><circle cx="19" cy="12" r="2"/><circle cx="12" cy="19" r="2"/><path d="M6.5 10.5 10.5 6.5M13.5 6.5l4 4M17.5 13.5l-4 4M10.5 17.5l-4-4"/></svg></span>
+        <span class="po-module__icon"><svg viewBox="0 0 24 24"><use href="/assets/ui-icons.svg#platform-module-journey" width="100%" height="100%"></use></svg></span>
         <span class="po-module__kicker">06 · Understand</span>
         <h3>How It Works</h3>
         <p>See the complete buyer journey in six simple steps from PunchOut session to invoice.</p>
@@ -174,17 +168,12 @@
       <div class="pc-order-flow pc-order-flow--synced">
         <article class="pc-order-step" data-step="0">
           <div class="pc-order-step__icon" aria-hidden="true">
-            <svg viewBox="0 0 64 64">
-              <path d="M14 22h22a8 8 0 0 1 8 8v12"></path>
-              <path d="M32 16l6 6-6 6"></path>
-              <rect x="10" y="16" width="18" height="12" rx="4"></rect>
-              <rect x="36" y="36" width="18" height="12" rx="4"></rect>
-            </svg>
+            <svg viewBox="0 0 64 64"><use href="/assets/ui-icons.svg#platform-order-punchout" width="100%" height="100%"></use></svg>
           </div>
           <div class="pc-order-step__meta">
             <span class="pc-order-step__num">01</span>
             <span class="pc-order-step__check" aria-hidden="true">
-              <svg viewBox="0 0 24 24"><path d="M6.8 12.4l3.2 3.2 7.2-7.3"></path></svg>
+              <svg viewBox="0 0 24 24"><use href="/assets/ui-icons.svg#platform-order-check-1" width="100%" height="100%"></use></svg>
             </span>
           </div>
           <div class="pc-order-step__body">
@@ -199,17 +188,12 @@
 
         <article class="pc-order-step" data-step="1">
           <div class="pc-order-step__icon" aria-hidden="true">
-            <svg viewBox="0 0 64 64">
-              <path d="M12 18h8l4 22h24l4-16H22"></path>
-              <circle cx="28" cy="48" r="3"></circle>
-              <circle cx="46" cy="48" r="3"></circle>
-              <path d="M47 12l6 6-6 6"></path>
-            </svg>
+            <svg viewBox="0 0 64 64"><use href="/assets/ui-icons.svg#platform-order-cart" width="100%" height="100%"></use></svg>
           </div>
           <div class="pc-order-step__meta">
             <span class="pc-order-step__num">02</span>
             <span class="pc-order-step__check" aria-hidden="true">
-              <svg viewBox="0 0 24 24"><path d="M6.8 12.4l3.2 3.2 7.2-7.3"></path></svg>
+              <svg viewBox="0 0 24 24"><use href="/assets/ui-icons.svg#platform-order-check-2" width="100%" height="100%"></use></svg>
             </span>
           </div>
           <div class="pc-order-step__body">
@@ -224,15 +208,12 @@
 
         <article class="pc-order-step" data-step="2">
           <div class="pc-order-step__icon" aria-hidden="true">
-            <svg viewBox="0 0 64 64">
-              <circle cx="32" cy="32" r="19"></circle>
-              <path d="M22 32l7 7 14-15"></path>
-            </svg>
+            <svg viewBox="0 0 64 64"><use href="/assets/ui-icons.svg#platform-order-approved" width="100%" height="100%"></use></svg>
           </div>
           <div class="pc-order-step__meta">
             <span class="pc-order-step__num">03</span>
             <span class="pc-order-step__check" aria-hidden="true">
-              <svg viewBox="0 0 24 24"><path d="M6.8 12.4l3.2 3.2 7.2-7.3"></path></svg>
+              <svg viewBox="0 0 24 24"><use href="/assets/ui-icons.svg#platform-order-check-3" width="100%" height="100%"></use></svg>
             </span>
           </div>
           <div class="pc-order-step__body">
@@ -247,16 +228,12 @@
 
         <article class="pc-order-step" data-step="3">
           <div class="pc-order-step__icon" aria-hidden="true">
-            <svg viewBox="0 0 64 64">
-              <path d="M18 10h20l10 10v34H18z"></path>
-              <path d="M38 10v12h12"></path>
-              <path d="M24 32h18M24 40h14"></path>
-            </svg>
+            <svg viewBox="0 0 64 64"><use href="/assets/ui-icons.svg#platform-order-po" width="100%" height="100%"></use></svg>
           </div>
           <div class="pc-order-step__meta">
             <span class="pc-order-step__num">04</span>
             <span class="pc-order-step__check" aria-hidden="true">
-              <svg viewBox="0 0 24 24"><path d="M6.8 12.4l3.2 3.2 7.2-7.3"></path></svg>
+              <svg viewBox="0 0 24 24"><use href="/assets/ui-icons.svg#platform-order-check-4" width="100%" height="100%"></use></svg>
             </span>
           </div>
           <div class="pc-order-step__body">
@@ -271,17 +248,12 @@
 
         <article class="pc-order-step" data-step="4">
           <div class="pc-order-step__icon" aria-hidden="true">
-            <svg viewBox="0 0 64 64">
-              <path d="M12 26l20-12 20 12v24H12z"></path>
-              <path d="M20 32h24"></path>
-              <path d="M22 50V36h20v14"></path>
-              <path d="M32 20v8"></path>
-            </svg>
+            <svg viewBox="0 0 64 64"><use href="/assets/ui-icons.svg#platform-order-store" width="100%" height="100%"></use></svg>
           </div>
           <div class="pc-order-step__meta">
             <span class="pc-order-step__num">05</span>
             <span class="pc-order-step__check" aria-hidden="true">
-              <svg viewBox="0 0 24 24"><path d="M6.8 12.4l3.2 3.2 7.2-7.3"></path></svg>
+              <svg viewBox="0 0 24 24"><use href="/assets/ui-icons.svg#platform-order-check-5" width="100%" height="100%"></use></svg>
             </span>
           </div>
           <div class="pc-order-step__body">
@@ -296,16 +268,12 @@
 
         <article class="pc-order-step" data-step="5">
           <div class="pc-order-step__icon" aria-hidden="true">
-            <svg viewBox="0 0 64 64">
-              <path d="M18 10h28v44l-5-4-5 4-5-4-5 4-5-4-3 3z"></path>
-              <path d="M24 24h16M24 32h16M24 40h10"></path>
-              <path d="M40 40h2"></path>
-            </svg>
+            <svg viewBox="0 0 64 64"><use href="/assets/ui-icons.svg#platform-order-invoice" width="100%" height="100%"></use></svg>
           </div>
           <div class="pc-order-step__meta">
             <span class="pc-order-step__num">06</span>
             <span class="pc-order-step__check" aria-hidden="true">
-              <svg viewBox="0 0 24 24"><path d="M6.8 12.4l3.2 3.2 7.2-7.3"></path></svg>
+              <svg viewBox="0 0 24 24"><use href="/assets/ui-icons.svg#platform-order-check-6" width="100%" height="100%"></use></svg>
             </span>
           </div>
           <div class="pc-order-step__body">
@@ -336,10 +304,7 @@
           </p>
 
           <button class="pc-order-restart" id="pcOrderRestartPlatform" type="button" aria-label="Replay the order journey">
-            <svg viewBox="0 0 24 24" aria-hidden="true">
-              <path d="M20 11a8 8 0 1 0-2.34 5.66"></path>
-              <path d="M20 5v6h-6"></path>
-            </svg>
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use href="/assets/ui-icons.svg#platform-order-replay" width="100%" height="100%"></use></svg>
             <span>Replay the order</span>
           </button>
         </div>
@@ -483,6 +448,20 @@
   </div>
 </section>
 </main>
+
+<script>
+  import { watchDiagramConnectors } from '../../../scripts/diagram-connectors.js';
+
+  const stage = document.querySelector('.po-platform-map');
+  if (stage) watchDiagramConnectors({
+    stage,
+    svg: stage.querySelector('.po-platform-route svg'),
+    hub: stage.querySelector('.po-platform-core'),
+    sources: '.po-map-side--procurement .po-logo-pill',
+    targets: '.po-map-side--commerce .po-logo-pill',
+    shape: 'rectangle'
+  });
+</script>
 
 <script is:inline>
 (() => {

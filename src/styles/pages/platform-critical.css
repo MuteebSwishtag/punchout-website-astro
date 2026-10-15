@@ -55,8 +55,9 @@
 .po-core-row b{color:#8A8F8C;font-size:8px;font-weight:850}
 .po-platform-route{position:absolute;inset:0;z-index:1;pointer-events:none}
 .po-platform-route svg{width:100%;height:100%}
-.po-platform-route path{fill:none;stroke:rgba(49,107,99,.55);stroke-width:1;stroke-dasharray:7 7;vector-effect:non-scaling-stroke;animation:route 2.6s linear infinite}
-@keyframes route{to{stroke-dashoffset:-56}}
+.po-platform-route .diagram-connector{fill:none;stroke:#45cdbb;stroke-width:1.7;stroke-linecap:round;stroke-dasharray:5 7;vector-effect:non-scaling-stroke;animation:route 2.8s linear infinite}
+.po-platform-route .diagram-connector-dot{fill:#fff;stroke:#43cdbb;stroke-width:2;vector-effect:non-scaling-stroke}
+@keyframes route{to{stroke-dashoffset:-24}}
 .po-hero--overview .po-overview-architecture{
   position:relative;
   width:100%;
@@ -268,7 +269,7 @@
   }
   .po-platform-map{max-width:540px;width:100%;min-height:auto;grid-template-columns:1fr;gap:12px}
   .po-platform-map:before{width:280px;height:280px}
-  .po-platform-route{display:none}
+  .po-platform-map .po-platform-route{display:block}
   .po-map-side{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
   .po-platform-core+.po-map-side{grid-template-columns:1fr}
   .po-map-side__label{grid-column:1/-1;text-align:center}

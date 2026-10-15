@@ -61,7 +61,7 @@ const resolvedRobots = requiredRobots || robots;
 const showSeoMeta = getRoute(pathname)?.publicationEligible && !/\bnoindex\b/i.test(resolvedRobots);
 const resolvedOgImage = ogImage ?? '/assets/punchout-central-share.png';
 
-const siteScriptSrc = '/assets/site.js?v=20261002';
+const siteScriptSrc = '/assets/site.js?v=20261015';
 const eagerStylesheetSet = new Set([
   ...(deferSiteStylesheet ? [] : [siteStylesheet]),
   ...eagerStylesheets
@@ -78,6 +78,11 @@ const noscriptStylesheets = [...renderEagerStylesheets, ...lazyStylesheets];
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
+    <script is:inline>
+      if ('IntersectionObserver' in window && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        document.documentElement.classList.add('reveal-ready');
+      }
+    </script>
     {(tracking === 'all' || tracking === 'ga4') && <GoogleTagManagerHead />}
     {tracking === 'all' && <MetaPixelHead />}
     {tracking === 'all' && <LinkedInInsightHead />}

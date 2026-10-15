@@ -21,7 +21,7 @@
     });
   }
 
-  document.querySelectorAll('.drop>button').forEach((button) => {
+  document.querySelectorAll('.drop>button, .drop>.pc-nav-split>button').forEach((button) => {
     button.addEventListener('click', (event) => {
       if (!desktopNav.matches) return;
       const drop = button.closest('.drop');

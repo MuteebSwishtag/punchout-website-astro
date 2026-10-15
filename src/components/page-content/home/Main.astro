@@ -31,21 +31,21 @@
       <div class="pc-hero__journey" aria-label="How a PunchOut order moves from Shopify to procurement">
         <div class="pc-hero__journey-step">
           <span class="pc-hero__journey-icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24" role="presentation"><path d="M6 8.5 8 5h8l2 3.5v9.25a1.25 1.25 0 0 1-1.25 1.25h-9.5A1.25 1.25 0 0 1 6 17.75V8.5Z"></path><path d="M6 8.5h12M10 5v3.5M14 5v3.5M9.5 13h5"></path></svg>
+            <svg viewBox="0 0 24 24" role="presentation"><use href="/assets/ui-icons.svg#home-journey-store" width="100%" height="100%"></use></svg>
           </span>
           <span><strong>1. Connect your</strong><small>Shopify store</small></span>
         </div>
         <span class="pc-hero__journey-arrow" aria-hidden="true">→</span>
         <div class="pc-hero__journey-step">
           <span class="pc-hero__journey-icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24" role="presentation"><path d="M4 5h2l2.1 10.1a1.5 1.5 0 0 0 1.47 1.2h7.78a1.5 1.5 0 0 0 1.43-1.04L20 9H7"></path><circle cx="10" cy="19" r="1.2"></circle><circle cx="17" cy="19" r="1.2"></circle></svg>
+            <svg viewBox="0 0 24 24" role="presentation"><use href="/assets/ui-icons.svg#home-journey-cart" width="100%" height="100%"></use></svg>
           </span>
           <span><strong>2. Buyers shop through</strong><small>Coupa, Ariba and more</small></span>
         </div>
         <span class="pc-hero__journey-arrow" aria-hidden="true">→</span>
         <div class="pc-hero__journey-step">
           <span class="pc-hero__journey-icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24" role="presentation"><path d="M7 3.75h10A1.25 1.25 0 0 1 18.25 5v14A1.25 1.25 0 0 1 17 20.25H7A1.25 1.25 0 0 1 5.75 19V5A1.25 1.25 0 0 1 7 3.75Z"></path><path d="M9 8h6M9 11h6M9 14h4"></path></svg>
+            <svg viewBox="0 0 24 24" role="presentation"><use href="/assets/ui-icons.svg#home-journey-document" width="100%" height="100%"></use></svg>
           </span>
           <span><strong>3. Carts return to their</strong><small>purchasing system</small></span>
         </div>
@@ -83,21 +83,7 @@
           <div class="pc-logo-stack" id="pcProcurementLogos"></div>
         </div>
 
-        <svg class="pc-gateway-map__connectors" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
-          <!-- Procurement systems → PunchOut Central -->
-          <path class="pc-connector pc-connector--1" pathLength="100" d="M 22.5 14 C 30 14, 34 28, 38.2 41.5"></path>
-          <path class="pc-connector pc-connector--2" pathLength="100" d="M 22.5 32 C 30.5 32, 34.5 38, 38.2 44.5"></path>
-          <path class="pc-connector pc-connector--3" pathLength="100" d="M 22.5 50 C 30.5 50, 34.5 50, 38.2 50"></path>
-          <path class="pc-connector pc-connector--4" pathLength="100" d="M 22.5 68 C 30.5 68, 34.5 62, 38.2 55.5"></path>
-          <path class="pc-connector pc-connector--5" pathLength="100" d="M 22.5 86 C 30 86, 34 72, 38.2 58.5"></path>
-
-          <!-- PunchOut Central → ecommerce marks.
-               Endpoints are aligned to the optical center of Shopify,
-               BigCommerce and Magento, then tucked beneath each logo. -->
-          <path class="pc-connector pc-connector--6" pathLength="100" d="M 61.8 43 C 67.5 37.5, 74.5 34.4, 83.5 34.4"></path>
-          <path class="pc-connector pc-connector--7" pathLength="100" d="M 61.8 50 C 68.5 50, 76 50, 83.5 50"></path>
-          <path class="pc-connector pc-connector--8" pathLength="100" d="M 61.8 57 C 67.5 62.5, 74.5 65.6, 83.5 65.6"></path>
-        </svg>
+        <svg class="pc-gateway-map__connectors" aria-hidden="true" focusable="false"></svg>
 
         <div class="pc-gateway-map__center">
           <div class="pc-hub">
@@ -133,9 +119,7 @@
     <div class="pc-credibility__items">
       <div class="pc-credibility__item pc-credibility__item--trustpilot">
         <span class="pc-credibility__mark" aria-hidden="true">
-          <svg viewBox="0 0 32 32">
-            <path d="M16 3.5l3.15 7.05 7.7.8-5.75 5.2 1.62 7.55L16 20.25 9.28 24.1l1.62-7.55-5.75-5.2 7.7-.8z"></path>
-          </svg>
+          <svg viewBox="0 0 32 32"><use href="/assets/ui-icons.svg#home-trustpilot-star" width="100%" height="100%"></use></svg>
         </span>
         <div>
           <strong>Trustpilot</strong>
@@ -159,11 +143,7 @@
 
       <div class="pc-credibility__item">
         <span class="pc-credibility__mark pc-credibility__mark--shopify" aria-hidden="true">
-          <svg viewBox="0 0 32 32">
-            <path d="M10.4 9.2c.55-2.65 2.4-5.1 4.55-5.1 2.15 0 2.8 2.55 2.98 4.05"></path>
-            <path d="M7.1 10.4l17.3-1.3 2.2 17.1-15.3 2.1L7.1 10.4z"></path>
-            <path d="M18.85 13.1c-1.1-.55-2.1-.85-3.05-.8-2.4.12-2.5 1.7-1.15 2.5 2.05 1.2 3.8 2.1 3.65 4.45-.2 3-2.75 4.85-6.2 4.45"></path>
-          </svg>
+          <svg viewBox="0 0 32 32"><use href="/assets/ui-icons.svg#home-shopify-partner" width="100%" height="100%"></use></svg>
         </span>
         <div>
           <strong>Shopify Partner</strong>
@@ -196,12 +176,7 @@
       <div class="pc-problem-simple__grid" aria-label="What suppliers are really asking">
         <article class="pc-problem-simple__card">
           <div class="pc-problem-simple__icon pc-problem-simple__icon--mint" aria-hidden="true">
-            <svg viewBox="0 0 24 24">
-              <rect x="3" y="5" width="7" height="6" rx="2"></rect>
-              <rect x="14" y="13" width="7" height="6" rx="2"></rect>
-              <path d="M9 8h5a3 3 0 0 1 3 3v2"></path>
-              <path d="M14.5 10.5 17 13l2.5-2.5"></path>
-            </svg>
+            <svg viewBox="0 0 24 24"><use href="/assets/ui-icons.svg#home-problem-connection" width="100%" height="100%"></use></svg>
           </div>
           <span class="pc-problem-simple__num">01</span>
           <h3>Will it work with my customer’s procurement system?</h3>
@@ -209,10 +184,7 @@
 
         <article class="pc-problem-simple__card">
           <div class="pc-problem-simple__icon pc-problem-simple__icon--lavender" aria-hidden="true">
-            <svg viewBox="0 0 24 24">
-              <path d="M12 3 19 6v5c0 4.6-2.8 8.1-7 10-4.2-1.9-7-5.4-7-10V6z"></path>
-              <path d="m8.7 12 2.1 2.1 4.6-4.7"></path>
-            </svg>
+            <svg viewBox="0 0 24 24"><use href="/assets/ui-icons.svg#home-problem-security" width="100%" height="100%"></use></svg>
           </div>
           <span class="pc-problem-simple__num">02</span>
           <h3>Can I trust it with an account this important?</h3>
@@ -220,12 +192,7 @@
 
         <article class="pc-problem-simple__card">
           <div class="pc-problem-simple__icon pc-problem-simple__icon--peach" aria-hidden="true">
-            <svg viewBox="0 0 24 24">
-              <path d="M4 13v-2a8 8 0 0 1 16 0v2"></path>
-              <path d="M4 13h3v5H5a1 1 0 0 1-1-1z"></path>
-              <path d="M20 13h-3v5h2a1 1 0 0 0 1-1z"></path>
-              <path d="M17 18c0 2-2 3-5 3"></path>
-            </svg>
+            <svg viewBox="0 0 24 24"><use href="/assets/ui-icons.svg#home-problem-support" width="100%" height="100%"></use></svg>
           </div>
           <span class="pc-problem-simple__num">03</span>
           <h3>Who will help us get it live?</h3>
@@ -233,10 +200,7 @@
 
         <article class="pc-problem-simple__card">
           <div class="pc-problem-simple__icon pc-problem-simple__icon--lime" aria-hidden="true">
-            <svg viewBox="0 0 24 24">
-              <path d="M2.5 12s3.5-6 9.5-6 9.5 6 9.5 6-3.5 6-9.5 6S2.5 12 2.5 12z"></path>
-              <circle cx="12" cy="12" r="2.8"></circle>
-            </svg>
+            <svg viewBox="0 0 24 24"><use href="/assets/ui-icons.svg#home-problem-monitoring" width="100%" height="100%"></use></svg>
           </div>
           <span class="pc-problem-simple__num">04</span>
           <h3>If something goes wrong, will we know?</h3>
@@ -448,17 +412,12 @@
       <div class="pc-order-flow pc-order-flow--synced">
         <article class="pc-order-step" data-step="0">
           <div class="pc-order-step__icon" aria-hidden="true">
-      <svg viewBox="0 0 64 64">
-        <path d="M14 22h22a8 8 0 0 1 8 8v12"></path>
-        <path d="M32 16l6 6-6 6"></path>
-        <rect x="10" y="16" width="18" height="12" rx="4"></rect>
-        <rect x="36" y="36" width="18" height="12" rx="4"></rect>
-      </svg>
+      <svg viewBox="0 0 64 64"><use href="/assets/ui-icons.svg#home-order-punchout" width="100%" height="100%"></use></svg>
     </div>
           <div class="pc-order-step__meta">
             <span class="pc-order-step__num">01</span>
             <span class="pc-order-step__check" aria-hidden="true">
-              <svg viewBox="0 0 24 24"><path d="M6.8 12.4l3.2 3.2 7.2-7.3"></path></svg>
+              <svg viewBox="0 0 24 24"><use href="/assets/ui-icons.svg#home-order-check-1" width="100%" height="100%"></use></svg>
             </span>
           </div>
           <div class="pc-order-step__body">
@@ -473,17 +432,12 @@
 
         <article class="pc-order-step" data-step="1">
           <div class="pc-order-step__icon" aria-hidden="true">
-      <svg viewBox="0 0 64 64">
-        <path d="M12 18h8l4 22h24l4-16H22"></path>
-        <circle cx="28" cy="48" r="3"></circle>
-        <circle cx="46" cy="48" r="3"></circle>
-        <path d="M47 12l6 6-6 6"></path>
-      </svg>
+      <svg viewBox="0 0 64 64"><use href="/assets/ui-icons.svg#home-order-cart" width="100%" height="100%"></use></svg>
     </div>
           <div class="pc-order-step__meta">
             <span class="pc-order-step__num">02</span>
             <span class="pc-order-step__check" aria-hidden="true">
-              <svg viewBox="0 0 24 24"><path d="M6.8 12.4l3.2 3.2 7.2-7.3"></path></svg>
+              <svg viewBox="0 0 24 24"><use href="/assets/ui-icons.svg#home-order-check-2" width="100%" height="100%"></use></svg>
             </span>
           </div>
           <div class="pc-order-step__body">
@@ -498,15 +452,12 @@
 
         <article class="pc-order-step" data-step="2">
           <div class="pc-order-step__icon" aria-hidden="true">
-      <svg viewBox="0 0 64 64">
-        <circle cx="32" cy="32" r="19"></circle>
-        <path d="M22 32l7 7 14-15"></path>
-      </svg>
+      <svg viewBox="0 0 64 64"><use href="/assets/ui-icons.svg#home-order-approved" width="100%" height="100%"></use></svg>
     </div>
           <div class="pc-order-step__meta">
             <span class="pc-order-step__num">03</span>
             <span class="pc-order-step__check" aria-hidden="true">
-              <svg viewBox="0 0 24 24"><path d="M6.8 12.4l3.2 3.2 7.2-7.3"></path></svg>
+              <svg viewBox="0 0 24 24"><use href="/assets/ui-icons.svg#home-order-check-3" width="100%" height="100%"></use></svg>
             </span>
           </div>
           <div class="pc-order-step__body">
@@ -521,16 +472,12 @@
 
         <article class="pc-order-step" data-step="3">
           <div class="pc-order-step__icon" aria-hidden="true">
-      <svg viewBox="0 0 64 64">
-        <path d="M18 10h20l10 10v34H18z"></path>
-        <path d="M38 10v12h12"></path>
-        <path d="M24 32h18M24 40h14"></path>
-      </svg>
+      <svg viewBox="0 0 64 64"><use href="/assets/ui-icons.svg#home-order-po" width="100%" height="100%"></use></svg>
     </div>
           <div class="pc-order-step__meta">
             <span class="pc-order-step__num">04</span>
             <span class="pc-order-step__check" aria-hidden="true">
-              <svg viewBox="0 0 24 24"><path d="M6.8 12.4l3.2 3.2 7.2-7.3"></path></svg>
+              <svg viewBox="0 0 24 24"><use href="/assets/ui-icons.svg#home-order-check-4" width="100%" height="100%"></use></svg>
             </span>
           </div>
           <div class="pc-order-step__body">
@@ -545,17 +492,12 @@
 
         <article class="pc-order-step" data-step="4">
           <div class="pc-order-step__icon" aria-hidden="true">
-      <svg viewBox="0 0 64 64">
-        <path d="M12 26l20-12 20 12v24H12z"></path>
-        <path d="M20 32h24"></path>
-        <path d="M22 50V36h20v14"></path>
-        <path d="M32 20v8"></path>
-      </svg>
+      <svg viewBox="0 0 64 64"><use href="/assets/ui-icons.svg#home-order-store" width="100%" height="100%"></use></svg>
     </div>
           <div class="pc-order-step__meta">
             <span class="pc-order-step__num">05</span>
             <span class="pc-order-step__check" aria-hidden="true">
-              <svg viewBox="0 0 24 24"><path d="M6.8 12.4l3.2 3.2 7.2-7.3"></path></svg>
+              <svg viewBox="0 0 24 24"><use href="/assets/ui-icons.svg#home-order-check-5" width="100%" height="100%"></use></svg>
             </span>
           </div>
           <div class="pc-order-step__body">
@@ -570,16 +512,12 @@
 
         <article class="pc-order-step" data-step="5">
           <div class="pc-order-step__icon" aria-hidden="true">
-      <svg viewBox="0 0 64 64">
-        <path d="M18 10h28v44l-5-4-5 4-5-4-5 4-5-4-3 3z"></path>
-        <path d="M24 24h16M24 32h16M24 40h10"></path>
-        <path d="M40 40h2"></path>
-      </svg>
+      <svg viewBox="0 0 64 64"><use href="/assets/ui-icons.svg#home-order-invoice" width="100%" height="100%"></use></svg>
     </div>
           <div class="pc-order-step__meta">
             <span class="pc-order-step__num">06</span>
             <span class="pc-order-step__check" aria-hidden="true">
-              <svg viewBox="0 0 24 24"><path d="M6.8 12.4l3.2 3.2 7.2-7.3"></path></svg>
+              <svg viewBox="0 0 24 24"><use href="/assets/ui-icons.svg#home-order-check-6" width="100%" height="100%"></use></svg>
             </span>
           </div>
           <div class="pc-order-step__body">
@@ -611,10 +549,7 @@
           </p>
 
           <button class="pc-order-restart" id="pcOrderRestart" type="button" aria-label="Replay the order journey">
-            <svg viewBox="0 0 24 24" aria-hidden="true">
-              <path d="M20 11a8 8 0 1 0-2.34 5.66"></path>
-              <path d="M20 5v6h-6"></path>
-            </svg>
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use href="/assets/ui-icons.svg#home-order-replay" width="100%" height="100%"></use></svg>
             <span>Replay the order</span>
           </button>
         </div>
@@ -660,6 +595,18 @@
 <section class="sec" id="faq"><div class="wrap"><div class="head center reveal"><span class="ey">FAQ</span><h2>Questions about PunchOut Central.</h2></div><div class="faq reveal"><div class="fi"><button class="fq"><span>Can my team add a new buyer without your developers?</span><span class="plus">+</span></button><div class="fa"><p>Yes. PunchOut Central is designed to make supported buyer setup simple from the dashboard. Our team also provides standard integration support at no extra charge when you need guidance.</p></div></div><div class="fi"><button class="fq"><span>What is included in Standard Integration?</span><span class="plus">+</span></button><div class="fa"><p>Standard Integration includes support to connect Shopify with PunchOut Central, configure supported buyer settings and mappings, test the PunchOut flow and guide you through go-live. Work that requires new customer-specific code, custom ERP development or non-standard workflows is scoped separately.</p></div></div><div class="fi"><button class="fq"><span>What counts as a connection?</span><span class="plus">+</span></button><div class="fa"><p>One production procurement connection between an enterprise buyer and your commerce environment. If a buyer has multiple separate production environments, those may count as separate connections.</p></div></div><div class="fi"><button class="fq"><span>Which protocols do you support?</span><span class="plus">+</span></button><div class="fa"><p>PunchOut Central supports cXML and OCI workflows based on implementation experience in real procurement environments.</p></div></div><div class="fi"><button class="fq"><span>Can a buyer send a PO back after PunchOut?</span><span class="plus">+</span></button><div class="fa"><p>Yes. Supported purchase orders can be received and used to create the corresponding ecommerce order automatically.</p></div></div><div class="fi"><button class="fq"><span>Can PunchOut Central handle invoice workflows?</span><span class="plus">+</span></button><div class="fa"><p>Yes. Supported invoice workflows can be connected back into the procurement process.</p></div></div><div class="fi"><button class="fq"><span>Do I need Shopify?</span><span class="plus">+</span></button><div class="fa"><p>Shopify is the supported commerce connector for PunchOut Central. BigCommerce and Magento are coming soon.</p></div></div><div class="fi"><button class="fq"><span>Can you also build the catalog or ecommerce store for us?</span><span class="plus">+</span></button><div class="fa"><p>Yes. Catalog setup, store development, custom mappings and related integration work can be provided separately as professional services.</p></div></div><div class="fi"><button class="fq"><span>Can PunchOut Central run on our infrastructure?</span><span class="plus">+</span></button><div class="fa"><p>Yes. Customer-hosted, dedicated and private deployment requirements are handled through the Enterprise offering.</p></div></div><div class="fi"><button class="fq"><span>Do you support ASN?</span><span class="plus">+</span></button><div class="fa"><p>ASN and advanced shipping workflows are on the roadmap. If ASN is required for your project, talk to our team about the implementation requirements.</p></div></div></div></div></section>
 <section class="cta"><div class="wrap reveal"><span class="ey">A bigger opportunity is waiting</span><h2>When the buyer asks for PunchOut, say yes.</h2><p class="lead">Connect Shopify, launch your buyer and keep growing without rebuilding the integration every time a larger customer comes along.</p><div class="acts"><a class="btn pri" href="/book-demo/" style="padding-inline: 5% ;" >Book a demo</a></div><p class="micro">From $500/month · Cancel anytime · Free Integration · No transaction fees</p></div></section>
 </main>
+<script>
+  import { watchDiagramConnectors } from '../../../scripts/diagram-connectors.js';
+
+  const stage = document.querySelector('.pc-gateway-map');
+  if (stage) watchDiagramConnectors({
+    stage,
+    svg: stage.querySelector('.pc-gateway-map__connectors'),
+    hub: stage.querySelector('.pc-hub'),
+    sources: '#pcProcurementLogos .pc-logo-node',
+    targets: '#pcCommerceLogos .pc-logo-node'
+  });
+</script>
 <script is:inline>
 (() => {
   const header = document.getElementById('hdr');
@@ -695,15 +642,36 @@
 
   megaItems.forEach((item) => {
     item.addEventListener('mouseenter', () => setMegaNavigationState(true));
-    item.addEventListener('mouseleave', () => setMegaNavigationState(false));
+    item.addEventListener('mouseleave', () => {
+      setMegaNavigationState(false);
+      item.classList.remove('is-open');
+      item.querySelector('.pc-nav-split>button')?.setAttribute('aria-expanded', 'false');
+    });
 
     item.addEventListener('focusin', () => setMegaNavigationState(true));
     item.addEventListener('focusout', (event) => {
       if (!item.contains(event.relatedTarget)) {
         setMegaNavigationState(false);
+        item.classList.remove('is-open');
+        item.querySelector('.pc-nav-split>button')?.setAttribute('aria-expanded', 'false');
       }
     });
   });
+
+  const solutionsMenuButton = document.querySelector('.pc-nav-split>button');
+  if (solutionsMenuButton) {
+    const solutionsDrop = solutionsMenuButton.closest('.drop');
+    solutionsMenuButton.addEventListener('click', (event) => {
+      const open = solutionsDrop.classList.toggle('is-open');
+      solutionsMenuButton.setAttribute('aria-expanded', String(open));
+      event.stopPropagation();
+    });
+    document.addEventListener('click', (event) => {
+      if (solutionsDrop.contains(event.target)) return;
+      solutionsDrop.classList.remove('is-open');
+      solutionsMenuButton.setAttribute('aria-expanded', 'false');
+    });
+  }
 
   if (menuButton && mobileMenu) {
     menuButton.addEventListener('click', () => {
@@ -733,15 +701,20 @@
     });
   });
 
-  const revealObserver = new IntersectionObserver((entries) => {
-    entries.forEach((entry) => {
-      if (!entry.isIntersecting) return;
-      entry.target.classList.add('on');
-      revealObserver.unobserve(entry.target);
-    });
-  }, { threshold: 0.12 });
+  const revealItems = document.querySelectorAll('.reveal');
+  if ('IntersectionObserver' in window && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add('on');
+        revealObserver.unobserve(entry.target);
+      });
+    }, { threshold: 0.12 });
 
-  document.querySelectorAll('.reveal').forEach((element) => revealObserver.observe(element));
+    revealItems.forEach((element) => revealObserver.observe(element));
+  } else {
+    revealItems.forEach((element) => element.classList.add('on'));
+  }
 
   const addBuyerButton = document.getElementById('add');
   if (addBuyerButton) {

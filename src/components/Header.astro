@@ -40,22 +40,22 @@
               <span class="pc-mega-kicker">Platform</span>
 
               <a class="pc-mega-link" href="/platform/">
-                <span class="pc-mega-icon pc-mega-icon--svg"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="2"/><rect x="14" y="3" width="7" height="7" rx="2"/><rect x="3" y="14" width="7" height="7" rx="2"/><rect x="14" y="14" width="7" height="7" rx="2"/></svg></span>
+                <span class="pc-mega-icon pc-mega-icon--svg"><svg viewBox="0 0 24 24"><use href="/assets/ui-icons.svg#nav-overview" width="100%" height="100%"></use></svg></span>
                 <span><b>Platform Overview</b><small>See the complete procurement-to-commerce platform.</small></span>
               </a>
 
               <a class="pc-mega-link" href="/platform/punchout/">
-                <span class="pc-mega-icon pc-mega-icon--svg"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="7" height="6" rx="2"/><rect x="14" y="13" width="7" height="6" rx="2"/><path d="M9 8h5a3 3 0 0 1 3 3v2"/><path d="m14.5 10.5 2.5 2.5 2.5-2.5"/></svg></span>
+                <span class="pc-mega-icon pc-mega-icon--svg"><svg viewBox="0 0 24 24"><use href="/assets/ui-icons.svg#nav-punchout" width="100%" height="100%"></use></svg></span>
                 <span><b>PunchOut</b><small>Launch buyer sessions and return carts securely.</small></span>
               </a>
 
               <a class="pc-mega-link" href="/platform/purchase-orders/">
-                <span class="pc-mega-icon pc-mega-icon--svg"><svg viewBox="0 0 24 24"><path d="M6 3h9l4 4v14H6z"/><path d="M15 3v5h4"/><path d="M9 12h6M9 16h6"/></svg></span>
+                <span class="pc-mega-icon pc-mega-icon--svg"><svg viewBox="0 0 24 24"><use href="/assets/ui-icons.svg#nav-purchase-orders" width="100%" height="100%"></use></svg></span>
                 <span><b>Purchase Orders</b><small>Turn approved procurement POs into store orders.</small></span>
               </a>
 
               <a class="pc-mega-link" href="/platform/invoices/">
-                <span class="pc-mega-icon pc-mega-icon--svg"><svg viewBox="0 0 24 24"><path d="M6 3h12v18l-3-2-3 2-3-2-3 2z"/><path d="M9 8h6M9 12h6M9 16h4"/></svg></span>
+                <span class="pc-mega-icon pc-mega-icon--svg"><svg viewBox="0 0 24 24"><use href="/assets/ui-icons.svg#nav-invoices" width="100%" height="100%"></use></svg></span>
                 <span><b>Invoices</b><small>Keep invoices connected to the buyer and PO.</small></span>
               </a>
             </div>
@@ -64,17 +64,17 @@
               <span class="pc-mega-kicker">Control & visibility</span>
 
               <a class="pc-mega-link" href="/platform/multi-store/">
-                <span class="pc-mega-icon pc-mega-icon--svg"><svg viewBox="0 0 24 24"><path d="M4 9h16l-2-5H6z"/><path d="M5 9v11h14V9"/><path d="M9 20v-6h6v6"/></svg></span>
+                <span class="pc-mega-icon pc-mega-icon--svg"><svg viewBox="0 0 24 24"><use href="/assets/ui-icons.svg#nav-multi-store" width="100%" height="100%"></use></svg></span>
                 <span><b>Multi-Store Control</b><small>Manage buyers, stores and connections from one place.</small></span>
               </a>
 
               <a class="pc-mega-link" href="/platform/transactions/">
-                <span class="pc-mega-icon pc-mega-icon--svg"><svg viewBox="0 0 24 24"><path d="M4 7h12"/><path d="m13 4 3 3-3 3"/><path d="M20 17H8"/><path d="m11 14-3 3 3 3"/></svg></span>
+                <span class="pc-mega-icon pc-mega-icon--svg"><svg viewBox="0 0 24 24"><use href="/assets/ui-icons.svg#nav-transactions" width="100%" height="100%"></use></svg></span>
                 <span><b>Transactions</b><small>See sessions, carts, POs, orders, invoices and issues.</small></span>
               </a>
 
               <a class="pc-mega-link" href="/how-it-works/">
-                <span class="pc-mega-icon pc-mega-icon--svg"><svg viewBox="0 0 24 24"><circle cx="5" cy="12" r="2"/><circle cx="12" cy="5" r="2"/><circle cx="19" cy="12" r="2"/><circle cx="12" cy="19" r="2"/><path d="M6.5 10.5 10.5 6.5M13.5 6.5l4 4M17.5 13.5l-4 4M10.5 17.5l-4-4"/></svg></span>
+                <span class="pc-mega-icon pc-mega-icon--svg"><svg viewBox="0 0 24 24"><use href="/assets/ui-icons.svg#nav-journey" width="100%" height="100%"></use></svg></span>
                 <span><b>How It Works</b><small>Follow the complete PunchOut order journey in six steps.</small></span>
               </a>
             </div>
@@ -171,12 +171,14 @@
       </div>
 
       <div class="drop pc-mega">
-        <button type="button" aria-haspopup="true" aria-expanded="false">
-          Solutions
-          <span class="pc-nav-chevron" aria-hidden="true">⌄</span>
-        </button>
+        <div class="pc-nav-split">
+          <a href="/solutions/">Solutions</a>
+          <button type="button" aria-label="Open Solutions menu" aria-haspopup="true" aria-controls="solutions-menu" aria-expanded="false">
+            <span class="pc-nav-chevron" aria-hidden="true">⌄</span>
+          </button>
+        </div>
 
-        <div class="panel pc-mega-panel pc-mega-panel--solutions">
+        <div class="panel pc-mega-panel pc-mega-panel--solutions" id="solutions-menu">
           <div class="pc-mega-grid">
             <div class="pc-mega-col">
               <span class="pc-mega-kicker">By business need</span>
@@ -253,7 +255,7 @@
     </section>
 
     <section class="pc-mobile-group">
-      <span>Solutions</span>
+      <a class="pc-mobile-group__heading" href="/solutions/">Solutions</a>
       <a href="/solutions/b2b-suppliers/">B2B Suppliers</a>
       <a href="/solutions/multi-store-commerce/">Multi-Store Commerce</a>
       <a href="/solutions/enterprise-customer-onboarding/">Buyer Onboarding</a>

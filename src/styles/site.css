@@ -136,9 +136,8 @@ h3{margin-bottom:8px;color:var(--graphite);font-size:20px;line-height:1.2;letter
 .pri:hover{transform:translateY(-1px);background:#7CEEDD}
 .secbtn{background:#fff;color:var(--graphite);border-color:rgba(32,33,36,.17)}
 .secbtn:hover{border-color:var(--graphite)}
-.reveal{opacity:0;transform:translateY(15px);transition:.5s ease}
+.reveal{opacity:1;transform:none;transition:.5s ease}
 .reveal.on{opacity:1;transform:none}
-.page-hero .reveal,.po-hero .reveal{opacity:1;transform:none}
 
 /* ---------- Primary nav ---------- */
 header#hdr{position:fixed;inset:0 0 auto;z-index:90;padding:14px 0;pointer-events:none}
@@ -322,7 +321,7 @@ section[id]{scroll-margin-top:150px}
 .po-core-row b{color:#8A8F8C;font-size:8px;font-weight:850}
 .po-platform-route{position:absolute;inset:0;z-index:1;pointer-events:none}
 .po-platform-route svg{width:100%;height:100%}
-.po-platform-route path{fill:none;stroke:rgba(49,107,99,.55);stroke-width:1;stroke-dasharray:7 7;vector-effect:non-scaling-stroke;animation:route 2.6s linear infinite}
+.po-platform-route use{fill:none;stroke:rgba(49,107,99,.55);stroke-width:1;stroke-dasharray:7 7;vector-effect:non-scaling-stroke;animation:route 2.6s linear infinite}
 @keyframes route{to{stroke-dashoffset:-56}}
 
 /* Credibility */
