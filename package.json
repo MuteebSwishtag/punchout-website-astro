@@ -20,5 +20,8 @@
   },
   "devDependencies": {
     "sharp": "^0.35.5"
+  },
+  "overrides": {
+    "vite": "8.3.3"
   }
 }
